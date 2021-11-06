@@ -1,0 +1,64 @@
+<!-- extend Space layout -->
+{% extends "Space.html" %}
+
+    {% block style %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap-4.4.1.css') }}">
+    <link rel="stylesheet" href={{ url_for('static',filename='css/space.css') }}>
+    {% endblock %}
+
+    {%block title%}
+    <title>Space of {{user.NickName}}</title>
+    {% endblock %}
+
+{% block userPhotoPath %}
+<img class="mr-3 mt-2 " src="{{ url_for('static',filename='images/{{user.NickName}}.png') }}" alt="User photo">
+{% endblock %}
+
+{% block userNickName %}
+{{user.NickName}}
+{% endblock %}
+
+{% block userID %}
+{{user.ID}}
+{% endblock %}
+
+{% block userVIP %}
+{% if user.VIP %}
+<span class="badge badge-success ml-2">VIP</span>
+{% else %}
+<span class="badge badge-secondary ml-2">Not VIP</span>
+{% endif %}
+{% endblock %}
+
+{% block userLevel %}
+            <div class="progress-bar bg-success" role="progressbar" aria-valuenow={{user.LevelProgress}} aria-valuemin="0" aria-valuemax="100" style="width: {{user.LevelProgress}}%"  > {{user.Level}}</div>
+{% endblock %}
+
+{% block userCoins %}
+{{user.Coins}}
+{% endblock %}
+
+{% block userStars %}
+{{user.Stars}}
+{% endblock %}
+
+{% block userIntroduction %}
+{{user.Introduction}}
+{% endblock %}
+
+{% block userFavouriteVideos %}
+<!-- Nested media object -->
+            <div class="media"> <img class="d-flex mr-3" src="{{ url_for('static',filename='{{user.FavouriteVideo[0].Path}}') }}" alt="placeholder image">
+              <div class="media-body">
+                <h5 class="mt-0">{{user.FavouriteVideo[0].Name}}</h5>
+                {{user.FavouriteVideo[0].Information}}
+                <!-- Nested media object -->
+              </div>
+            </div>
+            <!-- Nested media object -->
+            <div class="media"> <img class="d-flex mr-3"  src="{{ url_for('static',filename='{{user.FavouriteVideo[1].Path}}') }}" alt="placeholder image">
+              <div class="media-body">
+                <h5 class="mt-0">{{user.FavouriteVideo[1].Name}}</h5>
+                {{user.FavouriteVideo[1].Information}} </div>
+            </div>
+{% endblock %}
