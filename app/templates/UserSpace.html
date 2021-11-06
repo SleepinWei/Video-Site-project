@@ -1,13 +1,14 @@
 <!-- extend Space layout -->
+<!-- Author£ºLPH Date£º2021/11/6 License£ºGPL3.0-->
 {% extends "Space.html" %}
 
     {% block style %}
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap-4.4.1.css') }}">
-    <link rel="stylesheet" href={{ url_for('static',filename='css/space.css') }}>
+<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap-4.4.1.css') }}">
+<link rel="stylesheet" href={{ url_for('static',filename='css/space.css') }}>
     {% endblock %}
 
     {%block title%}
-    <title>Space of {{user.NickName}}</title>
+<title>Space of {{user.NickName}}</title>
     {% endblock %}
 
 {% block userPhotoPath %}
@@ -31,7 +32,7 @@
 {% endblock %}
 
 {% block userLevel %}
-            <div class="progress-bar bg-success" role="progressbar" aria-valuenow={{user.LevelProgress}} aria-valuemin="0" aria-valuemax="100" style="width: {{user.LevelProgress}}%"  > {{user.Level}}</div>
+<div class="progress-bar bg-success" role="progressbar" aria-valuenow={{user.LevelProgress}} aria-valuemin="0" aria-valuemax="100" style="width: {{user.LevelProgress}}%"> {{user.Level}}</div>
 {% endblock %}
 
 {% block userCoins %}
@@ -48,17 +49,20 @@
 
 {% block userFavouriteVideos %}
 <!-- Nested media object -->
-            <div class="media"> <img class="d-flex mr-3" src="{{ url_for('static',filename='{{user.FavouriteVideo[0].Path}}') }}" alt="placeholder image">
-              <div class="media-body">
-                <h5 class="mt-0">{{user.FavouriteVideo[0].Name}}</h5>
-                {{user.FavouriteVideo[0].Information}}
-                <!-- Nested media object -->
-              </div>
-            </div>
-            <!-- Nested media object -->
-            <div class="media"> <img class="d-flex mr-3"  src="{{ url_for('static',filename='{{user.FavouriteVideo[1].Path}}') }}" alt="placeholder image">
-              <div class="media-body">
-                <h5 class="mt-0">{{user.FavouriteVideo[1].Name}}</h5>
-                {{user.FavouriteVideo[1].Information}} </div>
-            </div>
+<div class="media">
+    <img class="d-flex mr-3" src="{{ url_for('static',filename='{{user.FavouriteVideo[0].Path}}') }}" alt="placeholder image">
+    <div class="media-body">
+        <h5 class="mt-0">{{user.FavouriteVideo[0].Name}}</h5>
+        {{user.FavouriteVideo[0].Information}}
+        <!-- Nested media object -->
+    </div>
+</div>
+<!-- Nested media object -->
+<div class="media">
+    <img class="d-flex mr-3" src="{{ url_for('static',filename='{{user.FavouriteVideo[1].Path}}') }}" alt="placeholder image">
+    <div class="media-body">
+        <h5 class="mt-0">{{user.FavouriteVideo[1].Name}}</h5>
+        {{user.FavouriteVideo[1].Information}}
+    </div>
+</div>
 {% endblock %}
