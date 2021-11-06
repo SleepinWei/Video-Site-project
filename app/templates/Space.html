@@ -10,10 +10,10 @@
     <!-- Bootstrap -->
     <!--<link href="css/bootstrap-4.4.1.css" rel="stylesheet" >-->
     {% block style %}
-    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
-    <link href="css/space.css" rel="stylesheet" type="text/css">
+    <link href="../static/css/bootstrap-4.4.1.css" rel="stylesheet">
+    <link href="../static/css/space.css" rel="stylesheet" type="text/css">
     {% endblock %}
-    <link href="css/space.css" rel="stylesheet" type="text/css">
+    <link href="../static/css/space.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -52,17 +52,17 @@
         <div class="row">
             <div class="col-md-8 col-sm-12 col-lg-6">
                 <div class="media">
-                    <img class="mr-3 mt-2 " src="images/115X115.gif" alt="User photo">
+                    <img class="mr-3 mt-2 " src="../static/images/115X115.gif" alt="User photo">
                     <div class="media-body">
-                        <h5 class="mt-2"><img class="small-icon mr-1" src="{{ url_for('static',filename='images/id.svg') }}" alt="ID icon">{% block userID %}{% endblock %}{% block userVIP %}{% endblock %}</h5>
+                        <h5 class="mt-2"><img class="small-icon mr-1" src="{{ url_for('static',filename='../static/images/id.svg') }}" alt="ID icon">{% block userID %}{% endblock %}{% block userVIP %}{% endblock %}</h5>
                         <div class="progress mt-2">
                             <!-- level at style % -->
                             {% block userLevel %}
                             <div class="progress-bar bg-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%"> {User Level}</div>
                             {% endblock %}
                         </div>
-                        <h5 class="mt-2"><img class="small-icon mr-1" src="{{ url_for('static',filename='images/coin.svg') }}" alt="Coin icon">{% block userCoins %}{% endblock %}</h5>
-                        <h5 class="mt-2"><img class="small-icon mr-1" src="{{ url_for('static',filename='images/Star.svg') }}" alt="Star icon">{% block userStars %}{% endblock %}</h5>
+                        <h5 class="mt-2"><img class="small-icon mr-1" src="{{ url_for('static',filename='../static/images/coin.svg') }}" alt="Coin icon">{% block userCoins %}{% endblock %}</h5>
+                        <h5 class="mt-2"><img class="small-icon mr-1" src="{{ url_for('static',filename='../static/images/Star.svg') }}" alt="Star icon">{% block userStars %}{% endblock %}</h5>
                     </div>
                 </div>
             </div>
@@ -93,7 +93,7 @@
                             {% block userFavouriteVideos %}
                             <!-- Nested media object -->
                             <div class="media">
-                                <img class="d-flex mr-3" src="images/MediaObj_Placeholder.png" alt="placeholder image">
+                                <img class="d-flex mr-3" src="../static/images/MediaObj_Placeholder.png" alt="placeholder image">
                                 <div class="media-body">
                                     <h5 class="mt-0">{Video1 Name}</h5>
                                     {Video1 Information}
@@ -102,7 +102,7 @@
                             </div>
                             <!-- Nested media object -->
                             <div class="media">
-                                <img class="d-flex mr-3" src="images/MediaObj_Placeholder.png" alt="placeholder image">
+                                <img class="d-flex mr-3" src="../static/images/MediaObj_Placeholder.png" alt="placeholder image">
                                 <div class="media-body">
                                     <h5 class="mt-0">{Video2 Name}</h5>
                                     {Video2 Information}
@@ -127,9 +127,9 @@
         {% endblock %}
     </div>
 
-    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="../static/js/jquery-3.4.1.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap-4.4.1.js"></script>
+    <script src="../static/js/popper.min.js"></script>
+    <script src="../static/js/bootstrap-4.4.1.js"></script>
 </body>
 </html>

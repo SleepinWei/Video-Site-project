@@ -9,7 +9,11 @@ website
         +   forms.py: web forms
         +   views.py: setting routers
     +   **static** 
-        +   css,js and pictures here
+        +   css 
+        +   js 
+        +   images 
+        +   fonts 
+        +   etc. 
     +   **templates**
         +   some html templates here
     +   models.py: database models
