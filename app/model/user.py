@@ -48,6 +48,8 @@ def create_user(name: str, plain_pw: str) -> User:
 
 def check_user_pw(name: str, plain_pw: str) -> bool:
     x = User.query.filter_by(username=name).first()
+    if not x:
+        raise UserNotFoundError("User '%s' not found" % name)
     slt = bytes(x.pw_hash[:32], 'latin1')
     pwd = hashlib.pbkdf2_hmac('sha256', plain_pw.encode(
         'utf-8'), slt, 100000, dklen=128)
