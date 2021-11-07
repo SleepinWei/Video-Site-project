@@ -1,5 +1,5 @@
 flask==1.1.2
-flask-bookstrap==3.3.7.1
+flask-bootstrap==3.3.7.1
 flask-mail==0.9.1
 flask-migrate==3.1.0
 flask-moment==1.0.2
