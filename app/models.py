@@ -1,4 +1,4 @@
-from app import db
+from . import db
 
 # class User:
 #    #def __init__(username,NickName, ID, VIP,Level, LevelProgress,    Coins,    Stars,    Introduction):
@@ -15,23 +15,9 @@ from app import db
 from datetime import datetime
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-import os
 
 from sqlalchemy.orm import backref
 from sqlalchemy.sql.schema import ForeignKey, PrimaryKeyConstraint
-app = Flask(__name__)
-
-class Config:
-    '''配置个人参数'''
-    SQLALCHEMY_DATABASE_URI = 'mysql://root:123456@127.0.0.1:3306/flaskdb'
-    SQLALCHEMY_TRACK_MODIFICATIONS = True
-    UP_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)),'static/uploads') #上传路径,虽然不是很懂……
-
-
-
-app.config.from_object(Config)
-#SQLalchemy与app关联
-db = SQLAlchemy(app)
 
 #假想role
 class Role(db.Model):
