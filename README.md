@@ -1,6 +1,15 @@
 # Website
 This repo is the project for "Foundations of Computer Science". 
 
+# Group members  
+Special thanks to my dear teammates. 
++ zyw @SleepinWei
++ lph @lphlch
++ zxy @HiziQ
++ lmq @lmqqqqqq
++ wwx @qwqOscar
++ wxr @wxrlalala
++ wtc @TonyBest318
 ## Structure
 website
 +   **app**
