@@ -19,6 +19,8 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import backref
 from sqlalchemy.sql.schema import ForeignKey, PrimaryKeyConstraint
 
+import os, hashlib
+
 #假想role
 class Role(db.Model):
     __tablename__ = 'role'
@@ -31,7 +33,7 @@ class User(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), unique=True)
-    password = db.Column(db.String(32), unique=True)
+    pw_hash = db.Column(db.String(32), unique=True)
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
     likes = db.relationship('Videolike',backref='user')
     comments = db.relationship('Comment', backref='user')
@@ -117,6 +119,38 @@ class Videolike(db.Model):
         self.user_id = user_id
     def __repr__(self):
         return "<Videolike %r>" % self.id
+
+# ---------------------------#
+# 用户操作接口
+class UserExistError(Exception):
+    pass
+
+class UserNotFoundError(Exception):
+    pass
+
+# 新建用户，以名字，明文密码
+# 对已存在抛出UserExistError
+def create_user(nm: str, plain_pw: str) -> User:
+    if User.query.filter_by(name=nm).first():
+        raise UserExistError("User '%s' already exists" % nm)
+    u = User(name=nm, role_id=1)    # 默认role
+    slt = os.urandom(32)
+    pwd = hashlib.pbkdf2_hmac('sha256', plain_pw.encode(
+        'utf-8'), slt, 100000, dklen=128)
+    u.pw_hash = (slt + pwd).decode('latin1')
+    return u
+
+# 检查用户密码
+# 对用户不存在抛出UserNotFoundError
+def check_user_pw(nm: str, plain_pw: str) -> bool:
+    x = User.query.filter_by(name=nm).first()
+    if not x:
+        raise UserNotFoundError("User '%s' not found" % nm)
+    slt = bytes(x.pw_hash[:32], 'latin1')
+    pwd = hashlib.pbkdf2_hmac('sha256', plain_pw.encode(
+        'utf-8'), slt, 100000, dklen=128)
+    return (slt + pwd).decode('latin1') == x.pw_hash
+# ---------------------------#
 
 
 #测试
