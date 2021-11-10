@@ -31,5 +31,5 @@ def spaceUser(username):
 @main.route('/video/<videoname>')
 def playvideo(videoname):
     video1=Video(videoname)
-    return flask.render_template('Video_play.html',video=video1)
+    return flask.render_template('extend.html',video=video1)
 
