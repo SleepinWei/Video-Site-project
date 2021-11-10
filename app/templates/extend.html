@@ -1,6 +1,10 @@
 {%extends "video_play.html"%}
 {%block title%}
-<title>{{video_play}}</title>
+<title>{{video.title}}</title>
+{%endblock%}
+
+{%block info%}
+<h4 class="mt-5 ml-lg-5"> <img width="30px" src="images/tele.jpg"alt=""/>&nbsp;正在播放:……{{video.info}}</h4>
 {%endblock%}
 
 {%block video%}<!-- -->
