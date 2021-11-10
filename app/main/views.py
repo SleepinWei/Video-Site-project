@@ -27,3 +27,9 @@ def spaceUser(username):
     #user.FavouriteVideo[2].Information='7676767676'
 
     return flask.render_template('UserSpace.html',user=user1)
+
+@main.route('/video/<videoname>')
+def playvideo(videoname):
+    video1=Video(videoname)
+    return flask.render_template('Video_play.html',video=video1)
+
