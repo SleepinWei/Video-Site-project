@@ -1,0 +1,31 @@
+{%extends "video_play.html"%}
+{%block title%}
+<title>{{video_play}}</title>
+{%endblock%}
+
+{%block video%}<!-- -->
+ <video src="{{url_for('static',filename='{{video.playing_video}}')}}" controls="controls" class="media-object media-middle" width="700px"> 视频加载失败 </video>
+{%endblock%}
+
+{%block recommend%}
+              <div class="media mt-2"> 
+				  <a href="{{url_for('static',filename='{{video.recommendVideo[0].Path}}')}}"> <img class="d-flex mr-3" src="{{url_for('static',filename='{{video.recommendVideo[0].Picture}}')}}" alt=""></a>
+                  <div class="media-body"> 
+				  <a href="{{url_for('static',filename='{{video.recommendVideo[0].Path}}')}}"> {{video.recommendVideo[0].Name}}</a></div>
+              </div>
+              <div class="media mt-1"> 
+				  <a href="{{url_for('static',filename='{{video.recommendVideo[1].Path}}')}}"><img class="d-flex mr-3"  src="{{url_for('static',filename='{{video.recommendVideo[1].Picture}}')}}" alt=""></a>
+                  <div class="media-body"> 
+				  <a href="{{url_for('static',filename='{{video.recommendVideo[1].Path}}')}}"> {{video.recommendVideo[0].Name}} </a></div>
+              </div>
+              <div class="media mt-1"> 
+				  <a href="{{url_for('static',filename='{{video.recommendVideo[2].Path}}')}}"> <img class="d-flex mr-3" src="{{url_for('static',filename='{{video.recommendVideo[2].Picture}}')}}" alt=""></a>
+                  <div class="media-body"> 
+				  <a href="{{url_for('static',filename='{{video.recommendVideo[2].Path}}')}}"> {{video.recommendVideo[0].Name}} </a></div>
+              </div>
+              <div class="media mt-1"> 
+				  <a href="{{url_for('static',filename='{{video.recommendVideo[3].Path}}')}}"> <img class="d-flex mr-3" src="{{url_for('static',filename='{{video.recommendVideo[3].Picture}}')}}" alt=""></a>
+                  <div class="media-body"> 
+				  <a href="{{url_for('static',filename='{{video.recommendVideo[3].Path}}')}}"> {{video.recommendVideo[0].Name}}</a> </div>
+              </div>
+				{%endblock%}
