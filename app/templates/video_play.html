@@ -4,7 +4,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SaBiSaBi</title>
+{%block title%}
+<title></title>
+{%endblock%}
 <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
 <style type="text/css">
 a {
@@ -57,7 +59,9 @@ a:active {
       <div class="col-lg-8">
         <div class="media"><!-- 正在播放视频 -->
           <div class="media-middle ml-auto">
-            <video src="..." controls="controls" class="media-object media-middle" width="700px"> 视频加载失败 </video>
+			{%block video%}<!-- -->
+            <video src="{{url_for('static',filename='playing_video')}}" controls="controls" class="media-object media-middle" width="700px"> 视频加载失败 </video>
+			{%endblock%}
           </div>
         </div>
       </div>
@@ -67,18 +71,28 @@ a:active {
             <div class="media-body">
               <h5 class="mt-0">相关推荐</h5>
               <!-- 相关推荐视频界面 -->
-              <div class="media mt-2"> <a href="http://baidu.com"> <img class="d-flex mr-3" src="images/MediaObj_Placeholder.png" alt="placeholder image"></a>
-                <div class="media-body"> <a href="http://baidu.com"> This is the content inside the nested media-body1. </a></div>
+				{%block recommend%}
+              <div class="media mt-2"> 
+				  <a href=""> <img class="d-flex mr-3" src="..." alt=""></a>
+                  <div class="media-body"> 
+				  <a href=""> ...1</a></div>
               </div>
-              <div class="media mt-1"> <a href="http://baidu.com"><img class="d-flex mr-3"  src="images/MediaObj_Placeholder.png" alt="placeholder image"></a>
-                <div class="media-body"> <a href="http://baidu.com"> This is the content inside the nested media-body2. </a></div>
+              <div class="media mt-1"> 
+				  <a href=""><img class="d-flex mr-3"  src="..." alt=""></a>
+                  <div class="media-body"> 
+				  <a href=""> ...2 </a></div>
               </div>
-              <div class="media mt-1"> <a href="http://baidu.com"> <img class="d-flex mr-3" src="images/MediaObj_Placeholder.png" alt="placeholder image"></a>
-                <div class="media-body"> <a href="http://baidu.com"> This is the content inside the nested media-body3. </a></div>
+              <div class="media mt-1"> 
+				  <a href=""> <img class="d-flex mr-3" src="..." alt=""></a>
+                  <div class="media-body"> 
+				  <a href=""> ...3 </a></div>
               </div>
-              <div class="media mt-1"> <a href="http://baidu.com"> <img class="d-flex mr-3" src="images/MediaObj_Placeholder.png" alt="placeholder image"></a>
-                <div class="media-body"> <a href="http://baidu.com"> This is the content inside the nested media-body4.</a> </div>
+              <div class="media mt-1"> 
+				  <a href=""> <img class="d-flex mr-3" src="..." alt=""></a>
+                  <div class="media-body"> 
+				  <a href=""> ...4</a> </div>
               </div>
+				{%endblock%}
             </div>
           </li>
         </ul>
