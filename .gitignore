@@ -2,3 +2,7 @@
 *.cfg
 # 
 test.py
+# test.html
+test.mp4
+test.html
+test*?.html

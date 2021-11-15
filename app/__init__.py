@@ -19,6 +19,8 @@ bootstrap = Bootstrap(app)
 
 from app.main import main as main_blueprint
 
+# import main as main_blueprint 
+
 app.register_blueprint(main_blueprint)
 # app.register_blueprint(admin_blueprint, url_prefix="/admin")
 
@@ -27,3 +29,6 @@ app.register_blueprint(main_blueprint)
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
+
+if __name__ == "__main__":
+    app.run()

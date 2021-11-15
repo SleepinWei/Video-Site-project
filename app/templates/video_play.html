@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-{%block title%}
-<title></title>
-{%endblock%}
-<link href="css/bootstrap-4.4.1.css" rel="stylesheet">
-<style type="text/css">
-a {
-	color: black;
-}
-a:link {
-	text-decoration: none;
-} /* 未被访问的链接 */
-a:visited {
-	text-decoration: none;
-} /* 已被访问的链接 */
-a:hover {
-	color: #4e6ef2;
-	text-decoration: none;
-} /* 鼠标指针移动到链接上 */
-a:active {
-	text-decoration: none;
-}
-}
-</style>
+{%block head%}
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {%block title%}
+  <title></title>
+  {%endblock title%}
+  <link href="static/css/bootstrap-4.4.1.css" rel="stylesheet">
+  <style type="text/css">
+  a {
+    color: black;
+  }
+  a:link {
+    text-decoration: none;
+  } /* 未被访问的链接 */
+  a:visited {
+    text-decoration: none;
+  } /* 已被访问的链接 */
+  a:hover {
+    color: #4e6ef2;
+    text-decoration: none;
+  } /* 鼠标指针移动到链接上 */
+  a:active {
+    text-decoration: none;
+  }
+  
+  </style>
+{%endblock head%}
 </head>
 	
 <body background="images/background.jpg" style=" background-repeat:no-repeat ;background-size:100% 100%;background-attachment: fixed;">
@@ -62,7 +64,7 @@ a:active {
         <div class="media"><!-- 正在播放视频 -->
           <div class="media-middle ml-auto">
 			{%block video%}<!-- -->
-            <video src="{{url_for('static',filename='playing_video')}}" controls="controls" class="media-object media-middle" width="700px"> 视频加载失败 </video>
+            <!-- <video src="{{url_for('static',filename='playing_video')}}" controls="controls" class="media-object media-middle" width="700px"> 视频加载失败 </video> -->
 			{%endblock%}
           </div>
         </div>
@@ -94,7 +96,7 @@ a:active {
                   <div class="media-body"> 
 				  <a href=""> ...4</a> </div>
               </div>
-				{%endblock%}
+				{%endblock recommend%}
             </div>
           </li>
         </ul>
