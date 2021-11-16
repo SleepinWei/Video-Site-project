@@ -4,7 +4,9 @@
 
     {% block style %}
 <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap-4.4.1.css') }}">
-<link rel="stylesheet" href={{ url_for('static',filename='css/space.css') }}>
+<link rel="stylesheet" href="{{ url_for('static',filename='css/space.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/colours.css') }}">
+
     {% endblock %}
 
     {%block title%}

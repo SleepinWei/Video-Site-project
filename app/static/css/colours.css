@@ -1,0 +1,29 @@
+@charset "utf-8";
+.colour-pink {
+    color: #fb7299;
+}
+.colour-pink-background {
+    background-color: #fb7299;
+}
+
+.colour-blue {
+    color: #00a0e3;
+}
+.colour-blue-background {
+    background-color: #00a0e3;
+}
+
+.colour-white {
+    color: #ffffff;
+}
+.colour-white-background {
+    background-color: #ffffff;
+}
+
+.colour-black {
+    color: #000000;
+}
+.colour-black-background {
+    background-color: #000000;
+}
+
