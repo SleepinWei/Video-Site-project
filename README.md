@@ -1,6 +1,6 @@
 # Website
-This repo is the project for "Foundations of Computer Science". 
-
+This repo is the project for "Foundations of Computer Science".   
+Desired domain name: **SaBiSaBi.com** 
 # Group members  
 Special thanks to my dear teammates. 
 + zyw @SleepinWei
@@ -10,6 +10,21 @@ Special thanks to my dear teammates.
 + wwx @qwqOscar
 + wxr @wxrlalala
 + wtc @TonyBest318
+## division of work 
++ zyw   
+  danmaku system: front-end 
++ lph 
+  manager of front-end, user-homepage
++ zxy  
+  video-play :front-end 
++ lmq     
+  website homepage & login page 
++ wwx   
+  manager of back-end 
++ wtc   
+  login system : back-end,etc. 
++ wxr   
+  danmaku system: back-end,etc. 
 ## Structure
 website
 +   **app**

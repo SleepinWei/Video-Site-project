@@ -1,6 +1,7 @@
 from . import main
 import flask
 from models import User
+from models import Video
 
 @main.route("/")
 def index():
@@ -27,3 +28,9 @@ def spaceUser(username):
     #user.FavouriteVideo[2].Information='7676767676'
 
     return flask.render_template('UserSpace.html',user=user1)
+
+@main.route('/video/<videoname>')
+def playvideo(videoname):
+    video1=Video(videoname)
+    return flask.render_template('extend.html',video=video1)
+
