@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{%block title%}
+<title>{{video.profile}}</title>
+{%endblock%}
+	
+{%block style%}
+<link rel="stylesheet" href="css/bootstrap-4.4.1.css">
+<link rel="stylesheet" href="css/space.css">
+<link rel="stylesheet" href="css/colours.css">
+{%endblock%}
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <a class="navbar-brand" href="#">SaBiSaBi</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active"> <a class="nav-link" href="#">主站 <span class="sr-only">(current)</span></a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#">个人主页</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#">动态</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#">收藏</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#">历史</a> </li>
+      <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">更多</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown"> <a class="dropdown-item" href="#">关于我们</a> <a class="dropdown-item" href="#">联系方式</a> </div>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search More" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+<div class="container mt-4">
+  <div class="row ml-5"> 
+    <!--正在播放-->
+    <div class="col-md-8">
+      <div>
+        <h4>{{video.profile}}</h4>
+        <h6>{{video.ViewCounts}}播放量 · 总弹幕数{{video.BulletScreenNumber}}  {{video.ReleaseTime}}</h6>
+      </div>
+      <div class="media-object-default video">
+          <video src="{{url_for('static',filename='{{video.Isplaying}}')}}" controls="controls" class="video"> 视频加载失败 </video>
+      </div>
+      <!--发送弹幕框（未完成）-->
+      <form class="form-inline" role="form">
+        <div class="form-group">
+          <h5>{{video.isWatching}}<small>人在看，已装填{{video.BulletScreenNumber}}条弹幕 </small></h5>
+          <label class="sr-only" for="name">名称</label>
+        </div>
+        <input type="text" class="form-control ml-5" id="name" placeholder="发个弹幕见证当下">
+        <button type="submit" class="btn btn-default">发送</button>
+      </form>
+      <!--点赞收藏评论转发--> 
+      <a href="#" class="btn btn-default btn-lg" role="button"><img src="images/dianzan.png" alt="" width="30px">{{video.LikeNumber}}</a> 
+	  <a href="#" class="btn btn-default btn-lg" role="button"><img src="images/toubi.png" alt="" width="30px">{{video.CoinNumber}}</a> 
+	  <a href="#" class="btn btn-default btn-lg" role="button"><img src="images/shoucang.png" alt="" width="30px">{{video.CollectionNumber}}</a> 
+	  <a href="#" class="btn btn-default btn-lg" role="button"><img src="images/zhuanfa.png" alt="" width="30px">{{video.TransmitNumber}}</a> 
+	  </div>
+    <div class="col-md-4"> 
+      <!--作者名及个人简介部分-->
+      <div class="media">
+        <div class="media-left"> <img src="{{url_for('static',filename='{{video.AuthorPhoto}}')}}"  alt="" class="rounded-circle" style="width:60px"> </div>
+        <div class="media-body mt-2">
+          <h6 class="media-heading">{{video.AuthorName}}<br>
+            <small>{{video.AuthorProfile}}</small></h6>
+        </div>
+      </div>
+      <!-- 标准的按钮 -->
+      <button type="button" class="btn btn-info colour-pink-background">为TA充电</button>
+      <button type="button" class="btn btn-primary colour-white">+关注  {{video.AuthorFans}}</button>
+      <hr>
+      
+      <!--弹幕列表-->
+      <button type="button" class="btn btn-light" data-toggle="collapse" 
+    data-target="#demo"> 弹幕列表 ： </button>
+      <div id="demo" class="collapse in"> {{呜呜呜别看了啥也没有}} </div>
+      
+      <!--相关推荐-->
+      <div>
+        <div>
+          <hr>
+          <h4>相关推荐</h4>
+        </div>
+        <div class="media">
+          <div class="media-middle"> <a href="{{url_for('static',filename='{{video.recommendVideo[0].Path}}')}}"><img src="{{url_for('static',filename='{{video.recommendVideo[0].Picture}}')}}"  alt="图片加载失败" style="width:100px"></a> </div>
+          <div class="media-body mt-2"> <a href="{{url_for('static',filename='{{video.recommendVideo[0].Path}}')}}">
+            <h6 class="media-heading">{{video.recommendVideo[0].profile}}<br>
+              <small>{{video.recommendVideo[0].author}} {{video.recommendVideo[0].ViewCounts}}</small></h6>
+            </a> </div>
+        </div>
+        <div class="media">
+          <div class="media-middle"> <a href="{{url_for('static',filename='{{video.recommendVideo1].Path}}')}}"><img src="{{url_for('static',filename='{{video.recommendVideo[1].Picture}}')}}"  alt="图片加载失败" style="width:100px"></a> </div>
+          <div class="media-body mt-2"> <a href="{{url_for('static',filename='{{video.recommendVideo[1].Path}}')}}">
+            <h6 class="media-heading">{{video.recommendVideo[1].profile}}<br>
+              <small>{{video.recommendVideo[1].author}} {{video.recommendVideo[1].ViewCounts}}</small></h6>
+            </a> </div>
+        </div>
+        <div class="media">
+          <div class="media-middle"> <a href="{{url_for('static',filename='{{video.recommendVideo[2].Path}}')}}"><img src="{{url_for('static',filename='{{video.recommendVideo[2].Picture}}')}}"  alt="图片加载失败" style="width:100px"></a> </div>
+          <div class="media-body mt-2"> <a href="{{url_for('static',filename='{{video.recommendVideo[2].Path}}')}}">
+            <h6 class="media-heading">{{video.recommendVideo[2].profile}}<br>
+              <small>{{video.recommendVideo[2].author}} {{video.recommendVideo[2].ViewCounts}}</small></h6>
+            </a> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+<script src="js/jquery-3.4.1.min.js"></script> 
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="js/popper.min.js"></script> 
+<script src="js/bootstrap-4.4.1.js"></script>
+</body>
+</html>
