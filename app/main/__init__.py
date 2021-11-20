@@ -2,4 +2,6 @@ from flask import Blueprint
 
 main = Blueprint("main",__name__)
 
-import app.main.views
+from . import views 
+from . import forms 
+
