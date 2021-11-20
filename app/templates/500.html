@@ -1,0 +1,29 @@
+{% extends 'base/base.html' %}
+{% block content %}
+<div class="container">
+<div class="alert alert-warning justify-content-center text-center" role="alert">
+    <h1>500 Internal Server Error</h1>
+    <p><strong>如果面对404你还能翻墙，那500你能做什么呢？</strong></p>
+    <p><strong>我觉得自己建一个网页是个好主意</strong></p>
+    <!-- <img class="center-block" src="static/images/500.svg"-->
+    <img src="/assets/img/activity.svg" alt="Bootstrap" width="32" height=""
+</div>
+</div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-3">
+            <a href="#">
+                <button type="button" class="btn btn-outline-primary">
+                    点我刷新本页
+                </button>
+            </a>
+        </div>
+         <!-- <div class="col-4" id="timer">
+        </div> -->
+    </div>
+</div>
+{% endblock content %}
+{% block style %}
+    {{super()}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+{% endblock style %}
