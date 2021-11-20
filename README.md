@@ -25,6 +25,19 @@ Special thanks to my dear teammates.
   login system : back-end,etc. 
 + wxr   
   danmaku system: back-end,etc. 
+## Plan
+front-end 
+- [ ] homepage 
+- [ ] user's personal homepage 
+- [ ] video page 
+- [ ] better nav bars 
+- [ ] better homepage design
+- [ ] danmuku 
+back-end 
+- [ ] login & auth 
+- [ ] email sys 
+- [ ] migrations 
+- [ ] load danmuku
 ## Structure
 website
 +   **app**
