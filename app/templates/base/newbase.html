@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+        {% block title %}
+            SaBiSaBi  
+        {% endblock title %}
+        </title>
+        {% block style %}
+        <link rel="stylesheet" href="static/css/bootstrap-4.4.1.css">
+        {% endblock style %}
+    </head>
+    <body>
+        {% block navbar %}
+        <header class="p-3 mb-3 border-bottom">
+            <div class="container">
+              <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+                  <!-- <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg> -->
+                    <p>SabiSabi</p>
+                </a>
+        
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                  <li><a href="#" class="nav-link px-2 link-secondary">主站</a></li>
+                  <li><a href="#" class="nav-link px-2 link-dark">动态</a></li>
+                  <li><a href="#" class="nav-link px-2 link-dark">收藏</a></li>
+                  <!-- <li><a href="#" class="nav-link px-2 link-dark">更多</a></li> -->
+                  <li class="nav-item dropdown"> 
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        更多
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"> 
+                        <a class="dropdown-item" href="#">关于我们</a> 
+                        <a class="dropdown-item" href="#">联系方式</a> 
+                    </div>
+                </li>
+                </ul>
+        
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                  <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                </form>
+        
+                <div class="dropdown text-end">
+                  <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle show" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="true">
+                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                  </a>
+                  <ul class="dropdown-menu text-small show" aria-labelledby="dropdownUser1" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 34px, 0px);" data-popper-placement="bottom-start">
+                    <li><a class="dropdown-item" href="#">New project...</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    
+                </ul>
+                </div>
+              </div>
+            </div>
+          </header>
+
+                          
+                <!-- user image -->
+                <!-- <li class="dropdown">
+                    <a href="#" class="dropdown-toggle"
+                       data-toggle="dropdown"
+                       style="height: 60px">
+                        <img alt="" class="img-circle" src="photo.jpg" width="38px" height="38px"/>
+                        <span style="color: #FFFFFF;font-size: 15px">
+                        <i>{{user.name}}</i>
+                    </span>
+                    </a>
+                    <div class="dropdown-menu pull-right"
+                         style="background: #FFFFFF;width: 320px;overflow: hidden">
+                        <div style="margin-top: 16px;border-bottom: 1px solid #eeeeee">
+                            <div style="text-align: center">
+                                <img class="img-circle" src="photo.jpg"
+                                     style="width: 38px;height: 38px;"/>
+                            </div>
+                            <div style="color: #323534;text-align: center;line-height: 36px;font-size: 15px">
+                                <span>{{username}}</span>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-left: 15px;margin-right: 15px;margin-top: 10px">
+                            <div class="col-md-4 text-center grid">
+                                <i class="fa fa-user" style="font-size: 25px;line-height: 45px;"></i>
+                                <p style="padding: 0px;margin-top: 6px;margin-bottom: 10px;font-size: 12px">
+                                    个人中心</p>
+                            </div>
+                            <div class="col-md-4 text-center grid">
+                                <i class="fa fa-gear" style="font-size: 25px;line-height: 45px;"></i>
+                                <p style="padding: 0px;margin-top: 6px;margin-bottom: 10px;font-size: 12px">
+                                    账号管理</p>
+                            </div>
+                            <div class="col-md-4 text-center grid">
+                                <i class="fa fa-key" style="font-size: 25px;line-height: 45px;"></i>
+                                <p style="padding: 0px;margin-top: 6px;margin-bottom: 10px;font-size: 12px">
+                                    密码修改</p>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-left: 15px;margin-right: 15px;margin-top: 10px">
+                            <div class="col-md-4 text-center grid">
+                                <i class="fa fa-user-circle" style="font-size: 25px;line-height: 45px;"></i>
+                                <p style="padding: 0px;margin-top: 6px;margin-bottom: 10px;font-size: 12px">
+                                    修改头像</p>
+                            </div>
+                            <div class="col-md-4 text-center grid">
+                                <i class="fa fa-comments" style="font-size: 25px;line-height: 45px;"></i>
+                                <p style="padding: 0px;margin-top: 6px;margin-bottom: 10px;font-size: 12px">
+                                    消息</p>
+                            </div>
+                            <div class="col-md-4 text-center grid">
+                                <i class="fa fa-heart-o" style="font-size: 25px;line-height: 45px;"></i>
+                                <p style="padding: 0px;margin-top: 6px;margin-bottom: 10px;font-size: 12px">
+                                    帮助中心</p>
+                            </div>
+                        </div>
+
+
+                        <div class="row" style="margin-top: 20px">
+                            <div class="text-center"
+                                 style="padding: 15px;margin: 0px;background: #f6f5f5;color: #323534;">
+                                <i class="fa fa-sign-out"></i> 退出登入界面
+                            </div>
+                        </div>
+                    </div>
+                </li> -->
+        {% endblock navbar %}
+        {% block content %}
+        
+        {% endblock content %}
+        <div class="container">
+            {% block footer %}
+            <footer class="text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <p>Copyright © {Group name}. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            {% endblock footer %}
+        </div>
+
+        {% block script %}
+        <script src="static/js/jquery-3.4.1.min.js" type="text/javascript"></script>
+        <script src="static/js/popper.min.js" type="text/javascript"></script>
+        <script src="static/js/bootstrap-4.4.1.js" type="text/javascript"></script>
+        {% endblock script %}
+    </body>
+</html>
