@@ -31,13 +31,15 @@ front-end
 - [ ] user's personal homepage 
 - [ ] video page 
 - [ ] better nav bars 
-- [ ] better homepage design
+- [ ] better homepage design 
 - [ ] danmuku 
+
 back-end 
 - [ ] login & auth 
 - [ ] email sys 
 - [ ] migrations 
 - [ ] load danmuku
+- [ ] views.py (add db operations) 
 ## Structure
 website
 +   **app**
