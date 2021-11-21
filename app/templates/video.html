@@ -66,7 +66,16 @@
           <hr>
           <h4>相关推荐</h4>
         </div>
+        {% for videos in video.recommendVideo %}
         <div class="media">
+          <div class="media-middle"> <a href="{{url_for('static',filename='{{videos.Path}}')}}"><img src="{{url_for('static',filename='{{videos.Picture}}')}}"  alt="图片加载失败" style="width:100px"></a> </div>
+          <div class="media-body mt-2"> <a href="{{url_for('static',filename='{{videos.Path}}')}}">
+            <h6 class="media-heading">{{videos.profile}}<br>
+              <small>{{videos.author}} {{videos.ViewCounts}}</small></h6>
+            </a> </div>
+        </div>
+        {% endfor %}
+        <!-- <div class="media">
           <div class="media-middle"> <a href="{{url_for('static',filename='{{video.recommendVideo[0].Path}}')}}"><img src="{{url_for('static',filename='{{video.recommendVideo[0].Picture}}')}}"  alt="图片加载失败" style="width:100px"></a> </div>
           <div class="media-body mt-2"> <a href="{{url_for('static',filename='{{video.recommendVideo[0].Path}}')}}">
             <h6 class="media-heading">{{video.recommendVideo[0].profile}}<br>
@@ -86,7 +95,7 @@
             <h6 class="media-heading">{{video.recommendVideo[2].profile}}<br>
               <small>{{video.recommendVideo[2].author}} {{video.recommendVideo[2].ViewCounts}}</small></h6>
             </a> </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
