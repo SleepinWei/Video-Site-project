@@ -1,3 +1,4 @@
+from re import S
 from flask_wtf import FlaskForm
 from wtforms import StringField,TextAreaField,BooleanField,SelectField,SubmitField
 from wtforms.validators import DataRequired,Length,Email,Regexp
@@ -9,4 +10,10 @@ class NameForm(FlaskForm):
     submit = SubmitField('Submit')
     csrf_token = BooleanField("somethign")
     pwd = StringField("pwd")
-    
+
+class EditProfileForm(FlaskForm):
+    nickName = StringField("Nick name",validators=[Length(0,64)])
+    location = StringField("Location",validators=[Length(0,64)])
+    about_me = TextAreaField('About me')
+    submit = SubmitField('Submit')
+

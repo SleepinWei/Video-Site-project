@@ -24,6 +24,7 @@ class User(UserMixin,db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), unique=True)
+    nickName = db.Column(db.String(64),unique=True)
     pw_hash = db.Column(db.String(128), unique=True)
 
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
