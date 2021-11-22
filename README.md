@@ -31,13 +31,22 @@ front-end
 - [ ] user's personal homepage 
 - [ ] video page 
 - [ ] better nav bars 
-- [ ] better homepage design
+- [ ] better homepage design 
 - [ ] danmuku 
+
 back-end 
 - [ ] login & auth 
 - [ ] email sys 
 - [ ] migrations 
 - [ ] load danmuku
+- [ ] views.py (add db operations) 
+
+## Get started 
+Our website is based on flask and is managed with flask CLI.   
+Launch the web using `flask run` command   
+env settings are stored in `.env` file   
+require `dotenv` package to set Environement variables.   
+
 ## Structure
 website
 +   **app**
