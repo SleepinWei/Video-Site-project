@@ -1,7 +1,7 @@
 from . import main
 import flask
-from models import User
-from models import Video
+from ..models import User
+from ..models import Video
 
 @main.route("/")
 def index():

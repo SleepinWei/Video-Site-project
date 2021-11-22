@@ -21,6 +21,8 @@ from sqlalchemy.sql.schema import ForeignKey, PrimaryKeyConstraint
 
 import os, hashlib
 
+from werkzeug.security import generate_password_hash,check_password_hash
+
 #假想role
 class Role(db.Model):
     __tablename__ = 'role'
@@ -33,7 +35,8 @@ class User(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), unique=True)
-    pw_hash = db.Column(db.String(32), unique=True)
+    pw_hash = db.Column(db.String(128), unique=True)
+
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
     likes = db.relationship('Videolike',backref='user')
     comments = db.relationship('Comment', backref='user')
@@ -41,6 +44,17 @@ class User(db.Model):
     videos = db.relationship('Video', backref='user')
     def __repr__(self):
         return "<User %r>" % self.name
+
+    @property
+    def password(self):
+        raise AttributeError('password is not a readable attribute!')
+
+    @password.setter
+    def password(self,password):
+        self.pw_hash = generate_password_hash(password)
+    
+    def verify_password(self,password):
+        return check_password_hash(self.pw_hash,password)
 
 #假想barrage(弹幕)
 class Barrage(db.Model):
