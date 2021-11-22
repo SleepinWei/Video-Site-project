@@ -31,6 +31,7 @@ class User(UserMixin,db.Model):
     comments = db.relationship('Comment', backref='user')
     videocols = db.relationship('Videocol', backref='user')
     videos = db.relationship('Video', backref='user')
+    last_seen = db.Column(db.DateTime(),default=datetime.utcnow)
     def __repr__(self):
         return "<User %r>" % self.name
 
@@ -44,6 +45,11 @@ class User(UserMixin,db.Model):
     
     def verify_password(self,password):
         return check_password_hash(self.pw_hash,password)
+
+    def ping(self):
+        # 上次登录时间
+        self.last_seen = datetime.utcnow()
+        db.session.add(self)
 #假想barrage(弹幕)
 @login_manager.user_loader
 def load_user(user_id):
