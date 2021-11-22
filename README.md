@@ -40,6 +40,13 @@ back-end
 - [ ] migrations 
 - [ ] load danmuku
 - [ ] views.py (add db operations) 
+
+## Get started 
+Our website is based on flask and is managed with flask CLI.   
+Launch the web using `flask run` command   
+env settings are stored in `.env` file   
+require `dotenv` package to set Environement variables.   
+
 ## Structure
 website
 +   **app**
