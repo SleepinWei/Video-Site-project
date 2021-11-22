@@ -1,4 +1,5 @@
 from flask.app import Flask
+from flask.signals import message_flashed
 from flask_wtf import FlaskForm
 from wtforms import StringField,PasswordField,BooleanField,SubmitField
 from wtforms.validators import EqualTo, Regexp, Required,Length,Email, ValidationError
@@ -23,3 +24,19 @@ class RegistrationForm(FlaskForm):
         if User.query.filter_by(name=field.data).first():
             raise ValidationError("Username already in use")
         
+class ChangePassword(FlaskForm):
+    # 更改用户密码
+    password = PasswordField("Original password",validators=[Required()])
+    newpassword = PasswordField("Newpassword",validators=[Required(),
+                        EqualTo('password2',message="Passwords must match!")])
+    password2 = PasswordField("Confirm password",validators=[Required()])
+    submit = SubmitField("Submit")
+
+class ResetPassword(FlaskForm):
+    # 忘记密码时
+    # 需要加入邮箱验证
+    pass
+
+class ChangeEmail(FlaskForm):
+    # 修改email
+    pass
