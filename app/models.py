@@ -1,27 +1,16 @@
+# from flask import Flask
+# from flask_sqlalchemy import SQLAlchemy
+
+# from sqlalchemy.orm import backref
+# from sqlalchemy.sql.schema import ForeignKey, PrimaryKeyConstraint
+
 from . import db
-
-# class User:
-#    #def __init__(username,NickName, ID, VIP,Level, LevelProgress,    Coins,    Stars,    Introduction):
-#    def __init__(self,name):
-#        self.NickName=name+'Nick'
-#        self.ID=name+'ID'
-#        self.VIP=True
-#        self.Level=4
-#        self.LevelProgress=30
-#        self.Coins=10
-#        self.Stars=4
-#        self.Introduction="23333333"
-#        self.FavouriteVideo=[{'name':'v1', 'Information':'i1john','Path':'none'},{'name':'v2', 'Information':'i2john','Path':'none'}]
 from datetime import datetime
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-
-from sqlalchemy.orm import backref
-from sqlalchemy.sql.schema import ForeignKey, PrimaryKeyConstraint
-
 import os, hashlib
-
 from werkzeug.security import generate_password_hash,check_password_hash
+from flask_login import UserMixin
+from . import login_manager
+
 
 #假想role
 class Role(db.Model):
@@ -31,7 +20,7 @@ class Role(db.Model):
     user = db.relationship('User', backref='role')
 
 #假想user
-class User(db.Model):
+class User(UserMixin,db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), unique=True)
@@ -55,8 +44,11 @@ class User(db.Model):
     
     def verify_password(self,password):
         return check_password_hash(self.pw_hash,password)
-
 #假想barrage(弹幕)
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
 class Barrage(db.Model):
     __tablename__ = 'barrage'
     id = db.Column(db.Integer,primary_key=True)

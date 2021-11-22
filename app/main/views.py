@@ -1,3 +1,4 @@
+from flask_login.utils import login_required
 from . import main
 import flask
 from ..models import User
@@ -19,6 +20,7 @@ def spaceDefaultAddition():
 
 # Redirect to user space
 @main.route('/space/<username>')
+@login_required
 def spaceUser(username):
     # Wait background for query.
     user1=User(username)
