@@ -6,3 +6,5 @@ flask-moment==1.0.2
 flask-script==2.0.6
 flask-sqlalchemy==2.5.1
 flask-wtf==0.14.3
+flask-login
+
