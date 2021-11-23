@@ -5,7 +5,7 @@ from flask_migrate import current
 from flask_login import current_user
 from werkzeug.urls import url_decode
 from werkzeug.utils import redirect
-from app.main.forms import EditProfileForm
+from app.main.forms import CommentForm, EditProfileForm
 from . import main
 import flask
 # from ..models import User
@@ -40,8 +40,21 @@ def spaceUser(username):
 
 @main.route('/video/<videoname>')
 def playvideo(videoname):
-    video1=Video(videoname)
-    return flask.render_template('extend.html',video=video1)
+    # video1=Video(videoname)
+    video = Video.query.filter_by(title=videoname).first()
+    # 这里依据名字从查找video，后期可以改为依据id查找
+
+    form = CommentForm()
+    if form.validate_on_submit():
+        comment = Comment(content=form.body,author=current_user._get_current_object())
+        # _get_current_object() returns somethign in the session, and even if author is not declared, this stil works
+        # very mysterious and don't konw why
+        db.session.add(comment)
+        return redirect(url_for('.playvideo'),videoname=videoname)
+    comments = Comment.query.order_by(Comment.addtime.desc()).all
+    
+    # return flask.render_template('extend.html',video=video1)
+    return render_template('video.html',video=video,comments=comments )
 
 @main.route("/edit-profile",methods=['GET','POST'])
 @login_required
