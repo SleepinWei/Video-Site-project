@@ -1,4 +1,4 @@
-from re import S
+# from re import S
 from flask_wtf import FlaskForm
 from wtforms import StringField,TextAreaField,BooleanField,SelectField,SubmitField
 from wtforms.validators import DataRequired,Length,Email,Regexp
@@ -17,3 +17,6 @@ class EditProfileForm(FlaskForm):
     about_me = TextAreaField('About me')
     submit = SubmitField('Submit')
 
+class EditProfileAdminForm(FlaskForm):
+    # 管理员资料编辑表单
+    pass 
