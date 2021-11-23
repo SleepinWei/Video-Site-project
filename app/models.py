@@ -19,6 +19,7 @@ class Role(db.Model):
     name = db.Column(db.String(32), unique=True)
     user = db.relationship('User', backref='role')
 
+#user需要增加：coins，level(等级), levelProgress（等级进度，直接用0-100就行，简单点）, role_id需要知道对应关系
 #假想user
 class User(UserMixin,db.Model):
     __tablename__ = 'user'
@@ -27,7 +28,7 @@ class User(UserMixin,db.Model):
     nickName = db.Column(db.String(64),unique=True)
     pw_hash = db.Column(db.String(128), unique=True)
 
-    role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id')) #？对应关系，至少需要VIP、普通用户
     likes = db.relationship('Videolike',backref='user')
     comments = db.relationship('Comment', backref='user')
     videocols = db.relationship('Videocol', backref='user')

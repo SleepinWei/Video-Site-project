@@ -12,10 +12,13 @@ import flask
 # from ..models import Video
 from ..models import *
 
-@main.route("/")
+@main.route('/')
 def index():
-    # some functions to define hoempage of the website 
-    pass
+    return flask.render_template('index.html')
+
+@main.route('/register')
+def regisiter():
+    return flask.render_template('register.html')
 
 @main.route('/space')
 def spaceDefault():
