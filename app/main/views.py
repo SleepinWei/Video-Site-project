@@ -12,11 +12,11 @@ import flask
 # from ..models import Video
 from ..models import *
 
-@main.route("/")
+@main.route('/')
 def index():
     return flask.render_template('index.html')
 
-@main.route("/register")
+@main.route('/register')
 def regisiter():
     return flask.render_template('register.html')
 
