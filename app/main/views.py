@@ -16,10 +16,6 @@ from ..models import *
 def index():
     return flask.render_template('index.html')
 
-@main.route('/register')
-def regisiter():
-    return flask.render_template('register.html')
-
 @main.route('/space')
 def spaceDefault():
     return flask.render_template('DefaultSpace.html')
