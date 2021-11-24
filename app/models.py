@@ -1,6 +1,4 @@
 from . import db
-# update by wxr:1.User-VIP/VipLevel/update_video 2.Video-collectionnum/danmu_path 3.get_user_space_info/VideoNotFoundError
-# collect_video/like_video
 # class User:
 #    #def __init__(username,NickName, ID, VIP,Level, LevelProgress,    Coins,    Stars,    Introduction):
 #    def __init__(self,name):
