@@ -50,6 +50,9 @@ require `dotenv` package to set Environement variables.
 ## Structure
 website
 +   **app**
+    +   **auth**:all registration related functions are stored here(login,logout etc)
+        +   views.py
+        +   forms.py
     +   **main**
         +   errors.py: error handlers
         +   forms.py: web forms
@@ -61,6 +64,7 @@ website
         +   fonts 
         +   etc. 
     +   **templates**
+        +   **auth**:store all registration related templates(current templates are just for tests) 
         +   some html templates here
     +   models.py: database models
 +   **migrations**:for database migration 

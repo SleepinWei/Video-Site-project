@@ -100,6 +100,8 @@ class Comment(db.Model):
     content = db.Column(db.Text)  # 内容
     video_id = db.Column(db.Integer, db.ForeignKey('video.id'))  # 所属视频
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 所属用户
+    # username = db.Column(db.String,db.ForeignKey('user.nickName'))
+
     addtime = db.Column(db.DateTime, index=True, default=datetime.now)  # 发言时间
     def __init__(self,content,video_id,user_id):
         self.content = content
