@@ -19,23 +19,28 @@ def index():
 
 @main.route('/space')
 def spaceDefault():
-    return flask.render_template('DefaultSpace.html')
+    #if user is not logged in, redirect to login page
+    if not current_user.is_authenticated:
+        return redirect(url_for('auth.login'))
+    #if user is logged in, render the space page
+        return flask.render_template('UserSpace.html', user=current_user)
 
 # Default space
 @main.route('/space/')
 def spaceDefaultAddition():
-    return flask.render_template('DefaultSpace.html')
+    #the same as above
+    #if user is not logged in, redirect to login page
+    if not current_user.is_authenticated:
+        return redirect(url_for('auth.login'))
+    #if user is logged in, render the space page
+        return flask.render_template('UserSpace.html', user=current_user)
 
 # Redirect to user space
 @main.route('/space/<username>')
 @login_required
 def spaceUser(username):
-    # Wait background for query.
+    #get the user from the database
     user1=User(username)
-    #user.FavouriteVideo[1].Name='666'
-    #user.FavouriteVideo[1].Information='232323232'
-    #user.FavouriteVideo[2].Name='777'
-    #user.FavouriteVideo[2].Information='7676767676'
 
     return flask.render_template('UserSpace.html',user=user1)
 
