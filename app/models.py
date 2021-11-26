@@ -1,67 +1,48 @@
-# from flask import Flask
-# from flask_sqlalchemy import SQLAlchemy
-
-# from sqlalchemy.orm import backref
-# from sqlalchemy.sql.schema import ForeignKey, PrimaryKeyConstraint
-
 from . import db
+# class User:
+#    #def __init__(username,NickName, ID, VIP,Level, LevelProgress,    Coins,    Stars,    Introduction):
+#    def __init__(self,name):
+#        self.NickName=name+'Nick'
+#        self.ID=name+'ID'
+#        self.VIP=True
+#        self.Level=4
+#        self.LevelProgress=30
+#        self.Coins=10
+#        self.Stars=4
+#        self.Introduction="23333333"
+#        self.FavouriteVideo=[{'name':'v1', 'Information':'i1john','Path':'none'},{'name':'v2', 'Information':'i2john','Path':'none'}]
 from datetime import datetime
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+from sqlalchemy.orm import backref
+from sqlalchemy.sql.schema import ForeignKey, PrimaryKeyConstraint
+
 import os, hashlib
-from werkzeug.security import generate_password_hash,check_password_hash
-from flask_login import UserMixin
-from . import login_manager
 
-
-#假想role
+#role
 class Role(db.Model):
     __tablename__ = 'role'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(32), unique=True)
     user = db.relationship('User', backref='role')
 
-#user需要增加：coins，level(等级), levelProgress（等级进度，直接用0-100就行，简单点）, role_id需要知道对应关系
-#假想user
-class User(UserMixin,db.Model):
+#user
+class User(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), unique=True)
-    nickName = db.Column(db.String(64),unique=True)
-    pw_hash = db.Column(db.String(128), unique=True)
-
-    role_id = db.Column(db.Integer, db.ForeignKey('role.id')) #？对应关系，至少需要VIP、普通用户
+    pw_hash = db.Column(db.String(32), unique=True)
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
+    VIP = db.Column(db.Bool)
+    VipLevel = db.Column(db.Integer)
+    coin = db.Column(db.Integer)
     likes = db.relationship('Videolike',backref='user')
     comments = db.relationship('Comment', backref='user')
     videocols = db.relationship('Videocol', backref='user')
-    videos = db.relationship('Video', backref='user')
-    last_seen = db.Column(db.DateTime(),default=datetime.utcnow)
+    upload_videos = db.relationship('Video', backref='user')
     def __repr__(self):
         return "<User %r>" % self.name
-
-    @property
-    def password(self):
-        raise AttributeError('password is not a readable attribute!')
-
-    @password.setter
-    def password(self,password):
-        self.pw_hash = generate_password_hash(password)
-    
-    def verify_password(self,password):
-        return check_password_hash(self.pw_hash,password)
-
-    def ping(self):
-        # 上次登录时间
-        self.last_seen = datetime.utcnow()
-        db.session.add(self)
-#假想barrage(弹幕)
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
-
-class Barrage(db.Model):
-    __tablename__ = 'barrage'
-    id = db.Column(db.Integer,primary_key=True)
-    content = db.Column(db.String(127))
-    video_id = db.Column(db.Integer,db.ForeignKey('video.id'))
 
 # 视频
 class Video(db.Model):
@@ -73,14 +54,14 @@ class Video(db.Model):
     playnum = db.Column(db.BigInteger)  # 播放量
     likenum = db.Column(db.BigInteger)  # 点赞数
     commentnum = db.Column(db.BigInteger)  # 评论数
+    collectionnum= db.Column(db.BigInteger)  # 收藏数
     length = db.Column(db.String(100))  # 视频时长
     uploadtime = db.Column(db.DateTime, index=True, default=datetime.now)  # 视频上传时间
+    danmu_path =db.Column(db.String(100)) # 弹幕表存放路径
     uploaduser_id = db.Column(db.Integer, db.ForeignKey('user.id'))    # 上传的user外键
-    videolikes = db.relationship("Videolike", backref='video')  #点赞外键关联
     comments = db.relationship("Comment", backref='video')  # 评论外键关联
-    videocols = db.relationship("Videocol",backref='video') # 收藏外键关联
-    barrages = db.relationship("Barrage", backref='video')   # 弹幕外键关联
-    def __init__(self,title,url,info,playnum,likenum,commentnum,length,uploaduser_id):
+    videoCollect = db.relationship("Videocol",backref='video') # 收藏外键关联
+    def __init__(self,title,url,info,playnum,likenum,commentnum,collectnum,length,uploaduser_id,danmu_path):
         self.title = title
         self.url = url
         self.info = info
@@ -89,6 +70,9 @@ class Video(db.Model):
         self.commentnum = commentnum
         self.length = length
         self.uploaduser_id = uploaduser_id
+        self.collectnum=collectnum
+        self.danmu_path=danmu_path
+
     def __repr__(self):
         return "<Video %r>" % self.id
 
@@ -100,8 +84,6 @@ class Comment(db.Model):
     content = db.Column(db.Text)  # 内容
     video_id = db.Column(db.Integer, db.ForeignKey('video.id'))  # 所属视频
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 所属用户
-    # username = db.Column(db.String,db.ForeignKey('user.nickName'))
-
     addtime = db.Column(db.DateTime, index=True, default=datetime.now)  # 发言时间
     def __init__(self,content,video_id,user_id):
         self.content = content
@@ -168,6 +150,37 @@ def check_user_pw(nm: str, plain_pw: str) -> bool:
     return (slt + pwd).decode('latin1') == x.pw_hash
 # ---------------------------#
 
+def get_user_space_info(username):
+    user = User.query.filter_by(name=username).first()
+    if not user:
+        raise UserNotFoundError("User '%s' not found" % username)
+    return user
+
+class VideoNotFoundError(Exception):
+    pass
+
+# 点赞视频
+def like_video(video_id):
+    video = Video.query.filter_by(id=video_id).first()
+    if not video:
+        raise VideoNotFoundError("Video '%s' not found" % video_id)
+    video.update({'likenum':video.likenum+1})
+    db.session.commit()
+
+# 收藏/取消收藏视频
+def collect_video(video_id, user_id):
+    video = Video.query.filter_by(id=video_id).first()
+    if not video:
+        raise VideoNotFoundError("Video '%s' not found" % video_id)
+
+    newvideo=Videocol(video_id=video_id,user_id=user_id)
+    if (newvideo in video.videoCollect):
+        Videocol.query.filter(Videocol.video_id==video_id,Videocol.user_id==user_id).delete()
+        video.update({'collectionnum': video.collectionnum - 1})
+    else:
+        video.update({'collectionnum': video.collectionnum + 1})
+        db.session.add(newvideo)
+    db.session.commit()
 
 #测试
 if __name__ == '__main__':
