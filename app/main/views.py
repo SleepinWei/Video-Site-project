@@ -12,9 +12,72 @@ import flask
 # from ..models import Video
 from ..models import *
 
-@main.route('/')
-def index():
-    return flask.render_template('index.html')
+@main.route('/<int:page>/')
+def index(page=None):
+    if page is None:
+        page = 1
+    tags = Tag.query.all()
+    page_data = Movie.query
+    # 标签（eg 美食、电竞……）
+    tid = request.args.get('tid', 0)  # 获取tid，获取不到返回0
+    if int(tid) != 0:
+        page_data = page_data.filter_by(tag_id=int(tid))
+    # 视频受欢迎度
+    star = request.args.get('star', 0)
+    if int(star) != 0:
+        page_data = page_data.filter_by(star=int(star))
+    # 视频发布时间
+    time = request.args.get('time', 0)
+    if int(time) != 0:
+        if int(time) == 1:
+            page_data = page_data.order_by(
+                Movie.addtime.desc()
+            )
+        else:
+            page_data = page_data.order_by(
+                Movie.addtime.asc()
+            )
+    # 播放量
+    pm = request.args.get('pm', 0)
+    if int(pm) != 0:
+        if int(pm) == 1:
+            page_data = page_data.order_by(
+                Movie.playnum.desc()
+            )
+        else:
+            page_data = page_data.order_by(
+                Movie.playnum.asc()
+            )
+    # 评论量
+    cm = request.args.get('cm', 0)
+    if int(cm) != 0:
+        if int(cm) == 1:
+            page_data = page_data.order_by(
+                Movie.commentnum.desc()
+            )
+        else:
+            page_data = page_data.order_by(
+                Movie.commentnum.asc()
+            )
+
+    page = request.args.get("page", 1)
+    page_data = page_data.paginate(page=int(page), per_page=10)
+
+    p = dict(
+        tid=tid,
+        star=star,
+        time=time,
+        pm=pm,
+        cm=cm
+    )
+    return render_template("index.html", tags=tags, p=p, page_data=page_data)
+
+# 轮播图
+@home.route('/animation/')
+def animation():
+    data = Preview.query.all()
+    return render_template('animation.html', data=data)
+
 
 @main.route('/space')
 def spaceDefault():
