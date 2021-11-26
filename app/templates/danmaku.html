@@ -1,11 +1,12 @@
-<html>
-<head>
+{% extends 'video.html' %}
+
+{% block script %}
+    <!-- 注意顺序 -->
     <script src="{{url_for('static',filename='js/artplayer.js')}}"></script>
     <script src="{{url_for('static',filename='js/artplayer-plugin-danmuku.js')}}"></script>
-    <script src="{{url_for('static',filename='js/player-app.js')}}"></script>
-</head>
-<body>
-    <div class="artplayer-app">somethgin herer</div>
+    <script src="{{url_for('static',filename='js/player-app.js')}}"></script> 
+{% endblock script %}
 
-</body>
-</html>
+{% block videoplayer %}
+    <div class="artplayer-app">somethgin herer</div>
+{% endblock videoplayer %}

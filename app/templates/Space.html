@@ -1,137 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Author:LPH Date:2021/11/6 License:GPL3.0 -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    {%block title%}
-    <title>{USER NAME SPACE}</title>
-    {% endblock %}
-    <!-- Bootstrap -->
-    <!--<link href="css/bootstrap-4.4.1.css" rel="stylesheet" >-->
-    {% block style %}
-    <link href="../static/css/bootstrap-4.4.1.css" rel="stylesheet">
-    <link href="../static/css/space.css" rel="stylesheet" type="text/css">
-    <link href="../static/css/colours.css" rel="stylesheet" type="text/css">
-    {% endblock %}
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <!-- The first two letters of SAmple BIlibili :P -->
-        <a class="navbar-brand" href="#">SaBiSaBi</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active"> <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> </li>
-                <li class="nav-item"> <a class="nav-link" href="#">{Some Link}</a> </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {Some Dropdown} </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a> <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+{% extends 'base/spacebase.html' %}
+
+{%block title%}
+{USER NAME SPACE}
+{% endblock %}
+
+{% block content %}    
+<div class="container">
+    {% block user %}
+    <hr>
+    <div class="row">
+        <div class="col-6 col-lg-12">
+            <h1>{% block userNickName %}{% endblock %}</h1>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-8 col-sm-12 col-lg-6">
+            <div class="media">
+                <img class="mr-3 mt-2 " src="../static/images/115X115.gif" alt="User photo">
+                <div class="media-body">
+                    <h5 class="mt-2"><img class="small-icon mr-1" src="{{ url_for('static',filename='../static/images/id.svg') }}" alt="ID icon">{% block userID %}{% endblock %}{% block userVIP %}{% endblock %}</h5>
+                    <div class="progress mt-2">
+                        <!-- level at style % -->
+                        {% block userLevel %}
+                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%"> {User Level}</div>
+                        {% endblock %}
+                    </div>
+                    <h5 class="mt-2"><img class="small-icon mr-1" src="{{ url_for('static',filename='../static/images/coin.svg') }}" alt="Coin icon">{% block userCoins %}{% endblock %}</h5>
+                    <h5 class="mt-2"><img class="small-icon mr-1" src="{{ url_for('static',filename='../static/images/Star.svg') }}" alt="Like icon">{% block userLikes %}{% endblock %}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12 col-lg-6">
+            <p class="mt-1">{% block userIntroduction %}{% endblock %}</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <h2>{TO BE FILLED :P}</h2>
+            <hr>
+            <div class="row">
+                <div class="col-6">
+                    <h4>{XXX}</h4>
+                </div>
+                <div class="col-6">
+                    <h5 class="text-right"><span aria-hidden="true"></span> {XXX}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <h2>Favourite Video</h2>
+            <hr>
+            <ul class="list-unstyled">
+                <li class="media">
+                    <div class="media-body">
+                        {% block userFavouriteVideos %}
+                        <!-- Nested media object -->
+                        <div class="media">
+                            <img class="d-flex mr-3" src="../static/images/MediaObj_Placeholder.png" alt="placeholder image">
+                            <div class="media-body">
+                                <h5 class="mt-0">{Video1 Name}</h5>
+                                {Video1 Information}
+                                <!-- Nested media object -->
+                            </div>
+                        </div>
+                        <!-- Nested media object -->
+                        <div class="media">
+                            <img class="d-flex mr-3" src="../static/images/MediaObj_Placeholder.png" alt="placeholder image">
+                            <div class="media-body">
+                                <h5 class="mt-0">{Video2 Name}</h5>
+                                {Video2 Information}
+                            </div>
+                        </div>
+                        {% endblock %}
                     </div>
                 </li>
-                <li class="nav-item"> <a class="nav-link disabled" href="#">Disabled</a> </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search Video" aria-label="Search Video">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
         </div>
-    </nav>
-
-    <div class="container">
-        {% block user %}
-        <hr>
-        <div class="row">
-            <div class="col-6 col-lg-12">
-                <h1>{% block userNickName %}{% endblock %}</h1>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-8 col-sm-12 col-lg-6">
-                <div class="media">
-                    <img class="mr-3 mt-2 " src="../static/images/115X115.gif" alt="User photo">
-                    <div class="media-body">
-                        <h5 class="mt-2"><img class="small-icon mr-1" src="{{ url_for('static',filename='../static/images/id.svg') }}" alt="ID icon">{% block userID %}{% endblock %}{% block userVIP %}{% endblock %}</h5>
-                        <div class="progress mt-2">
-                            <!-- level at style % -->
-                            {% block userLevel %}
-                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%"> {User Level}</div>
-                            {% endblock %}
-                        </div>
-                        <h5 class="mt-2"><img class="small-icon mr-1" src="{{ url_for('static',filename='../static/images/coin.svg') }}" alt="Coin icon">{% block userCoins %}{% endblock %}</h5>
-                        <h5 class="mt-2"><img class="small-icon mr-1" src="{{ url_for('static',filename='../static/images/Star.svg') }}" alt="Star icon">{% block userStars %}{% endblock %}</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-12 col-lg-6">
-                <p class="mt-1">{% block userIntroduction %}{% endblock %}</p>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-6 col-sm-12">
-                <h2>{TO BE FILLED :P}</h2>
-                <hr>
-                <div class="row">
-                    <div class="col-6">
-                        <h4>{XXX}</h4>
-                    </div>
-                    <div class="col-6">
-                        <h5 class="text-right"><span aria-hidden="true"></span> {XXX}</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12">
-                <h2>Favourite Video</h2>
-                <hr>
-                <ul class="list-unstyled">
-                    <li class="media">
-                        <div class="media-body">
-                            {% block userFavouriteVideos %}
-                            <!-- Nested media object -->
-                            <div class="media">
-                                <img class="d-flex mr-3" src="../static/images/MediaObj_Placeholder.png" alt="placeholder image">
-                                <div class="media-body">
-                                    <h5 class="mt-0">{Video1 Name}</h5>
-                                    {Video1 Information}
-                                    <!-- Nested media object -->
-                                </div>
-                            </div>
-                            <!-- Nested media object -->
-                            <div class="media">
-                                <img class="d-flex mr-3" src="../static/images/MediaObj_Placeholder.png" alt="placeholder image">
-                                <div class="media-body">
-                                    <h5 class="mt-0">{Video2 Name}</h5>
-                                    {Video2 Information}
-                                </div>
-                            </div>
-                            {% endblock %}
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <hr>
-        <footer class="text-center">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <p>Copyright © {Group name}. All rights reserved.</p>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        {% endblock %}
     </div>
-
-    <script src="../static/js/jquery-3.4.1.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../static/js/popper.min.js"></script>
-    <script src="../static/js/bootstrap-4.4.1.js"></script>
-</body>
-</html>
+    <hr>
+</div>
+{% endblock content %}

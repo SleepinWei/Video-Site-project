@@ -31,16 +31,28 @@ front-end
 - [ ] user's personal homepage 
 - [ ] video page 
 - [ ] better nav bars 
-- [ ] better homepage design
+- [ ] better homepage design 
 - [ ] danmuku 
+
 back-end 
 - [ ] login & auth 
 - [ ] email sys 
 - [ ] migrations 
 - [ ] load danmuku
+- [ ] views.py (add db operations) 
+
+## Get started 
+Our website is based on flask and is managed with flask CLI.   
+Launch the web using `flask run` command   
+env settings are stored in `.env` file   
+require `dotenv` package to set Environement variables.   
+
 ## Structure
 website
 +   **app**
+    +   **auth**:all registration related functions are stored here(login,logout etc)
+        +   views.py
+        +   forms.py
     +   **main**
         +   errors.py: error handlers
         +   forms.py: web forms
@@ -52,6 +64,7 @@ website
         +   fonts 
         +   etc. 
     +   **templates**
+        +   **auth**:store all registration related templates(current templates are just for tests) 
         +   some html templates here
     +   models.py: database models
 +   **migrations**:for database migration 

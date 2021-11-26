@@ -1,25 +1,16 @@
+# from flask import Flask
+# from flask_sqlalchemy import SQLAlchemy
+
+# from sqlalchemy.orm import backref
+# from sqlalchemy.sql.schema import ForeignKey, PrimaryKeyConstraint
+
 from . import db
-
-# class User:
-#    #def __init__(username,NickName, ID, VIP,Level, LevelProgress,    Coins,    Stars,    Introduction):
-#    def __init__(self,name):
-#        self.NickName=name+'Nick'
-#        self.ID=name+'ID'
-#        self.VIP=True
-#        self.Level=4
-#        self.LevelProgress=30
-#        self.Coins=10
-#        self.Stars=4
-#        self.Introduction="23333333"
-#        self.FavouriteVideo=[{'name':'v1', 'Information':'i1john','Path':'none'},{'name':'v2', 'Information':'i2john','Path':'none'}]
 from datetime import datetime
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-
-from sqlalchemy.orm import backref
-from sqlalchemy.sql.schema import ForeignKey, PrimaryKeyConstraint
-
 import os, hashlib
+from werkzeug.security import generate_password_hash,check_password_hash
+from flask_login import UserMixin
+from . import login_manager
+
 
 #假想role
 class Role(db.Model):
@@ -28,21 +19,44 @@ class Role(db.Model):
     name = db.Column(db.String(32), unique=True)
     user = db.relationship('User', backref='role')
 
+#user需要增加：coins，level(等级), levelProgress（等级进度，直接用0-100就行，简单点）, role_id需要知道对应关系
 #假想user
-class User(db.Model):
+class User(UserMixin,db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), unique=True)
-    pw_hash = db.Column(db.String(32), unique=True)
-    role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
+    nickName = db.Column(db.String(64),unique=True)
+    pw_hash = db.Column(db.String(128), unique=True)
+
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id')) #？对应关系，至少需要VIP、普通用户
     likes = db.relationship('Videolike',backref='user')
     comments = db.relationship('Comment', backref='user')
     videocols = db.relationship('Videocol', backref='user')
     videos = db.relationship('Video', backref='user')
+    last_seen = db.Column(db.DateTime(),default=datetime.utcnow)
     def __repr__(self):
         return "<User %r>" % self.name
 
+    @property
+    def password(self):
+        raise AttributeError('password is not a readable attribute!')
+
+    @password.setter
+    def password(self,password):
+        self.pw_hash = generate_password_hash(password)
+    
+    def verify_password(self,password):
+        return check_password_hash(self.pw_hash,password)
+
+    def ping(self):
+        # 上次登录时间
+        self.last_seen = datetime.utcnow()
+        db.session.add(self)
 #假想barrage(弹幕)
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
 class Barrage(db.Model):
     __tablename__ = 'barrage'
     id = db.Column(db.Integer,primary_key=True)
@@ -86,6 +100,8 @@ class Comment(db.Model):
     content = db.Column(db.Text)  # 内容
     video_id = db.Column(db.Integer, db.ForeignKey('video.id'))  # 所属视频
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 所属用户
+    # username = db.Column(db.String,db.ForeignKey('user.nickName'))
+
     addtime = db.Column(db.DateTime, index=True, default=datetime.now)  # 发言时间
     def __init__(self,content,video_id,user_id):
         self.content = content
