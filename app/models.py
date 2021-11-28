@@ -28,7 +28,10 @@ class User(UserMixin,db.Model):
     nickName = db.Column(db.String(64),unique=True)
     pw_hash = db.Column(db.String(128), unique=True)
 
-    role_id = db.Column(db.Integer, db.ForeignKey('role.id')) #？对应关系，至少需要VIP、普通用户
+    coins = db.Column(db.Interger)
+    levelProgress = db.Column(db.SmallInterger)
+    level = db.Column(db.SmallInterger)
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id')) #？对应关系，至少需要VIP、普通用户 #初始化时直接创建name为VIP和name为commonuser的role，后增添user时指定本成员的值即可
     likes = db.relationship('Videolike',backref='user')
     comments = db.relationship('Comment', backref='user')
     videocols = db.relationship('Videocol', backref='user')
