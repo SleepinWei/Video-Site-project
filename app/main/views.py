@@ -146,6 +146,14 @@ def edit_profile():
     form.introduction.data = current_user.introduction
     return render_template('EditProfile.html',form=form)
 
+# 隐私政策
+@main.route('/privacy')
+def privacy():
+    return flask.render_template('privacy.html')
 
+#用户协议
+@main.route('/term_of_use')
+def licence():
+    return flask.render_template('termOfUse.html')
 
 # 管理员资料编辑器
