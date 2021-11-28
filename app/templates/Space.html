@@ -4,13 +4,17 @@
 {USER NAME SPACE}
 {% endblock %}
 
-{% block content %}    
+{% block content %}
 <div class="container">
     {% block user %}
     <hr>
     <div class="row">
-        <div class="col-6 col-lg-12">
+        <div class="col-6 col-lg-12 col-xl-10">
             <h1>{% block userNickName %}{% endblock %}</h1>
+        </div>
+        <div class="col-2">
+            <button type="button" class="ml-4 mt-2 btn btn-info">Edit Profile</button>
+            {{ form.editButton(class='ml-4 mt-2 btn btn-info') }}
         </div>
     </div>
     <hr>
@@ -19,15 +23,22 @@
             <div class="media">
                 <img class="mr-3 mt-2 " src="../static/images/115X115.gif" alt="User photo">
                 <div class="media-body">
-                    <h5 class="mt-2"><img class="small-icon mr-1" src="{{ url_for('static',filename='../static/images/id.svg') }}" alt="ID icon">{% block userID %}{% endblock %}{% block userVIP %}{% endblock %}</h5>
+                    <h5 class="mt-2"><img class="small-icon mr-1"
+                            src="{{ url_for('static',filename='../static/images/id.svg') }}" alt="ID icon">{% block
+                        userID %}{% endblock %}{% block userVIP %}{% endblock %}</h5>
                     <div class="progress mt-2">
                         <!-- level at style % -->
                         {% block userLevel %}
-                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%"> {User Level}</div>
+                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="70" aria-valuemin="0"
+                            aria-valuemax="100" style="width: 70%"> {User Level}</div>
                         {% endblock %}
                     </div>
-                    <h5 class="mt-2"><img class="small-icon mr-1" src="{{ url_for('static',filename='../static/images/coin.svg') }}" alt="Coin icon">{% block userCoins %}{% endblock %}</h5>
-                    <h5 class="mt-2"><img class="small-icon mr-1" src="{{ url_for('static',filename='../static/images/Star.svg') }}" alt="Like icon">{% block userLikes %}{% endblock %}</h5>
+                    <h5 class="mt-2"><img class="small-icon mr-1"
+                            src="{{ url_for('static',filename='../static/images/coin.svg') }}" alt="Coin icon">{% block
+                        userCoins %}{% endblock %}</h5>
+                    <h5 class="mt-2"><img class="small-icon mr-1"
+                            src="{{ url_for('static',filename='../static/images/Star.svg') }}" alt="Like icon">{% block
+                        userLikes %}{% endblock %}</h5>
                 </div>
             </div>
         </div>
@@ -58,7 +69,8 @@
                         {% block userFavouriteVideos %}
                         <!-- Nested media object -->
                         <div class="media">
-                            <img class="d-flex mr-3" src="../static/images/MediaObj_Placeholder.png" alt="placeholder image">
+                            <img class="d-flex mr-3" src="../static/images/MediaObj_Placeholder.png"
+                                alt="placeholder image">
                             <div class="media-body">
                                 <h5 class="mt-0">{Video1 Name}</h5>
                                 {Video1 Information}
@@ -67,7 +79,8 @@
                         </div>
                         <!-- Nested media object -->
                         <div class="media">
-                            <img class="d-flex mr-3" src="../static/images/MediaObj_Placeholder.png" alt="placeholder image">
+                            <img class="d-flex mr-3" src="../static/images/MediaObj_Placeholder.png"
+                                alt="placeholder image">
                             <div class="media-body">
                                 <h5 class="mt-0">{Video2 Name}</h5>
                                 {Video2 Information}
@@ -80,5 +93,6 @@
         </div>
     </div>
     <hr>
+    {% endblock %}
 </div>
-{% endblock content %}
+{% endblock %}

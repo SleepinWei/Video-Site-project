@@ -5,7 +5,7 @@ from flask_migrate import current
 from flask_login import current_user
 from werkzeug.urls import url_decode
 from werkzeug.utils import redirect
-from app.main.forms import CommentForm, EditProfileForm
+from app.main.forms import CommentForm, EditProfileForm, RedirectToEditForm
 from . import main
 import flask
 # from ..models import User
@@ -104,6 +104,10 @@ def spaceUser(username):
     #get the user from the database
     user1=User(username)
 
+    #if click the edit button, redirect to edit page
+    form=RedirectToEditForm()
+    if form.validate_on_submit():
+        return flask.redirect(flask.url_for('editProfile'))
     return flask.render_template('UserSpace.html',user=user1)
 
 @main.route('/video/<videoname>')
@@ -124,20 +128,24 @@ def playvideo(videoname):
     # return flask.render_template('extend.html',video=video1)
     return render_template('video.html',video=video,comments=comments )
 
-@main.route("/edit-profile",methods=['GET','POST'])
+# 用户资料编辑
+@main.route("/editProfile",methods=['GET','POST'])
 @login_required
 def edit_profile():
     form = EditProfileForm()
     if form.validate_on_submit():
         current_user.nickName = form.nickName.data
-        current_user.location = form.location.data
-        current_user.about_me = form.about_me.data
+        current_user.password = form.password.data
+        current_user.introduction = form.introduction.data
+
         db.session.add(current_user)
         flash("You have updated your profile")
         return redirect(url_for(".spaceUser",username=current_user.name))
     form.nickName.data = current_user.nickName
-    form.location.data = current_user.location
-    form.about_me.data = current_user.about_me
-    return render_template('edit_profile.html',form=form)
+    form.password.data = current_user.password
+    form.introduction.data = current_user.introduction
+    return render_template('EditProfile.html',form=form)
+
+
 
 # 管理员资料编辑器
