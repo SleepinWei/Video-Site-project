@@ -1,10 +1,13 @@
 # from Danmu_db import User
+from os import name
+import re
 from app.models import User,Role
 from app import create_app,db 
 # from flask_script import Manager,Shell
 # from flask_migrate import Migrate 
 # Flask_script and Migrate is no longer supported!
 from flask.cli import FlaskGroup
+import click
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -12,8 +15,21 @@ app = create_app('default')
 # manager = Manager(app)
 # migrate = Migrate(app,db)
 cli = FlaskGroup(app)
+@app.shell_context_processor
+def make_shell_context():
+    return dict(
+        User=User,
+        Role=Role,
+        db=db
+    )
 
-
+# add command:
+# create_user username
+@app.cli.command("create_user")
+@click.argument("username")
+def create_user(username):
+    user = User(name=username)
+    db.session.add(user)
 # def make_shell_context():
 #     return dict(app=app,db=db,User=User,Role=Role)
 #     # return dict(app=app,db=db) don't know how to make commands here
