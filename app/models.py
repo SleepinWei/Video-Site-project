@@ -27,7 +27,9 @@ class User(UserMixin,db.Model):
     name = db.Column(db.String(128), unique=True)
     nickName = db.Column(db.String(64),unique=True)
     pw_hash = db.Column(db.String(128), unique=True)
-     
+    
+    about_me=db.Column(db.Text)
+    location=db.Column(db.String(64))
     coins = db.Column(db.Interger)
     levelProgress = db.Column(db.SmallInterger)
     level = db.Column(db.SmallInterger)
