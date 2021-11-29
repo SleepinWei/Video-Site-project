@@ -12,17 +12,25 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Login")
 
 class RegistrationForm(FlaskForm):
-    name = StringField('username',validators=[Required()\
+    name = StringField('Username',validators=[DataRequired('Please enter username!')\
     ,Regexp('^[A-Za-z][A-Za-z0-9_.]*$',0,"username must only have letters,numbers,dots or underscores")])
     password = PasswordField('Password',validators=[
-        Required(),EqualTo('password2',message="Passwords must match")
+        DataRequired('Please enter password!'),EqualTo('password2',message="Passwords must match")
     ])
-    password2 = PasswordField('Confirm password',validators=[Required()])
+    password2 = PasswordField('Confirm password',validators=[DataRequired('Please enter password again!')])
+    email = StringField('Email',validators=[DataRequired('please enter email!'),Email('Email format is incorrect!')])
+    phone = StringField('Phone',validators=[DataRequired('please enter phone number'),Regexp("1[3458]\\d[9]", message="Phone number format is incorrect")])
     submit = SubmitField('Register')
 
     def validate_username(self,field):
         if User.query.filter_by(name=field.data).first():
             raise ValidationError("Username already in use")
+    def validate_username(self,field):
+        if User.query.filter_by(email=field.data).first():
+            raise ValidationError("The email address has been registered")
+    def validate_username(self,field):
+        if User.query.filter_by(phone=field.data).first():
+            raise ValidationError("The phone number has been registered")
         
 class ChangePassword(FlaskForm):
     # 更改用户密码
