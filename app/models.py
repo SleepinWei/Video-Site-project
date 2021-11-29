@@ -30,9 +30,9 @@ class User(UserMixin,db.Model):
     
     about_me=db.Column(db.Text)
     location=db.Column(db.String(64))
-    coins = db.Column(db.Interger)
-    levelProgress = db.Column(db.SmallInterger)
-    level = db.Column(db.SmallInterger)
+    coins = db.Column(db.Integer)
+    levelProgress = db.Column(db.SmallInteger)
+    level = db.Column(db.SmallInteger)
     role_id = db.Column(db.Integer, db.ForeignKey('role.id')) #？对应关系，至少需要VIP、普通用户 #初始化时直接创建name为VIP和name为commonuser的role，后增添user时指定本成员的值即可
     
     likes = db.relationship('Videolike',backref='user')
@@ -146,7 +146,7 @@ class Videolike(db.Model):
 
 # 视频投币
 class Videocoin(db.Model):
-    __tablename__ = 'videolike'
+    __tablename__ = 'videocoin'
     id = db.Column(db.Integer, primary_key=True)  # 编号
     video_id = db.Column(db.Integer, db.ForeignKey('video.id'))  # 所属视频
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 所属用户

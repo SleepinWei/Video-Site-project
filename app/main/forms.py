@@ -1,5 +1,5 @@
 # from re import S
-from typing_extensions import Required
+# from typing_extensions import Required
 from flask_wtf import FlaskForm
 from wtforms import StringField,TextAreaField,BooleanField,SelectField,SubmitField,IntegerField,PasswordField
 from wtforms.validators import DataRequired,Length,Email,Regexp,EqualTo,ValidationError
@@ -30,7 +30,7 @@ class EditProfileAdminForm(FlaskForm):
     pass 
 
 class CommentForm(FlaskForm):
-    body = TextAreaField("发送一条评论",validators=[Required()])
+    body = TextAreaField("发送一条评论",validators=[DataRequired()])
     submit = SubmitField("发送")
 
 

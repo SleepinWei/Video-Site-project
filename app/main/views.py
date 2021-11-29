@@ -73,7 +73,7 @@ def index(page=None):
     return render_template("index.html", tags=tags, p=p, page_data=page_data)
 
 # 轮播图
-@home.route('/animation/')
+@main.route('/animation/')
 def animation():
     data = Preview.query.all()
     return render_template('animation.html', data=data)
