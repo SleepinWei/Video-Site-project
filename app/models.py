@@ -71,6 +71,7 @@ class Video(db.Model):
     title = db.Column(db.String(255), unique=True)  # 视频标题
     url = db.Column(db.String(255), unique=True)  # 地址 即视频对应跳转的url_for
     info = db.Column(db.Text)  # 简介
+    logo = db.Column(db.String(64))     # 视频封面图片名
     playnum = db.Column(db.BigInteger)  # 播放量
     likenum = db.Column(db.BigInteger)  # 点赞数
     commentnum = db.Column(db.BigInteger)  # 评论数
@@ -84,10 +85,11 @@ class Video(db.Model):
     comments = db.relationship("Comment", backref='video')  # 评论外键关联
     videocols = db.relationship("Videocol",backref='video') # 收藏外键关联
     videocoins = db.relationship("Videocoin", backref='video')  # 投币外键关联
-    def __init__(self,title,url,info,playnum,likenum,commentnum,collectionnum,coinnum,length,danmu_path,uploaduser_id):
+    def __init__(self,title,url,info,logo,playnum,likenum,commentnum,collectionnum,coinnum,length,danmu_path,uploaduser_id):
         self.title = title
         self.url = url
         self.info = info
+        self.logo = logo
         self.playnum = playnum
         self.likenum = likenum
         self.commentnum = commentnum
