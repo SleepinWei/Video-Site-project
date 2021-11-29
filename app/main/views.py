@@ -5,16 +5,79 @@ from flask_migrate import current
 from flask_login import current_user
 from werkzeug.urls import url_decode
 from werkzeug.utils import redirect
-from app.main.forms import CommentForm, EditProfileForm
+from app.main.forms import CommentForm, EditProfileForm, RedirectToEditForm
 from . import main
 import flask
 # from ..models import User
 # from ..models import Video
 from ..models import *
 
-@main.route('/')
-def index():
-    return flask.render_template('index.html')
+@main.route('/<int:page>/')
+def index(page=None):
+    if page is None:
+        page = 1
+    tags = Tag.query.all()
+    page_data = Movie.query
+    # 标签（eg 美食、电竞……）
+    tid = request.args.get('tid', 0)  # 获取tid，获取不到返回0
+    if int(tid) != 0:
+        page_data = page_data.filter_by(tag_id=int(tid))
+    # 视频受欢迎度
+    star = request.args.get('star', 0)
+    if int(star) != 0:
+        page_data = page_data.filter_by(star=int(star))
+    # 视频发布时间
+    time = request.args.get('time', 0)
+    if int(time) != 0:
+        if int(time) == 1:
+            page_data = page_data.order_by(
+                Movie.addtime.desc()
+            )
+        else:
+            page_data = page_data.order_by(
+                Movie.addtime.asc()
+            )
+    # 播放量
+    pm = request.args.get('pm', 0)
+    if int(pm) != 0:
+        if int(pm) == 1:
+            page_data = page_data.order_by(
+                Movie.playnum.desc()
+            )
+        else:
+            page_data = page_data.order_by(
+                Movie.playnum.asc()
+            )
+    # 评论量
+    cm = request.args.get('cm', 0)
+    if int(cm) != 0:
+        if int(cm) == 1:
+            page_data = page_data.order_by(
+                Movie.commentnum.desc()
+            )
+        else:
+            page_data = page_data.order_by(
+                Movie.commentnum.asc()
+            )
+
+    page = request.args.get("page", 1)
+    page_data = page_data.paginate(page=int(page), per_page=10)
+
+    p = dict(
+        tid=tid,
+        star=star,
+        time=time,
+        pm=pm,
+        cm=cm
+    )
+    return render_template("index.html", tags=tags, p=p, page_data=page_data)
+
+# 轮播图
+@home.route('/animation/')
+def animation():
+    data = Preview.query.all()
+    return render_template('animation.html', data=data)
+
 
 @main.route('/space')
 def spaceDefault():
@@ -41,6 +104,10 @@ def spaceUser(username):
     #get the user from the database
     user1=User(username)
 
+    #if click the edit button, redirect to edit page
+    form=RedirectToEditForm()
+    if form.validate_on_submit():
+        return flask.redirect(flask.url_for('editProfile'))
     return flask.render_template('UserSpace.html',user=user1)
 
 @main.route('/video/<videoname>')
@@ -61,20 +128,32 @@ def playvideo(videoname):
     # return flask.render_template('extend.html',video=video1)
     return render_template('video.html',video=video,comments=comments )
 
-@main.route("/edit-profile",methods=['GET','POST'])
+# 用户资料编辑
+@main.route("/editProfile",methods=['GET','POST'])
 @login_required
 def edit_profile():
     form = EditProfileForm()
     if form.validate_on_submit():
         current_user.nickName = form.nickName.data
-        current_user.location = form.location.data
-        current_user.about_me = form.about_me.data
+        current_user.password = form.password.data
+        current_user.introduction = form.introduction.data
+
         db.session.add(current_user)
         flash("You have updated your profile")
         return redirect(url_for(".spaceUser",username=current_user.name))
     form.nickName.data = current_user.nickName
-    form.location.data = current_user.location
-    form.about_me.data = current_user.about_me
-    return render_template('edit_profile.html',form=form)
+    form.password.data = current_user.password
+    form.introduction.data = current_user.introduction
+    return render_template('EditProfile.html',form=form)
+
+# 隐私政策
+@main.route('/privacy')
+def privacy():
+    return flask.render_template('privacy.html')
+
+#用户协议
+@main.route('/term_of_use')
+def licence():
+    return flask.render_template('termOfUse.html')
 
 # 管理员资料编辑器
