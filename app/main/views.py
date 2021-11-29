@@ -1,5 +1,6 @@
 from flask.helpers import flash, url_for
 from flask.templating import render_template
+from flask import request
 from flask_login.utils import login_required
 from flask_migrate import current
 from flask_login import current_user
@@ -75,7 +76,7 @@ def index(page=None):
 # 轮播图
 @main.route('/animation/')
 def animation():
-    data = Preview.Video.query.all()
+    data = Video.query.all()
     return render_template('animation.html', data=data)
 
 
