@@ -23,6 +23,10 @@ class Config:
     def init_app(app):
         pass
 
+class DevConfig(Config):
+    DEBUG = True
+
 config = {
     "default":Config,
+    "dev":DevConfig,
 }
