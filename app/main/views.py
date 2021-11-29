@@ -6,6 +6,7 @@ from flask_login import current_user
 from werkzeug.urls import url_decode
 from werkzeug.utils import redirect
 from app.main.forms import CommentForm, EditProfileForm, RedirectToEditForm
+from app.test import createModule
 from . import main
 import flask
 # from ..models import User
@@ -117,16 +118,23 @@ def playvideo(videoname):
     # 这里依据名字从查找video，后期可以改为依据id查找
 
     form = CommentForm()
+    buttonforms = createModule() #button forms 4 in 1 
+    
     if form.validate_on_submit():
         comment = Comment(content=form.body,author=current_user._get_current_object())
         # _get_current_object() returns somethign in the session, and even if author is not declared, this stil works
         # very mysterious and don't konw why
         db.session.add(comment)
         return redirect(url_for('.playvideo'),videoname=videoname)
+    if buttonforms[0].validate_on_submit():
+        # like
+        video.likenum++
+        
+    
     comments = Comment.query.order_by(Comment.addtime.desc()).all
     
     # return flask.render_template('extend.html',video=video1)
-    return render_template('video.html',video=video,comments=comments )
+    return render_template('video.html',video=video,comments=comments,buttonforms=buttonforms)
 
 # 用户资料编辑
 @main.route("/editProfile",methods=['GET','POST'])

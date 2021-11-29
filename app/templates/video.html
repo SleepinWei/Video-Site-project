@@ -6,17 +6,17 @@
 {%endblock%}
 	
 {%block style%}
-<!-- <link rel="stylesheet" href="css/bootstrap-4.4.1.css"> -->
+{#<!-- <link rel="stylesheet" href="css/bootstrap-4.4.1.css"> -->#}
 {{super()}}
-<link rel="stylesheet" href="css/space.css">
-<link rel="stylesheet" href="css/colours.css">
+<link rel="stylesheet" href="static/css/space.css">
+<link rel="stylesheet" href="static/css/colours.css">
 {%endblock%}
 
 
 {% block content %}
 <div class="container mt-4">
   <div class="row ml-5"> 
-    <!--正在播放-->
+    {#<!--正在播放-->#}
     <div class="col-md-8">
       <div>
         <h4>{{video.profile}}</h4>
@@ -27,7 +27,7 @@
         <video src="{{url_for('static',filename='{{video.Isplaying}}')}}" controls="controls" class="video"> 视频加载失败 </video>
         {% endblock videoplayer %}
       </div>
-      <!--发送弹幕框（未完成）-->
+      {#<!--发送弹幕框（未完成）-->#}
       <form class="form-inline" role="form">
         <div class="form-group">
           <h5>{{video.isWatching}}<small>人在看，已装填{{video.BulletScreenNumber}}条弹幕 </small></h5>
@@ -36,14 +36,30 @@
         <input type="text" class="form-control ml-5" id="name" placeholder="发个弹幕见证当下">
         <button type="submit" class="btn btn-default">发送</button>
       </form>
-      <!--点赞收藏评论转发--> 
-      <a href="#" class="btn btn-default btn-lg" role="button"><img src="images/dianzan.png" alt="" width="30px">{{video.LikeNumber}}</a> 
-	  <a href="#" class="btn btn-default btn-lg" role="button"><img src="images/toubi.png" alt="" width="30px">{{video.CoinNumber}}</a> 
-	  <a href="#" class="btn btn-default btn-lg" role="button"><img src="images/shoucang.png" alt="" width="30px">{{video.CollectionNumber}}</a> 
-	  <a href="#" class="btn btn-default btn-lg" role="button"><img src="images/zhuanfa.png" alt="" width="30px">{{video.TransmitNumber}}</a> 
-	  </div>
+      {#<!--点赞收藏评论转发--> #}
+      {#<form>
+        <input type="text" id="name" placeholder="hello">  
+        <button type="submit" class="btn btn-default btn-lg" role="button"><img src="static/images/dianzan.png" alt="" width="30px">{{video.LikeNumber}}</button>
+        <button type="submit" class="btn btn-default btn-lg" role="button"><img src="static/images/toubi.png" alt="" width="30px">{{video.CoinNumber}}</a> 
+        <button type="submit" class="btn btn-default btn-lg" role="button" ><img src="static/images/shoucang.png" alt="" width="30px">{{video.CollectionNumber}}</a> 
+        <button type="submit" class="btn btn-default btn-lg" role="button"><img src="static/images/zhuanfa.png" alt="" width="30px">{{video.TransmitNumber}}</a> 
+      </form>#}
+      <form>
+            {{buttonforms[0].submit(class="btn btn-primary")}}
+            {{video.likenum}}
+
+            {{buttonforms[1].submit(class="btn btn-success")}}
+            {{video.coinnum}}
+
+            {{buttonforms[2].submit(class="btn btn-info")}}
+
+            {{buttonforms[3].submit(class="btn btn-danger")}}
+      </form>
+
+    </div>
+    <hr>
     <div class="col-md-4"> 
-      <!--作者名及个人简介部分-->
+      {#<!--作者名及个人简介部分-->#}
       <div class="media">
         <div class="media-left"> <img src="{{url_for('static',filename='{{video.AuthorPhoto}}')}}"  alt="" class="rounded-circle" style="width:60px"> </div>
         <div class="media-body mt-2">
@@ -51,17 +67,17 @@
             <small>{{video.AuthorProfile}}</small></h6>
         </div>
       </div>
-      <!-- 标准的按钮 -->
+      {#<!-- 标准的按钮 -->#}
       <button type="button" class="btn btn-info colour-pink-background">为TA充电</button>
       <button type="button" class="btn btn-primary colour-white">+关注  {{video.AuthorFans}}</button>
       <hr>
       
-      <!--弹幕列表-->
+      {#<!--弹幕列表-->#}
       <button type="button" class="btn btn-light" data-toggle="collapse" 
     data-target="#demo"> 弹幕列表 ： </button>
       <div id="demo" class="collapse in"> {{呜呜呜别看了啥也没有}} </div>
       
-      <!--相关推荐-->
+      {#<!--相关推荐-->#}
       <div>
         <div>
           <hr>
@@ -76,30 +92,8 @@
             </a> </div>
         </div>
         {% endfor %}
-        <!-- <div class="media">
-          <div class="media-middle"> <a href="{{url_for('static',filename='{{video.recommendVideo[0].Path}}')}}"><img src="{{url_for('static',filename='{{video.recommendVideo[0].Picture}}')}}"  alt="图片加载失败" style="width:100px"></a> </div>
-          <div class="media-body mt-2"> <a href="{{url_for('static',filename='{{video.recommendVideo[0].Path}}')}}">
-            <h6 class="media-heading">{{video.recommendVideo[0].profile}}<br>
-              <small>{{video.recommendVideo[0].author}} {{video.recommendVideo[0].ViewCounts}}</small></h6>
-            </a> </div>
-        </div>
-        <div class="media">
-          <div class="media-middle"> <a href="{{url_for('static',filename='{{video.recommendVideo1].Path}}')}}"><img src="{{url_for('static',filename='{{video.recommendVideo[1].Picture}}')}}"  alt="图片加载失败" style="width:100px"></a> </div>
-          <div class="media-body mt-2"> <a href="{{url_for('static',filename='{{video.recommendVideo[1].Path}}')}}">
-            <h6 class="media-heading">{{video.recommendVideo[1].profile}}<br>
-              <small>{{video.recommendVideo[1].author}} {{video.recommendVideo[1].ViewCounts}}</small></h6>
-            </a> </div>
-        </div>
-        <div class="media">
-          <div class="media-middle"> <a href="{{url_for('static',filename='{{video.recommendVideo[2].Path}}')}}"><img src="{{url_for('static',filename='{{video.recommendVideo[2].Picture}}')}}"  alt="图片加载失败" style="width:100px"></a> </div>
-          <div class="media-body mt-2"> <a href="{{url_for('static',filename='{{video.recommendVideo[2].Path}}')}}">
-            <h6 class="media-heading">{{video.recommendVideo[2].profile}}<br>
-              <small>{{video.recommendVideo[2].author}} {{video.recommendVideo[2].ViewCounts}}</small></h6>
-            </a> </div>
-        </div> -->
         
-
-        <!-- form for sending comments -->
+        {#<!-- form for sending comments -->#}
         {% block commentForm %}
         <div class="col-md-4">
           {{wtf.quick_form(form)}}
@@ -112,11 +106,11 @@
           {% for comment in comments %}
             <li class="comment">
               <div class="profile-thumbnail">
-                <!-- add user profile thumbnails here -->
+                {#<!-- add user profile thumbnails here -->#}
               </div>
-              <div class="comment-time">{{moment(comment.addtime.fromNow()}}</div>
+              <div class="comment-time">{{moment(comment.addtime.fromNow())}}</div>
               <div class="comment-author">
-                <a href="{{url_for('.spaceUser',username=comment.username}}">
+                <a href="{{url_for('.spaceUser',username=comment.username)}}">
                   {{comment.author}}
                 </a>
               </div>

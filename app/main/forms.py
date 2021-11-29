@@ -2,6 +2,7 @@
 # from typing_extensions import Required
 from flask_wtf import FlaskForm
 from wtforms import StringField,TextAreaField,BooleanField,SelectField,SubmitField,IntegerField,PasswordField
+
 from wtforms.validators import DataRequired,Length,Email,Regexp,EqualTo,ValidationError
 from wtforms import ValidationError
 # from ..models import Role,User,Barrage,Video,Comment,Videocol,Videolike,UserExistError,UserNotFoundError
@@ -33,4 +34,28 @@ class CommentForm(FlaskForm):
     body = TextAreaField("发送一条评论",validators=[DataRequired()])
     submit = SubmitField("发送")
 
+# for likes,share and coins
+class ButtonLike(FlaskForm):
+    submit = SubmitField("Like")
 
+class ButtonCoin(FlaskForm):
+    submit = SubmitField("Coin")
+
+class ButtonShare(FlaskForm):
+    submit = SubmitField("Share")
+
+class ButtonStar(FlaskForm):
+    submit = SubmitField("Star")
+
+def createModule():
+    buttonForms = []
+    buttonLike = ButtonLike()
+    buttonCoin = ButtonCoin()
+    buttonStar = ButtonStar()
+    buttonShare = ButtonShare()
+    buttonForms.append(buttonLike)
+    buttonForms.append(buttonCoin)
+    buttonForms.append(buttonStar)
+    buttonForms.append(buttonShare)
+
+    return buttonForms
