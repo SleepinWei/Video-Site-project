@@ -15,3 +15,16 @@ blocks
 
 variables 
 +   user 
+## home.html 
+extends: base.html 
+blocks
++   contents: things inside a container("div class=container")
+
+## index.html 
+extends: home.html 
+blocks
+
+variables
++   tags: 
++   page_data
+    +   items 
