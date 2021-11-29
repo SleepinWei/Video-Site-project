@@ -239,6 +239,17 @@ def coin_video(video_id, user_id):
 # ---------------------------#
 
 
+# ----------------------------
+# @para Model: the table to search e.g. Video 
+# @para keyword: part of the title
+# ----------------------------
+def vagueSearch(Model,keyword):
+    # search by title
+    # return if match any keyword 
+    return Model.query.filter(
+        Model.title.like("%" + keyword + "%") if keyword is not None else ""
+    ).all()
+
 #测试
 if __name__ == '__main__':
     '''创建表'''
