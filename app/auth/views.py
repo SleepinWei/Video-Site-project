@@ -50,6 +50,8 @@ def register():
         user = User(name=form.name.data,password=form.password.data,email=form.email.data,phone=form.phone.data)
         db.session.add(user)
         flash("Sucessful registeration!")
+        #请加入必须同意用户协议才能注册的逻辑
+        
         return redirect(url_for('auth.login'))
     return render_template("auth/register.html",form=form)
 

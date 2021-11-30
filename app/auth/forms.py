@@ -21,7 +21,8 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email',validators=[DataRequired('please enter email!'),Email('Email format is incorrect!')])
     phone = StringField('Phone',validators=[DataRequired('please enter phone number'),Regexp("1[3458]\\d[9]", message="Phone number format is incorrect")])
     submit = SubmitField('Register')
-
+    #请加入必须同意用户协议才能注册的逻辑
+    
     def validate_username(self,field):
         if User.query.filter_by(name=field.data).first():
             raise ValidationError("Username already in use")
