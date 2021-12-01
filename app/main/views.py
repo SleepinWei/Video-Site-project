@@ -1,6 +1,5 @@
 from flask.helpers import flash, url_for
 from flask.templating import render_template
-from flask import request
 from flask_login.utils import login_required
 from flask_migrate import current
 from flask_login import current_user
@@ -18,66 +17,66 @@ from ..models import *
 def index(page=None):
     if page is None:
         page = 1
-    #tags = Tag.query.all()
-    page_data = Video.query
-    # 编号
-    id = request.args.get('id', 0)  # 获取id，获取不到返回0
-    if int(id) != 0:
-        page_data = page_data.filter_by(id=int(id))
-    # 点赞数
-    likenum = request.args.get('likenum', 0)
-    if int(likenum) != 0:
-        page_data = page_data.filter_by(likenum=int(likenum))
+    tags = Tag.query.all()
+    page_data = Movie.query
+    # 标签（eg 美食、电竞……）
+    tid = request.args.get('tid', 0)  # 获取tid，获取不到返回0
+    if int(tid) != 0:
+        page_data = page_data.filter_by(tag_id=int(tid))
+    # 视频受欢迎度
+    star = request.args.get('star', 0)
+    if int(star) != 0:
+        page_data = page_data.filter_by(star=int(star))
     # 视频发布时间
-    uploadtime = request.args.get('uploadtime', 0)
-    if int(uploadtime) != 0:
-        if int(uploadtime) == 1:
+    time = request.args.get('time', 0)
+    if int(time) != 0:
+        if int(time) == 1:
             page_data = page_data.order_by(
-                Video.uploadtime.desc()
+                Movie.addtime.desc()
             )
         else:
             page_data = page_data.order_by(
-                Video.uploadtime.asc()
+                Movie.addtime.asc()
             )
     # 播放量
-    playnum = request.args.get('playnum', 0)
-    if int(playnum) != 0:
-        if int(playnum) == 1:
+    pm = request.args.get('pm', 0)
+    if int(pm) != 0:
+        if int(pm) == 1:
             page_data = page_data.order_by(
-                Video.playnum.desc()
+                Movie.playnum.desc()
             )
         else:
             page_data = page_data.order_by(
-                Video.playnum.asc()
+                Movie.playnum.asc()
             )
     # 评论量
-    commentnum = request.args.get('commentnum', 0)
-    if int(commentnum) != 0:
-        if int(commentnum) == 1:
+    cm = request.args.get('cm', 0)
+    if int(cm) != 0:
+        if int(cm) == 1:
             page_data = page_data.order_by(
-                Video.commentnum.desc()
+                Movie.commentnum.desc()
             )
         else:
             page_data = page_data.order_by(
-                Video.commentnum.asc()
+                Movie.commentnum.asc()
             )
 
     page = request.args.get("page", 1)
     page_data = page_data.paginate(page=int(page), per_page=10)
 
     p = dict(
-        id=id,
-        likenum=likenum,
-        uploadtime=uploadtime,
-        playnum=playnum,
-        commentnum=commentnum
+        tid=tid,
+        star=star,
+        time=time,
+        pm=pm,
+        cm=cm
     )
-    return render_template("index.html", p=p, page_data=page_data)
+    return render_template("index.html", tags=tags, p=p, page_data=page_data)
 
 # 轮播图
 @main.route('/animation/')
 def animation():
-    data = Video.query.all()
+    data = Preview.query.all()
     return render_template('animation.html', data=data)
 
 
@@ -129,13 +128,18 @@ def playvideo(videoname):
         return redirect(url_for('.playvideo'),videoname=videoname)
     if buttonforms[0].validate_on_submit():
         # like
-        video.likenum++
+        video.likenum += 1 
+        videolike = Videolike(video_id=video.id,user_id=current_user.get_id())
+        video.videolikes.append(videolike)
+        db.session.add(video)
+        
         
     
     comments = Comment.query.order_by(Comment.addtime.desc()).all
     
     # return flask.render_template('extend.html',video=video1)
-    return render_template('video.html',video=video,comments=comments,buttonforms=buttonforms)
+    return render_template('video.html',video=video,comments=comments, \
+    buttonforms=buttonforms)
 
 # 用户资料编辑
 @main.route("/editProfile",methods=['GET','POST'])
