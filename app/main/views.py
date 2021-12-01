@@ -119,6 +119,7 @@ def playvideo(videoname):
 
     form = CommentForm()
     buttonforms = createModule() #button forms 4 in 1 
+    # like,coin,star,share
     
     if form.validate_on_submit():
         comment = Comment(content=form.body,author=current_user._get_current_object())
@@ -132,7 +133,22 @@ def playvideo(videoname):
         videolike = Videolike(video_id=video.id,user_id=current_user.get_id())
         video.videolikes.append(videolike)
         db.session.add(video)
-        
+
+    if(buttonforms[1].validate_on_submit()):
+        # coin
+        video.coinnum += 1
+        videocoin = Videocoin(video_id=video.id,user_id=current_user.get_id())
+        video.videocoins.append(videocoin)
+        db.session.add(video)    
+    
+    if(buttonforms[2].validate_on_submit()):
+        # star 
+        # where should I store starred videos? ---by zyw 12.1 
+        pass
+
+    if(buttonforms[3].validate_on_submit()):
+        # share
+        pass
         
     
     comments = Comment.query.order_by(Comment.addtime.desc()).all
