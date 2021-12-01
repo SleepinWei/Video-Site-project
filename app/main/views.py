@@ -132,14 +132,14 @@ def playvideo(videoname):
         video.likenum += 1 
         videolike = Videolike(video_id=video.id,user_id=current_user.get_id())
         video.videolikes.append(videolike)
-        db.session.add(video)
+        db.session.add(videolike)
 
     if(buttonforms[1].validate_on_submit()):
         # coin
         video.coinnum += 1
         videocoin = Videocoin(video_id=video.id,user_id=current_user.get_id())
         video.videocoins.append(videocoin)
-        db.session.add(video)    
+        db.session.add(videocoin)    
     
     if(buttonforms[2].validate_on_submit()):
         # star 
