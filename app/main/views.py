@@ -129,22 +129,37 @@ def playvideo(videoname):
         return redirect(url_for('.playvideo'),videoname=videoname)
     if buttonforms[0].validate_on_submit():
         # like
-        video.likenum += 1 
-        videolike = Videolike(video_id=video.id,user_id=current_user.get_id())
-        video.videolikes.append(videolike)
-        db.session.add(videolike)
+        exist_videolike = Videolike.query.filter_by(user_id=current_user.get_id(),video_id=video.id).first()
+        if exist_videolike == None:
+            video.likenum += 1 
+            videolike = Videolike(video_id=video.id,user_id=current_user.get_id())
+            db.session.add(videolike)
+        else:
+            video.likenum -= 1
+            db.session.delete(exist_videolike)
+        db.session.commit()
 
     if(buttonforms[1].validate_on_submit()):
         # coin
-        video.coinnum += 1
-        videocoin = Videocoin(video_id=video.id,user_id=current_user.get_id())
-        video.videocoins.append(videocoin)
-        db.session.add(videocoin)    
-    
+        exist_videocoin = Videocoin.query.filter_by(user_id=current_user.get_id(),video_id=video.id).first()
+        if exist_videocoin == None:
+            video.coinnum += 1
+            videocoin = Videocoin(video_id=video.id,user_id=current_user.get_id())
+            db.session.add(videocoin)    
+            db.session.commit()
+        else:
+            flash('You have throwed the coin')            
+
     if(buttonforms[2].validate_on_submit()):
         # star 
-        # where should I store starred videos? ---by zyw 12.1 
-        pass
+        exist_videocol = Videocol.query.filter_by(user_id=current_user.get_id(),video_id=video.id).first()
+        if exist_videocol == None:
+            video.videocols += 1
+            videocol = Videocol(video.id,current_user.get_id())
+            db.session.add(videocol)
+        else:
+            db.session.delete(exist_videocol)
+        db.session.commit()
 
     if(buttonforms[3].validate_on_submit()):
         # share
