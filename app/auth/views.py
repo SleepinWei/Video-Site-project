@@ -47,12 +47,14 @@ def logout():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(name=form.name.data,password=form.password.data,email=form.email.data,phone=form.phone.data)
-        db.session.add(user)
-        flash("Sucessful registeration!")
-        #请加入必须同意用户协议才能注册的逻辑
-        
-        return redirect(url_for('auth.login'))
+        if form.check.data == True:
+            user = User(name=form.name.data,password=form.password.data,email=form.email.data,phone=form.phone.data)
+            db.session.add(user)
+            flash("Sucessful registeration!")
+            return redirect(url_for('auth.login'))
+        else:
+            #请加入必须同意用户协议才能注册的逻辑
+            flash('Please check the agreement and agree')
     return render_template("auth/register.html",form=form)
 
 
