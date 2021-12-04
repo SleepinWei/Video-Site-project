@@ -3,6 +3,7 @@ from flask.templating import render_template
 from flask_login.utils import login_required
 from flask_migrate import current
 from flask_login import current_user
+from flask import request
 from werkzeug.urls import url_decode
 from werkzeug.utils import redirect
 from app.main.forms import CommentForm, EditProfileForm, RedirectToEditForm
