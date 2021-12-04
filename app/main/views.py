@@ -17,8 +17,8 @@ from ..models import *
 def index(page=None):
     if page is None:
         page = 1
-    tags = Tag.query.all()
-    page_data = Movie.query
+    #tags = Tag.query.all()
+    page_data = Video.query
     # 标签（eg 美食、电竞……）
     tid = request.args.get('tid', 0)  # 获取tid，获取不到返回0
     if int(tid) != 0:
@@ -32,33 +32,33 @@ def index(page=None):
     if int(time) != 0:
         if int(time) == 1:
             page_data = page_data.order_by(
-                Movie.addtime.desc()
+                Video.addtime.desc()
             )
         else:
             page_data = page_data.order_by(
-                Movie.addtime.asc()
+                Video.addtime.asc()
             )
     # 播放量
     pm = request.args.get('pm', 0)
     if int(pm) != 0:
         if int(pm) == 1:
             page_data = page_data.order_by(
-                Movie.playnum.desc()
+                Video.playnum.desc()
             )
         else:
             page_data = page_data.order_by(
-                Movie.playnum.asc()
+                Video.playnum.asc()
             )
     # 评论量
     cm = request.args.get('cm', 0)
     if int(cm) != 0:
         if int(cm) == 1:
             page_data = page_data.order_by(
-                Movie.commentnum.desc()
+                Video.commentnum.desc()
             )
         else:
             page_data = page_data.order_by(
-                Movie.commentnum.asc()
+                Video.commentnum.asc()
             )
 
     page = request.args.get("page", 1)
@@ -71,7 +71,7 @@ def index(page=None):
         pm=pm,
         cm=cm
     )
-    return render_template("index.html", tags=tags, p=p, page_data=page_data)
+    return render_template("index.html", p=p, page_data=page_data)
 
 # 轮播图
 @main.route('/animation/')
