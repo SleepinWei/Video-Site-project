@@ -67,6 +67,14 @@
                 <label for="introduction">个人简介</label>
                 {{ form.introduction(class='form-control') }}
               </div>
+              <div class="form-group">
+                <label for="email">邮箱</label>
+                {{ form.email(class='form-control') }}
+              </div>
+              <div class="form-group">
+                <label for="phone">手机号码</label>
+                {{ form.phone(class='form-control') }}
+              </div>
               {{ form.submit(class='btn btn-primary') }}
             </form>
           </div>
