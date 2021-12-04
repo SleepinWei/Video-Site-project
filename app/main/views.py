@@ -19,29 +19,36 @@ def index(page=None):
         page = 1
     #tags = Tag.query.all()
     page_data = Video.query
-    # 标签（eg 美食、电竞……）
-    tid = request.args.get('tid', 0)  # 获取tid，获取不到返回0
-    if int(tid) != 0:
-        page_data = page_data.filter_by(tag_id=int(tid))
-    # 视频受欢迎度
-    star = request.args.get('star', 0)
-    if int(star) != 0:
-        page_data = page_data.filter_by(star=int(star))
-    # 视频发布时间
-    time = request.args.get('time', 0)
-    if int(time) != 0:
-        if int(time) == 1:
+    # 编号
+    id = request.args.get('id', 0)  # 获取id，获取不到返回0
+    if int(id) != 0:
+        page_data = page_data.filter_by(id=int(id))
+    # 点赞数
+    likenum = request.args.get('likenum', 0)
+    if int(likenum) != 0:
+        if int(playnum) == 1:
             page_data = page_data.order_by(
-                Video.addtime.desc()
+                Video.likenum.desc()
             )
         else:
             page_data = page_data.order_by(
-                Video.addtime.asc()
+                Video.likenum.asc()
+            )
+    # 视频发布时间
+    uploadtime = request.args.get('uploadtime', 0)
+    if int(uploadtime) != 0:
+        if int(uploadtime) == 1:
+            page_data = page_data.order_by(
+                Video.uploadtime.desc()
+            )
+        else:
+            page_data = page_data.order_by(
+                Video.uploadtime.asc()
             )
     # 播放量
-    pm = request.args.get('pm', 0)
-    if int(pm) != 0:
-        if int(pm) == 1:
+    playnum = request.args.get('playnum', 0)
+    if int(playnum) != 0:
+        if int(playnum) == 1:
             page_data = page_data.order_by(
                 Video.playnum.desc()
             )
@@ -50,9 +57,9 @@ def index(page=None):
                 Video.playnum.asc()
             )
     # 评论量
-    cm = request.args.get('cm', 0)
-    if int(cm) != 0:
-        if int(cm) == 1:
+    commentnum = request.args.get('commentnum', 0)
+    if int(commentnum) != 0:
+        if int(commentnum) == 1:
             page_data = page_data.order_by(
                 Video.commentnum.desc()
             )
@@ -65,18 +72,18 @@ def index(page=None):
     page_data = page_data.paginate(page=int(page), per_page=10)
 
     p = dict(
-        tid=tid,
-        star=star,
-        time=time,
-        pm=pm,
-        cm=cm
+        id=id,
+        likenum=likenum,
+        uploadtime=uploadtime,
+        playnum=playnum,
+        commentnum=commentnum
     )
     return render_template("index.html", p=p, page_data=page_data)
 
 # 轮播图
 @main.route('/animation/')
 def animation():
-    data = Preview.query.all()
+    data = Video.query.all()
     return render_template('animation.html', data=data)
 
 
