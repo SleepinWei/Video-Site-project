@@ -33,6 +33,7 @@ def create_app(config_name):
     moment.init_app(app)
     login_manager.init_app(app)
     migrate.init_app(app,db)
+    mail.init_app(app)
     
     # blueprint
     from .main import main as main_blueprint
