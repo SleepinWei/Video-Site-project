@@ -86,7 +86,7 @@ def spaceDefault():
     if not current_user.is_authenticated:
         return redirect(url_for('auth.login'))
     #if user is logged in, render the space page
-        return flask.render_template('UserSpace.html', user=current_user)
+    return flask.render_template('UserSpace.html', user=current_user)
 
 # Default space
 @main.route('/space/')
@@ -96,7 +96,7 @@ def spaceDefaultAddition():
     if not current_user.is_authenticated:
         return redirect(url_for('auth.login'))
     #if user is logged in, render the space page
-        return flask.render_template('UserSpace.html', user=current_user)
+    return flask.render_template('UserSpace.html', user=current_user)
 
 # Redirect to user space
 @main.route('/space/<username>')
