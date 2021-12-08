@@ -26,6 +26,7 @@ def index(page=None):
         page_data = page_data.filter_by(id=int(id))
     # 点赞数
     likenum = request.args.get('likenum', 0)
+    playnum = 1
     if int(likenum) != 0:
         if int(playnum) == 1:
             page_data = page_data.order_by(
