@@ -23,6 +23,8 @@ class EditProfileForm(FlaskForm):
     password=PasswordField('Password',validators=[EqualTo('password2',message='Passwords must match')])
     password2=PasswordField('Confirm password',validators=[])
     introduction=TextAreaField('Introduction',validators=[DataRequired()])
+    email=StringField('Email',validators=[DataRequired(),Length(1,64),Email()])
+    phone=StringField('Phone',validators=[DataRequired(),Length(1,64)])
     submit=SubmitField('更新')
 
 

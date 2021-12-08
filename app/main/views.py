@@ -189,7 +189,7 @@ def edit_profile():
     if form.validate_on_submit():
         current_user.nickName = form.nickName.data
         current_user.password = form.password.data
-        current_user.introduction = form.introduction.data
+        current_user.about_me = form.introduction.data
 
         db.session.add(current_user)
         flash("You have updated your profile")

@@ -39,7 +39,26 @@ Space of {{user.nickName}}
 {% endblock %}
 
 {% block userIntroduction %}
-{{user.info}}
+{{user.about_me}}
+{% endblock %}
+
+{% block userProfile %}
+            <div class="row">
+                <div class="col-6 col-xl-4">
+                    <h4>Email</h4>
+                </div>
+                <div class="col-6 col-xl-8">
+                    <h5 class="text-right"><span aria-hidden="true"></span>{{user.email}}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 col-xl-4">
+                    <h4>Phone</h4>
+                </div>
+                <div class="col-6 col-xl-8">
+                    <h5 class="text-right"><span aria-hidden="true"></span>{{user.phone}}</h5>
+                </div>
+            </div>
 {% endblock %}
 
 {% block userFavouriteVideos %}

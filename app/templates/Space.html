@@ -49,16 +49,26 @@
     <hr>
     <div class="row">
         <div class="col-md-6 col-sm-12">
-            <h2>{TO BE FILLED :P}</h2>
+            <h2>Personal Information</h2>
             <hr>
+            {% block userProfile %}
             <div class="row">
-                <div class="col-6">
-                    <h4>{XXX}</h4>
+                <div class="col-6 col-xl-4">
+                    <h4>Email</h4>
                 </div>
-                <div class="col-6">
-                    <h5 class="text-right"><span aria-hidden="true"></span> {XXX}</h5>
+                <div class="col-6 col-xl-8">
+                    <h5 class="text-right"><span aria-hidden="true"></span>233@sbsb.com</h5>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-6 col-xl-4">
+                    <h4>Phone</h4>
+                </div>
+                <div class="col-6 col-xl-8">
+                    <h5 class="text-right"><span aria-hidden="true"></span>13912345678</h5>
+                </div>
+            </div>
+            {% endblock %}
         </div>
         <div class="col-md-6 col-sm-12">
             <h2>Favourite Video</h2>
