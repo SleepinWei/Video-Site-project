@@ -16,7 +16,7 @@ class Config:
         ['true', 'on', '1']
     MAIL_SENDER = ('Official',os.getenv('MAIL_USERNAME'))
 
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@127.0.0.1:3306/flaskdb'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:000000@127.0.0.1:3306/flaskdb'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SECRET_KEY = "DFVBNL"
 

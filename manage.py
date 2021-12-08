@@ -18,6 +18,7 @@ cli = FlaskGroup(app)
 @app.shell_context_processor
 def make_shell_context():
     return dict(
+        app=app,
         User=User,
         Role=Role,
         db=db
@@ -25,11 +26,10 @@ def make_shell_context():
 
 # add command:
 # create_user username
-@app.cli.command("create_user")
-@click.argument("username")
-def create_user(username):
-    user = User(name=username)
-    db.session.add(user)
+from cli import register
+register(app)
+
+
 # def make_shell_context():
 #     return dict(app=app,db=db,User=User,Role=Role)
 #     # return dict(app=app,db=db) don't know how to make commands here
