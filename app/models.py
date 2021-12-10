@@ -83,6 +83,9 @@ class Video(db.Model):
     length = db.Column(db.String(100))  # 视频时长
     uploadtime = db.Column(db.DateTime, index=True, default=datetime.now)  # 视频上传时间
     danmu_path = db.Column(db.String(100))  # 弹幕表存放路径
+    
+    thumbnail = db.Column(db.String(100)) # 缩略图路径
+    
     uploaduser_id = db.Column(db.Integer, db.ForeignKey('user.id'))    # 上传的user外键
     videolikes = db.relationship("Videolike", backref='video')  # 点赞外键关联
     comments = db.relationship("Comment", backref='video')  # 评论外键关联

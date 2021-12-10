@@ -43,11 +43,11 @@
         {% for video in videos %}
         <div class="card js-tilt text-white bg-info shadow-lg">
             <a href="{{video.url}}">
-                <img src="{{video.}}" class="card-img-top" alt="...">
+                <img src="{{video.thumbnail}}" class="card-img-top" alt="{{video.title}}">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <h5 class="card-title">{{video.title}}</h5>
+                            <p class="card-text">{{video.info}}</p>
+                    <p class="card-text"><small class="text-muted">发布于{{moment(video.uploadtime).fromNow(refresh=True)}}前</small></p>
                 </div>
             </a>
         </div>
