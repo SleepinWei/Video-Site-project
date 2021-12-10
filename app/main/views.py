@@ -14,78 +14,14 @@ import flask
 # from ..models import Video
 from ..models import *
 
-# @main.route('/<int:page>/')
-# def index(page=None):
-#     if page is None:
-#         page = 1
-#     #tags = Tag.query.all()
-#     page_data = Video.query
-#     # 编号
-#     id = request.args.get('id', 0)  # 获取id，获取不到返回0
-#     if int(id) != 0:
-#         page_data = page_data.filter_by(id=int(id))
-#     # 点赞数
-#     likenum = request.args.get('likenum', 0)
-#     playnum = 1
-#     if int(likenum) != 0:
-#         if int(playnum) == 1:
-#             page_data = page_data.order_by(
-#                 Video.likenum.desc()
-#             )
-#         else:
-#             page_data = page_data.order_by(
-#                 Video.likenum.asc()
-#             )
-#     # 视频发布时间
-#     uploadtime = request.args.get('uploadtime', 0)
-#     if int(uploadtime) != 0:
-#         if int(uploadtime) == 1:
-#             page_data = page_data.order_by(
-#                 Video.uploadtime.desc()
-#             )
-#         else:
-#             page_data = page_data.order_by(
-#                 Video.uploadtime.asc()
-#             )
-#     # 播放量
-#     playnum = request.args.get('playnum', 0)
-#     if int(playnum) != 0:
-#         if int(playnum) == 1:
-#             page_data = page_data.order_by(
-#                 Video.playnum.desc()
-#             )
-#         else:
-#             page_data = page_data.order_by(
-#                 Video.playnum.asc()
-#             )
-#     # 评论量
-#     commentnum = request.args.get('commentnum', 0)
-#     if int(commentnum) != 0:
-#         if int(commentnum) == 1:
-#             page_data = page_data.order_by(
-#                 Video.commentnum.desc()
-#             )
-#         else:
-#             page_data = page_data.order_by(
-#                 Video.commentnum.asc()
-#             )
-
-#     page = request.args.get("page", 1)
-#     page_data = page_data.paginate(page=int(page), per_page=10)
-
-#     p = dict(
-#         id=id,
-#         likenum=likenum,
-#         uploadtime=uploadtime,
-#         playnum=playnum,
-#         commentnum=commentnum
-#     )
-#     return render_template("index.html", p=p, page_data=page_data)
-
 @main.route('/')
 def index():
-    data = Video.query.all()
-    return render_template('animation.html', data=data)
+    videos = Video.query.order_by(Video.playnum)
+    if(videos.count()>10):
+        videos = videos[0:10]
+    else:
+        videos = videos.all()
+    return render_template('newerindex.html',user=current_user,videos=videos)
 
 # 轮播图
 @main.route('/animation/')

@@ -1,0 +1,58 @@
+{% extends 'base/base.html' %}
+
+{% block script %}
+{{super()}}
+<script src="static/js/tilt.jquery.js"></script>
+<script src="static/js/granim.js"></script>
+<script>
+    $('.js-tilt').tilt({
+        perspective:1000,
+        glare: true,
+        maxGlare: .2
+    })
+</script>
+<script>
+    var granimInstance = new Granim({
+        element: '#granim-canvas',
+        direction: 'left-right',
+        isPausedWhenNotInView: true,
+        states : {
+            "default-state": {
+                gradients: [
+                    ['#ff9966', '#ff5e62'],
+                    ['#00F260', '#0575E6'],
+                    ['#e1eec3', '#f05053']
+                ]
+            }
+        }
+    });
+</script>
+{% endblock script %}
+
+{% block style %}
+{{super()}}
+{% endblock style %}
+
+{% block canvas %}
+    <canvas id="granim-canvas" style="position:absolute;display:block;width:100%;height:100%;top:0;right:0;bottom:0;left:0"></canvas>
+{% endblock canvas %}
+
+{% block content %}
+<div class="container mt-3">
+    <div class="card-deck">
+        {% for video in videos %}
+        <div class="card js-tilt text-white bg-info shadow-lg">
+            <a href="{{url_for('.playvideo',videoname=video.title)}}">
+                <img src="{{video.thumbnail}}" class="card-img-top" alt="{{video.title}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{video.title}}</h5>
+                            <p class="card-text">{{video.info}}</p>
+                    <p class="card-text"><small class="text-muted">发布于{{moment(video.uploadtime).fromNow(refresh=True)}}前</small></p>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

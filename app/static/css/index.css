@@ -3,3 +3,202 @@
     width: 200px;
     height: 200px;
 }
+html {
+    width: 100%;
+    height: 100%;
+}
+a {
+    color: black;
+  }
+a:link {
+text-decoration: none;
+} /* 未被访问的链接 */
+a:visited {
+text-decoration: none;
+} /* 已被访问的链接 */
+a:hover {
+color: #4e6ef2;
+text-decoration: none;
+} /* 鼠标指针移动到链接上 */
+a:active {
+text-decoration: none;
+}
+#main {
+display: flex;
+flex-wrap: nowrap;
+flex-direction: row;
+width: 70%;
+}
+/* banner图片等比例缩小 */
+.banner{padding-bottom:34px;}
+
+.banner,.banner a,.banner img{width: 100%;height: 100%;}
+.pic {
+height: 228px;
+width: 280px;
+}
+.picture {
+height: 125px;
+width: 206px;
+}
+#main div {
+    width: 100px;
+    height: 100px;
+}
+.all {
+/* display: flex;
+flex-direction: column; */
+    padding-right: 95px;
+    padding-left: 105px;
+    margin-right: auto;
+    margin-left: auto;
+}
+/* .live-card {
+    color: #505050;
+    font-size: 12px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    width: 206px;
+} */
+.row {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.top-content * {
+/* 文字在图片后面居中对齐 */
+    display: inline-block;
+    vertical-align: middle;
+    padding-top: 10px;
+    padding-bottom: 5px;
+/* left: 120px; */
+}
+.video-title {
+    font-size: 24px;
+    color: #000000;
+}
+.text-info {
+    text-align: center;
+    font-size: 12px;
+    box-sizing: border-box;
+    margin: 0;
+    padding-left: 30px;
+    color: #505050;
+    line-height: 28px;
+}
+.swap {
+    padding-left: 417px;
+}
+.btn {
+    font-size: 12px;
+    height: 28px;
+    width: 60px;
+    line-height: 6px;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+}
+.other {
+padding-left: 15px;
+
+}
+.tab-switch {
+    color: #505050;
+    font-size: 12px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    line-height: 18px;
+    height: 22px;
+    margin-right: 20px;
+    border-bottom: 2px solid;
+    padding: 0px;
+}
+.container {
+    width: 1160px;
+    height: 520px;
+    margin: 0 auto;
+    display: flex;
+    border: 4px solid #ededed;
+    border-radius: 4px;
+}
+.icon {
+    height: 36px;
+    width: 36px;
+    padding-top: 30px;
+    padding-left: 120px;
+}
+
+.live {
+    padding-left: 30px;
+}
+.right {
+    float: right;
+    width: 320px;
+    height: 330px;
+    box-sizing: border-box;
+
+}
+.slide-pic {
+    padding-top: 10px;
+    width: 315px;
+    height: 367px;
+}
+table {
+    position: absolute;
+}
+.up {
+    font-size: 12px;
+    cursor: pointer;
+    color: #00a1d6;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    line-height: 16px;
+}
+.up-cover {
+    font-size: 12px;
+    cursor: pointer;
+    color: #212121;
+    line-height: 16px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+.face {
+    position: absolute;
+    font-size: 12px;
+    color: #212121;
+    line-height: 16px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    border-style: none;
+    width: 36px;
+    height: 36px;
+    display: inline-block;
+    border-radius: 50%;
+    background: #f7f7f7;
+    margin-top: 20px;
+}
+.txt {
+    padding-left: 50px;
+}
+.name {
+    font-size: 14px;
+    font-weight: bold;
+    /* padding-left: 50px; */
+}
+.tag {
+    font-size: 12px;
+    line-height: 16px;
+    color: #999;
+    margin-top: 8px;
+}
