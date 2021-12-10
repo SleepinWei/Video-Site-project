@@ -92,8 +92,34 @@
         </div>
       </form>
 
+      {#<!-- form for sending comments -->#}
+      {% block commentForm %}
+      <hr>
+      <div class="col-md-4 mt-2">
+        {{wtf.quick_form(form)}}
+      </div>
+      {% endblock commentForm %}
+
+      {% block showComment %}
+      <hr>
+      <ul class="posts">
+        {% for comment in comments %}
+          <li class="comment">
+            <div class="profile-thumbnail">
+              {#<!-- add user profile thumbnails here -->#}
+            </div>
+            <div class="comment-time">{{moment(comment.addtime.fromNow())}}</div>
+            <div class="comment-author">
+              <a href="{{url_for('.spaceUser',username=comment.username)}}">
+                {{comment.author}}
+              </a>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+      {% endblock showComment %}
     </div>
-    <hr>
+    
     <div class="col-md-4"> 
       {#<!--作者名及个人简介部分-->#}
       <div class="media">
@@ -128,32 +154,6 @@
             </a> </div>
         </div>
         {% endfor %}
-        
-        {#<!-- form for sending comments -->#}
-        {% block commentForm %}
-        <div class="col-md-4">
-          {{wtf.quick_form(form)}}
-        </div>
-        {% endblock commentForm %}
-
-        {% block showComment %}
-        <hr>
-        <ul class="posts">
-          {% for comment in comments %}
-            <li class="comment">
-              <div class="profile-thumbnail">
-                {#<!-- add user profile thumbnails here -->#}
-              </div>
-              <div class="comment-time">{{moment(comment.addtime.fromNow())}}</div>
-              <div class="comment-author">
-                <a href="{{url_for('.spaceUser',username=comment.username)}}">
-                  {{comment.author}}
-                </a>
-              </div>
-            </li>
-          {% endfor %}
-        </ul>
-        {% endblock showComment %}
 
       </div>
     </div>
