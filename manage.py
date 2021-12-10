@@ -1,7 +1,7 @@
 # from Danmu_db import User
 from os import name
 import re
-from app.models import User,Role
+from app.models import User,Role 
 from app import create_app,db 
 # from flask_script import Manager,Shell
 # from flask_migrate import Migrate 
@@ -28,7 +28,6 @@ def make_shell_context():
 # create_user username
 from cli import register
 register(app)
-
 
 # def make_shell_context():
 #     return dict(app=app,db=db,User=User,Role=Role)

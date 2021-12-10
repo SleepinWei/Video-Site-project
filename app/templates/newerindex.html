@@ -42,7 +42,7 @@
     <div class="card-deck">
         {% for video in videos %}
         <div class="card js-tilt text-white bg-info shadow-lg">
-            <a href="{{video.url}}">
+            <a href="{{url_for('.playvideo',videoname=video.title)}}">
                 <img src="{{video.thumbnail}}" class="card-img-top" alt="{{video.title}}">
                 <div class="card-body">
                     <h5 class="card-title">{{video.title}}</h5>
@@ -51,7 +51,7 @@
                 </div>
             </a>
         </div>
-        {% endfor videos %}
+        {% endfor %}
     </div>
 </div>
 

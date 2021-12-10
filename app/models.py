@@ -72,7 +72,7 @@ class Video(db.Model):
     __tablename__ = 'video'
     id = db.Column(db.Integer, primary_key=True)  # 编号（主键）
     title = db.Column(db.String(255), unique=True)  # 视频标题
-    url = db.Column(db.String(255), unique=True)  # 地址 即视频对应跳转的url_for
+    url = db.Column(db.String(255), unique=True)  # 地址 存储的地址
     info = db.Column(db.Text)  # 简介
     logo = db.Column(db.String(64))     # 视频封面图片名
     playnum = db.Column(db.BigInteger)  # 播放量
