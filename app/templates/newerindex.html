@@ -39,16 +39,18 @@
 
 {% block content %}
 <div class="container mt-3">
-    <div class="card-deck">
+    <div class="row row-cols-1 row-cols-md-3">
         {% for video in videos %}
-        <div class="card js-tilt text-white bg-info shadow-lg">
+        <div class="col mb-4">
             <a href="{{url_for('.playvideo',videoname=video.title)}}">
+            <div class="card js-tilt text-white bg-info shadow-lg">
                 <img src="{{video.thumbnail}}" class="card-img-top" alt="{{video.title}}">
-                <div class="card-body">
-                    <h5 class="card-title">{{video.title}}</h5>
-                            <p class="card-text">{{video.info}}</p>
-                    <p class="card-text"><small class="text-muted">发布于{{moment(video.uploadtime).fromNow(refresh=True)}}前</small></p>
-                </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-white">{{video.title}}</h5>
+                                <p class="card-text text-dark">{{video.info}}</p>
+                        <p class="card-text"><small class="text-muted">发布于{{moment(video.uploadtime).fromNow(refresh=True)}}前</small></p>
+                    </div>
+            </div>
             </a>
         </div>
         {% endfor %}

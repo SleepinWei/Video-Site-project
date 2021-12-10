@@ -17,9 +17,13 @@ def register(app):
     @click.argument("video_info")
     @click.argument("video_likenum")
     def add_video(video_title,video_info,video_likenum):
-        video = Video(title=video_title,likenum=video_likenum,info=video_info)
-        video.url = "/video/"+video_title
-        video.thumbnail = "/static/images/thumbnail/"+video.title
+        video = Video(title=video_title,
+        info=video_info,playnum=0,likenum=0,commentnum=0,
+        collectionnum=0,coinnum=0,
+        length=0,danmu_path=None,uploaduser_id=None)
+
+        video.url = "static/video/"+video_title+".mp4"
+        video.thumbnail = "/static/images/thumbnail/"+video.title+".jpg"
         video.uploadtime = datetime.utcnow()
 
         db.session.add(video)

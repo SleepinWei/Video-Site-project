@@ -77,6 +77,7 @@ def playvideo(videoname):
         # very mysterious and don't konw why
         db.session.add(comment)
         return redirect(url_for('.playvideo'),videoname=videoname)
+
     if buttonforms[0].validate_on_submit():
         # like
         exist_videolike = Videolike.query.filter_by(user_id=current_user.get_id(),video_id=video.id).first()
@@ -116,11 +117,11 @@ def playvideo(videoname):
         pass
         
     
-    comments = Comment.query.order_by(Comment.addtime.desc()).all
+    comments = Comment.query.order_by(Comment.addtime.desc()).all()
     
     # return flask.render_template('extend.html',video=video1)
     return render_template('video.html',video=video,comments=comments, \
-    buttonforms=buttonforms)
+    buttonforms=buttonforms,user=current_user,form=form)
 
 # 用户资料编辑
 @main.route("/editProfile",methods=['GET','POST'])
