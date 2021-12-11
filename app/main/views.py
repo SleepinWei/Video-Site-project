@@ -13,7 +13,7 @@ import flask
 # from ..models import Video
 from ..models import *
 
-@main.route('/')
+@main.route('/',methods=["POST","GET"])
 def index():
     videos = Video.query.order_by(Video.playnum)
     if(videos.count()>10):
@@ -29,7 +29,7 @@ def animation():
     return render_template('animation.html', data=data)
 
 
-@main.route('/space')
+@main.route('/space',methods=["POST","GET"])
 def spaceDefault():
     #if user is not logged in, redirect to login page
     if not current_user.is_authenticated:
@@ -38,7 +38,7 @@ def spaceDefault():
     return flask.render_template('UserSpace.html', user=current_user)
 
 # Default space
-@main.route('/space/')
+@main.route('/space/',methods=["POST","GET"])
 def spaceDefaultAddition():
     #the same as above
     #if user is not logged in, redirect to login page
@@ -48,7 +48,7 @@ def spaceDefaultAddition():
     return flask.render_template('UserSpace.html', user=current_user)
 
 # Redirect to user space
-@main.route('/space/<username>')
+@main.route('/space/<username>',methods=["POST","GET"])
 @login_required
 def spaceUser(username):
     #get the user from the database
@@ -60,7 +60,7 @@ def spaceUser(username):
         return flask.redirect(flask.url_for('editProfile'))
     return flask.render_template('UserSpace.html',user=user1)
 
-@main.route('/video/<videoname>')
+@main.route('/video/<videoname>',methods=["POST","GET"])
 def playvideo(videoname):
     # video1=Video(videoname)
     video = Video.query.filter_by(title=videoname).first()
@@ -71,7 +71,10 @@ def playvideo(videoname):
     # like,coin,star,share
     
     if form.validate_on_submit():
-        comment = Comment(content=form.body,author=current_user._get_current_object())
+        if current_user.is_anonymous or not current_user.is_authenticated:
+            return redirect(url_for("auth.login"))
+        comment = Comment(content=form.body,user_id=current_user.id,
+                video_id=video.id)
         # _get_current_object() returns somethign in the session, and even if author is not declared, this stil works
         # very mysterious and don't konw why
         db.session.add(comment)

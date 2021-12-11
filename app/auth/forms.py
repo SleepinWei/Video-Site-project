@@ -19,18 +19,18 @@ class RegistrationForm(FlaskForm):
     ])
     password2 = PasswordField('Confirm password',validators=[DataRequired('Please enter password again!')])
     email = StringField('Email',validators=[DataRequired('please enter email!'),Email('Email format is incorrect!')])
-    phone = StringField('Phone',validators=[DataRequired('please enter phone number'),Regexp("1[3458]\\d[9]", message="Phone number format is incorrect")])
+    phone = StringField('Phone',validators=[DataRequired('please enter phone number'),Regexp("1[3458]\\d{9}", message="Phone number format is incorrect")])
     check = BooleanField('User agreement') #必须同意用户协议才能注册
     submit = SubmitField('Register')
     
     
-    def validate_username(self,field):
+    def validate_name(self,field):
         if User.query.filter_by(name=field.data).first():
             raise ValidationError("Username already in use")
-    def validate_username(self,field):
+    def validate_email(self,field):
         if User.query.filter_by(email=field.data).first():
             raise ValidationError("The email address has been registered")
-    def validate_username(self,field):
+    def validate_phone(self,field):
         if User.query.filter_by(phone=field.data).first():
             raise ValidationError("The phone number has been registered")
         
