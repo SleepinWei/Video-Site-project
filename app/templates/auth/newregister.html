@@ -3,10 +3,10 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-8">
+        <div class="col-9">
         {#Registeration part#}
         <!-- For flash messages & title -->
-            <div class="row mt-2 ml-3">
+            <div class="row mt-2 ml-3 align-items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-people-fill align-middle" viewBox="0 0 16 16">
                     <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                     <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
@@ -28,89 +28,122 @@
             </div>
             <!-- for form group -->
             <form role="form" method="post">
-                <div class="row"> 
-                    <div class="input-group mt-3 offset-md-2 col-12">
+                <div class="row mt-3"> 
+                    <div class="input-group offset-md-2 col-10">
                         <div class="input-group-prepend">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill align-middle" viewBox="0 0 16 16">
-                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                            </svg>
+                            <div class="input-group-text">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-person-fill align-self-center" viewBox="0 0 16 16">
+                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                </svg>
+                            </div>
                         </div>
                         {{form.name(class="form-control col-8",placeholder="取个用户名吧！")}}
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mt-2">
                     {% for err in form.name.errors %}
                     <div class="col-md-8">
                         <div class="alert alert-danger">{{ err }}</div>
                     </div>
                     {% endfor %}
                 </div>
-                <div class="row">
-                    <div class="input-group mt-3 offset-md-2 col-12">
+                <div class="row mt-3">
+                    <div class="input-group offset-md-2 col-10">
                         <div class="input-group-prepend">
-
+                            <div class="input-group-text">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-person-fill align-self-center" viewBox="0 0 16 16">
+                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                </svg>
+                            </div>
                         </div>
-                            form.email.label }}
-                        {{ form.email }}
+                        {{ form.email(class="form-control col-8",placeholder="输入用户邮箱")}}
                     </div>
                 </div>
                 <div class="row">
                     {% for err in form.email.errors %}
                     <div class="col-md-12">
-                        <font style="color:red">{{ err }}</font>
+                        <div class="alert alert-danger">{{ err }}</div>
                     </div>
                     {% endfor %}
                 </div>
         
         
                 <!--错误提示-->
-                <div class="form-group">
-                    <label for="input_phone"><span class="glyphicon glyphicon-phone"></span>&nbsp;{{
-                        form.phone.label }}</label>
-                    {{ form.phone }}
+                <div class="row mt-3">
+                    <div class="input-group offset-md-2 col-10">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mailbox2 align-self-center" viewBox="0 0 16 16">
+                                    <path d="M9 8.5h2.793l.853.854A.5.5 0 0 0 13 9.5h1a.5.5 0 0 0 .5-.5V8a.5.5 0 0 0-.5-.5H9v1z"/>
+                                    <path d="M12 3H4a4 4 0 0 0-4 4v6a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V7a4 4 0 0 0-4-4zM8 7a3.99 3.99 0 0 0-1.354-3H12a3 3 0 0 1 3 3v6H8V7zm-3.415.157C4.42 7.087 4.218 7 4 7c-.218 0-.42.086-.585.157C3.164 7.264 3 7.334 3 7a1 1 0 0 1 2 0c0 .334-.164.264-.415.157z"/>
+                                  </svg>
+                            </div>
+                        </div>
+                        {{ form.phone(class="form-control col-8",placeholder="请输入手机号")}}
+                    </div>
                 </div>
                 <!--错误提示-->
                 {% for err in form.phone.errors %}
                 <div class="col-md-12">
-                    <font style="color:red">{{ err }}</font>
+                    <div class="alert alert-danger">{{ err }}</div>
                 </div>
                 {% endfor %}
-                <div class="form-group">
-                    <label for="input_password"><span class="glyphicon glyphicon-lock"></span>&nbsp;{{
-                        form.password.label }}</label>
-                    {{ form.password }}
+                <div class="row mt-3">
+                    <div class="input-group offset-md-2 col-10">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-key-fill align-self-center" viewBox="0 0 16 16">
+                                    <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2zM2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                                  </svg>
+                            </div>
+                        </div>
+                        {{ form.password(class="form-control col-8",placeholder="输入密码")}}
+                    </div>
                 </div>
                 <!--错误提示-->
                 {% for err in form.password.errors %}
                 <div class="col-md-12">
-                    <font style="color:red">{{ err }}</font>
+                    <div class="alert alert-danger">{{ err }}</div>
                 </div>
                 {% endfor %}
-                <div class="form-group">
-                    <label for="input_repassword"><span class="glyphicon glyphicon-lock"></span>&nbsp;{{
-                        form.password2.label }}</label>
-                    {{ form.password2 }}
+                <div class="row mt-3">
+                    <div class="input-group offset-md-2 col-10">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-key align-self-center" viewBox="0 0 16 16">
+                                    <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z"/>
+                                    <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                  </svg>
+                            </div>
+                        </div>
+                        {{ form.password2(class="form-control col-8",placeholder="请重复密码")}}
+                    </div>
                 </div>
                 <!--错误提示-->
                 {% for err in form.password2.errors %}
                 <div class="col-md-12">
-                    <font style="color:red">{{ err }}</font>
+                    <div class="alert alert-danger">{{ err }}</div>
                 </div>
                 {% endfor %}
-                <div class="input-group mb-3">
-                    <div>
-                        {{form.check(class='input-group-text input-group-prepend')}}
-                        <!-- <input type="checkbox" aria-label="placeholder text"> -->
-                    </div>
-                    <div class="ml-3">我同意<a href="termOfUse.html">《用户协议》</a>及<a href="privacy.html">《隐私政策》</a>
+                <div class="row mt-3 align-items-center">
+                    <div class="input-group offset-md-2 mb-3">
+                        <div>
+                            {{form.check(class='input-group-text input-group-prepend align-middle')}}
+                            <!-- <input type="checkbox" aria-label="placeholder text"> -->
+                        </div>
+                        <div class="ml-3">我同意<a href="{{url_for('main.licence')}}">《用户协议》</a>及<a href="{{url_for('main.privacy')}}">《隐私政策》</a>
+                        </div>
                     </div>
                 </div>
-                {{ form.submit }}
+                <div class="offset-md-2">
+                    {{ form.submit(class="btn btn-info") }}
+                </div>
                 {{ form.csrf_token }}    
             </form>
         </div>
-        <div class="col-4">
+        <div class="col-3">
         {#Some background picture#}
+            <img src="{{url_for('static',filename='images/register-back.jpg')}}"/>
         </div>
     </div>
 </div>
