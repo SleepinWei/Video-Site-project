@@ -37,7 +37,13 @@
                 {% block navbar_elements %}
                 <li class="nav-item active"> <a class="nav-link" href="/newerindex.html">主站 <span
                             class="sr-only">(current)</span></a> </li>
-                <li class="nav-item"> <a class="nav-link" href="{{url_for('spaceUser')}}">个人主页</a> </li>
+                <li class="nav-item"> 
+                    {% if current_user.is_anonymous %}
+                    <a class="nav-link" href="{{url_for('main.spaceUser',username='')}}">个人主页</a> 
+                    {% else %}
+                    <a class="nav-link" href="{{url_for('main.spaceUser',username=user.name)}}">个人主页</a>     
+                    {% endif %}
+                </li>
                 <!--                     <li class="nav-item"> <a class="nav-link" href="#"></a> </li>
                     <li class="nav-item"> <a class="nav-link" href="#">动态</a> </li>
                     <li class="nav-item"> <a class="nav-link" href="#">收藏</a> </li>
@@ -52,14 +58,13 @@
                         <a class="dropdown-item" href="/privacy.html">隐私政策</a>
                     </div>
                 </li>
-                {#
+                
                 {% if current_user.is_authenticated %}
-                <li><a href="#">Sign Out</a></li>
+                <li class="nav-item align-middle"><a href="{{url_for('auth.logout')}}" class="nav-link">Sign Out</a></li>
                 {% else %}
-                <li><a href="#">Sign In</a></li>
+                <li class="nav-item"><a href="{{url_for('auth.login')}}" class="nav-link">Sign In</a></li>
                 {% endif %}
-                #}
-
+                
                 {% endblock navbar_elements %}
             </ul>
 
@@ -69,7 +74,24 @@
                 <input class="form-control mr-sm-2" type="search" placeholder="Search More" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
-
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    {% if current_user.is_authenticated %}
+                    <a href="#" class="dropdown-toggle btn btn-success" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                    {% else %}
+                    <a href="#" class="dropdown-toggle btn btn-success disabled" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                    {% endif %}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-circle align-middle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                        </svg>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#">收藏</a>
+                        <a class="dropdown-item" href="#">关注</a>
+                    </div>
+                </li>
+            </ul>
         </div>
     </nav>
     {% endblock navbar %}

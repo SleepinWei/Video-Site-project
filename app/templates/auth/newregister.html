@@ -31,22 +31,26 @@
                 <div class="row"> 
                     <div class="input-group mt-3 offset-md-2 col-12">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon3">User Name</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill align-middle" viewBox="0 0 16 16">
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                            </svg>
                         </div>
                         {{form.name(class="form-control col-8",placeholder="取个用户名吧！")}}
                     </div>
                 </div>
                 <div class="row">
                     {% for err in form.name.errors %}
-                    <div class="col-md-12">
-                        <font style="color:red">{{ err }}</font>
+                    <div class="col-md-8">
+                        <div class="alert alert-danger">{{ err }}</div>
                     </div>
                     {% endfor %}
                 </div>
                 <div class="row">
-                    <div class="form-group">
-                        <label for="input_email"><span class="glyphicon glyphicon-envelope"></span>&nbsp;{{
-                            form.email.label }}</label>
+                    <div class="input-group mt-3 offset-md-2 col-12">
+                        <div class="input-group-prepend">
+
+                        </div>
+                            form.email.label }}
                         {{ form.email }}
                     </div>
                 </div>
