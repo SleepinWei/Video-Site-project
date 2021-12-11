@@ -21,9 +21,15 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 {% block navbar_elements %}
-                <li class="nav-item active"> <a class="nav-link" href="/newerindex.html">主站 <span
+                <li class="nav-item active"> <a class="nav-link" href="{{url_for('main.index')}}">主站 <span
                             class="sr-only">(current)</span></a> </li>
-                <li class="nav-item"> <a class="nav-link" href="{{url_for('spaceUser')}}">个人主页</a> </li>
+                <li class="nav-item"> 
+                    {% if current_user.is_anonymous %}
+                    <a class="nav-link" href="{{url_for('main.spaceUser',username='')}}">个人主页</a> 
+                    {% else %}
+                    <a class="nav-link" href="{{url_for('main.spaceUser',username=current_user.name)}}">个人主页</a>     
+                    {% endif %}
+                </li>
                 <!--                     <li class="nav-item"> <a class="nav-link" href="#">动态</a> </li>
                     <li class="nav-item"> <a class="nav-link" href="#">收藏</a> </li>
                     <li class="nav-item"> <a class="nav-link" href="#">历史</a> </li>
