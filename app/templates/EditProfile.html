@@ -1,103 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base/spacebase.html' %}
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{}</title>
+{%block title%}
+Edit Profile
+{% endblock %}
 
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap-4.4.1.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static',filename='css/space.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static',filename='css/colours.css') }}">
-</head>
-
-<body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light"> <a class="navbar-brand" href="#">{Website Name}</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span
-        class="navbar-toggler-icon"></span> </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active"> <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> </li>
-        <li class="nav-item"> <a class="nav-link" href="#">{Some Link}</a> </li>
-        <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {Some Dropdown} </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown"> <a class="dropdown-item" href="#">Action</a> <a
-              class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
-        <li class="nav-item"> <a class="nav-link disabled" href="#">Disabled</a> </li>
-      </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search Video" aria-label="Search Video">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
+{% block content %}
+<div class="container">
+  <hr>
+  <div class="row">
+    <div class="col-6 col-lg-12">
+      <h1>Edit Profile</h1>
     </div>
-  </nav>
-  <div class="container">
-    <hr>
-    <div class="row">
-      <div class="col-6 col-lg-12">
-        <h1>Edit Profile</h1>
-      </div>
-    </div>
-    <hr>
-    <div class="row">
-      <div class="container">
-        <div class="row clearfix">
-          <div class="col-md-12 column">
-            <form>
-              <div class="form-group">
-                <label for="nickName">昵称</label>
-                {{ form.nickName(class='form-control') }}
-              </div>
-              <div class="form-group">
-                <label for="password">密码</label>
-                {{ form.password(class='form-control') }}
-              </div>
-              <div class="form-group">
-                <label for="password">确认密码</label>
-                {{ form.password2(class='form-control') }}
-              </div>
-              <div class="form-group">
-                <label for="introduction">个人简介</label>
-                {{ form.introduction(class='form-control') }}
-              </div>
-              <div class="form-group">
-                <label for="email">邮箱</label>
-                {{ form.email(class='form-control') }}
-              </div>
-              <div class="form-group">
-                <label for="phone">手机号码</label>
-                {{ form.phone(class='form-control') }}
-              </div>
-              {{ form.submit(class='btn btn-primary') }}
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <hr>
-    <footer class="text-center">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <p>Copyright © {Group name}. All rights reserved.</p>
-          </div>
-        </div>
-      </div>
-    </footer>
   </div>
-
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="js/jquery-3.4.1.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap-4.4.1.js"></script>
-</body>
-
-</html>
+  <hr>
+  <div class="row">
+    <div class="container">
+      <div class="row clearfix">
+        <div class="col-md-12 column">
+          <form>
+            <div class="form-group">
+              <label for="nickName">昵称</label>
+              {{ form.nickName(class='form-control') }}
+            </div>
+            <div class="form-group">
+              <label for="password">密码</label>
+              {{ form.password(class='form-control') }}
+            </div>
+            <div class="form-group">
+              <label for="password">确认密码</label>
+              {{ form.password2(class='form-control') }}
+            </div>
+            <div class="form-group">
+              <label for="introduction">个人简介</label>
+              {{ form.introduction(class='form-control') }}
+            </div>
+            <div class="form-group">
+              <label for="email">邮箱</label>
+              {{ form.email(class='form-control') }}
+            </div>
+            <div class="form-group">
+              <label for="phone">手机号码</label>
+              {{ form.phone(class='form-control') }}
+            </div>
+            {{ form.submit(class='btn btn-primary') }}
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <footer class="text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <p>Copyright © {Group name}. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+{% endblock %}
