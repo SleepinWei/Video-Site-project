@@ -21,7 +21,7 @@ def index():
     else:
         videos = videos.all()
     if current_user.is_anonymous:
-        return render_template('newerindex.html',user=None,video=videos)
+        return render_template('newerindex.html',user=None,videos=videos)
     return render_template('newerindex.html',user=current_user,videos=videos)
 
 # 轮播图
@@ -54,7 +54,7 @@ def spaceDefaultAddition():
 @login_required
 def spaceUser(username):
     #get the user from the database
-    if username is '':
+    if username == '':
         return redirect("auth.login")
     user1=User(username)
 
