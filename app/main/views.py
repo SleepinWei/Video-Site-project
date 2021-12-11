@@ -57,7 +57,7 @@ def spaceUser(username):
     form=RedirectToEditForm()
     if form.validate_on_submit():
         return flask.redirect(flask.url_for('editProfile'))
-    return flask.render_template('UserSpace.html',user=current_user)
+    return flask.render_template('UserSpace.html',user=current_user,form=form)
 
 @main.route('/video/<videoname>',methods=["POST","GET"])
 def playvideo(videoname):
