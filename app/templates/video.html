@@ -76,12 +76,12 @@
       <form class="mt-2">
         <div class="row">
           <div class="col-2">
-            {{buttonforms[0].submit(class="btn btn-primary")}}
-            {{video.likenum}}
+            {{buttonforms[0].submit(class="btn btn-primary",id="like")}}
+            <span class="badge badge-info align-middle" style="font-size: 1em;">{{video.likenum}}</span>
           </div>
           <div class="col-2">
-            {{buttonforms[1].submit(class="btn btn-success")}}
-            {{video.coinnum}}
+            {{buttonforms[1].submit(class="btn btn-success",id="coin")}}
+            <span class="badge badge-info align-middle" style="font-size: 1em;">{{video.coinnum}}</span>
           </div>
           <div class="col-1">
             {{buttonforms[2].submit(class="btn btn-info")}}
@@ -91,7 +91,6 @@
           </div>
         </div>
       </form>
-
       {#<!-- form for sending comments -->#}
       {% block commentForm %}
       <hr>
