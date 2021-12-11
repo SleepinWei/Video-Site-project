@@ -19,7 +19,7 @@ class RegistrationForm(FlaskForm):
     ])
     password2 = PasswordField('Confirm password',validators=[DataRequired('Please enter password again!')])
     email = StringField('Email',validators=[DataRequired('please enter email!'),Email('Email format is incorrect!')])
-    phone = StringField('Phone',validators=[DataRequired('please enter phone number'),Regexp("1[3458]\\d[9]", message="Phone number format is incorrect")])
+    phone = StringField('Phone',validators=[DataRequired('please enter phone number'),Regexp("1[3458]\\d{9}", message="Phone number format is incorrect")])
     check = BooleanField('User agreement') #必须同意用户协议才能注册
     submit = SubmitField('Register')
     

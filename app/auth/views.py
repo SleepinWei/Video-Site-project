@@ -43,19 +43,19 @@ def logout():
     flash("You have been logged out")
     return redirect(url_for("main.index"))
 
-@auth.route("/register")
+@auth.route("/register",methods=["GET","POST"])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         if form.check.data == True:
             user = User(name=form.name.data,password=form.password.data,email=form.email.data,phone=form.phone.data)
             db.session.add(user)
-            flash("Sucessful registeration!")
+            flash("Sucessful registeration!",category="ok")
             return redirect(url_for('auth.login'))
         else:
             #请加入必须同意用户协议才能注册的逻辑
-            flash('Please check the agreement and agree')
-    return render_template("auth/register.html",form=form)
+            flash('Please check the agreement and agree',category="err")
+    return render_template("auth/newregister.html",form=form)
 
 
 @auth.route('/change-password', methods=['GET', 'POST'])
