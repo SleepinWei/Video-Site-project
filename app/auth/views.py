@@ -50,6 +50,7 @@ def register():
         if form.check.data == True:
             user = User(name=form.name.data,password=form.password.data,email=form.email.data,phone=form.phone.data)
             db.session.add(user)
+            db.session.commit()
             flash("Sucessful registeration!",category="ok")
             return redirect(url_for('auth.login'))
         else:
