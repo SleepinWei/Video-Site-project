@@ -6,8 +6,7 @@ from flask_login import current_user
 from flask import request
 from werkzeug.urls import url_decode
 from werkzeug.utils import redirect
-from app.main.forms import CommentForm, EditProfileForm, RedirectToEditForm
-from app.test import createModule
+from app.main.forms import CommentForm, EditProfileForm, RedirectToEditForm,createModule
 from . import main
 import flask
 # from ..models import User
