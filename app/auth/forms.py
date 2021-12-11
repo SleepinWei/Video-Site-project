@@ -24,13 +24,13 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Register')
     
     
-    def validate_username(self,field):
+    def validate_name(self,field):
         if User.query.filter_by(name=field.data).first():
             raise ValidationError("Username already in use")
-    def validate_username(self,field):
+    def validate_email(self,field):
         if User.query.filter_by(email=field.data).first():
             raise ValidationError("The email address has been registered")
-    def validate_username(self,field):
+    def validate_phone(self,field):
         if User.query.filter_by(phone=field.data).first():
             raise ValidationError("The phone number has been registered")
         
