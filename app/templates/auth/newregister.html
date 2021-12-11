@@ -1,92 +1,122 @@
-{% extends 'home.html' %}
+{% extends 'base/base.html' %}
 
-{% block contents %}
-<div class="row">
-    <div class="col-md-4 col-md-offset-4">
-        <div class="panel panel-success">
-            <div class="panel-heading">
-                <h3 class="panel-title"><span class="glyphicon glyphicon-plus"></span>&nbsp;会员注册</h3>
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+        {#Registeration part#}
+        <!-- For flash messages & title -->
+            <div class="row mt-2 ml-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-people-fill align-middle" viewBox="0 0 16 16">
+                    <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                    <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
+                    <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+                  </svg>
+                <h1 class="ml-3">
+                  会员注册
+                </h1>   
             </div>
             <div class="panel-body">
                 <!--消息闪现-->
                 {% for msg in get_flashed_messages(category_filter=["err"]) %}
-                <p style="color:red">{{ msg }}</p>
+                <div class="alert alert-danger" role="alert">{{ msg }}</div>
                 {% endfor %}
 
                 {% for msg in get_flashed_messages(category_filter=["ok"]) %}
-                <p style="color:green">{{ msg }}</p>
+                <div class="alert alert-warning" role="alert">{{ msg }}</div>
                 {% endfor %}
-                <form role="form" method="post">
-                    <fieldset>
-                        <div class="form-group">
-                            <label for="input_name"><span class="glyphicon glyphicon-user"></span>&nbsp;{{
-                                form.name.label }}</label>
-                            {{ form.name }}
-                        </div>
-                        <!--错误提示-->
-                        {% for err in form.name.errors %}
-                        <div class="col-md-12">
-                            <font style="color:red">{{ err }}</font>
-                        </div>
-                        {% endfor %}
-                        <div class="form-group">
-                            <label for="input_email"><span class="glyphicon glyphicon-envelope"></span>&nbsp;{{
-                                form.email.label }}</label>
-                            {{ form.email }}
-                        </div>
-                        <!--错误提示-->
-                        {% for err in form.email.errors %}
-                        <div class="col-md-12">
-                            <font style="color:red">{{ err }}</font>
-                        </div>
-                        {% endfor %}
-                        <div class="form-group">
-                            <label for="input_phone"><span class="glyphicon glyphicon-phone"></span>&nbsp;{{
-                                form.phone.label }}</label>
-                            {{ form.phone }}
-                        </div>
-                        <!--错误提示-->
-                        {% for err in form.phone.errors %}
-                        <div class="col-md-12">
-                            <font style="color:red">{{ err }}</font>
-                        </div>
-                        {% endfor %}
-                        <div class="form-group">
-                            <label for="input_password"><span class="glyphicon glyphicon-lock"></span>&nbsp;{{
-                                form.password.label }}</label>
-                            {{ form.password }}
-                        </div>
-                        <!--错误提示-->
-                        {% for err in form.password.errors %}
-                        <div class="col-md-12">
-                            <font style="color:red">{{ err }}</font>
-                        </div>
-                        {% endfor %}
-                        <div class="form-group">
-                            <label for="input_repassword"><span class="glyphicon glyphicon-lock"></span>&nbsp;{{
-                                form.password2.label }}</label>
-                            {{ form.password2 }}
-                        </div>
-                        <!--错误提示-->
-                        {% for err in form.password2.errors %}
-                        <div class="col-md-12">
-                            <font style="color:red">{{ err }}</font>
-                        </div>
-                        {% endfor %}
-                        <div class="input-group mb-3">
-                            <div>
-                                {{form.check(class='input-group-text input-group-prepend')}}
-                                <!-- <input type="checkbox" aria-label="placeholder text"> -->
-                            </div>
-                            <div class="ml-3">我同意<a href="termOfUse.html">《用户协议》</a>及<a href="privacy.html">《隐私政策》</a>
-                            </div>
-                        </div>
-                        {{ form.submit }}
-                        {{ form.csrf_token }}
-                    </fieldset>
-                </form>
             </div>
+            <!-- for form group -->
+            <form role="form" method="post">
+                <div class="row"> 
+                    <div class="input-group mt-3 offset-md-2 col-12">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon3">User Name</span>
+                        </div>
+                        {{form.name(class="form-control col-8",placeholder="取个用户名吧！")}}
+                    </div>
+                </div>
+                <div class="row">
+                    {% for err in form.name.errors %}
+                    <div class="col-md-12">
+                        <font style="color:red">{{ err }}</font>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="input_email"><span class="glyphicon glyphicon-envelope"></span>&nbsp;{{
+                            form.email.label }}</label>
+                        {{ form.email }}
+                    </div>
+                </div>
+                <div class="row">
+                    {% for err in form.email.errors %}
+                    <div class="col-md-12">
+                        <font style="color:red">{{ err }}</font>
+                    </div>
+                    {% endfor %}
+                </div>
+        
+        
+                <!--错误提示-->
+                <div class="form-group">
+                    <label for="input_phone"><span class="glyphicon glyphicon-phone"></span>&nbsp;{{
+                        form.phone.label }}</label>
+                    {{ form.phone }}
+                </div>
+                <!--错误提示-->
+                {% for err in form.phone.errors %}
+                <div class="col-md-12">
+                    <font style="color:red">{{ err }}</font>
+                </div>
+                {% endfor %}
+                <div class="form-group">
+                    <label for="input_password"><span class="glyphicon glyphicon-lock"></span>&nbsp;{{
+                        form.password.label }}</label>
+                    {{ form.password }}
+                </div>
+                <!--错误提示-->
+                {% for err in form.password.errors %}
+                <div class="col-md-12">
+                    <font style="color:red">{{ err }}</font>
+                </div>
+                {% endfor %}
+                <div class="form-group">
+                    <label for="input_repassword"><span class="glyphicon glyphicon-lock"></span>&nbsp;{{
+                        form.password2.label }}</label>
+                    {{ form.password2 }}
+                </div>
+                <!--错误提示-->
+                {% for err in form.password2.errors %}
+                <div class="col-md-12">
+                    <font style="color:red">{{ err }}</font>
+                </div>
+                {% endfor %}
+                <div class="input-group mb-3">
+                    <div>
+                        {{form.check(class='input-group-text input-group-prepend')}}
+                        <!-- <input type="checkbox" aria-label="placeholder text"> -->
+                    </div>
+                    <div class="ml-3">我同意<a href="termOfUse.html">《用户协议》</a>及<a href="privacy.html">《隐私政策》</a>
+                    </div>
+                </div>
+                {{ form.submit }}
+                {{ form.csrf_token }}    
+            </form>
+        </div>
+        <div class="col-4">
+        {#Some background picture#}
         </div>
     </div>
 </div>
-{% endblock contents %}
+                
+
+          
+{#<div class="form-group">
+            <label for="input_name"><span class="glyphicon glyphicon-user"></span>&nbsp;{{
+                form.name.label }}</label>
+            {{ form.name }}
+        </div>#}
+        <!--错误提示-->
+{% endblock content %}
