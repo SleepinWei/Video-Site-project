@@ -53,16 +53,11 @@ def spaceDefaultAddition():
 @main.route('/space/<username>',methods=["POST","GET"])
 @login_required
 def spaceUser(username):
-    #get the user from the database
-    if username == '':
-        return redirect("auth.login")
-    user1=User(username)
-
     #if click the edit button, redirect to edit page
     form=RedirectToEditForm()
     if form.validate_on_submit():
         return flask.redirect(flask.url_for('editProfile'))
-    return flask.render_template('UserSpace.html',user=user1)
+    return flask.render_template('UserSpace.html',user=current_user)
 
 @main.route('/video/<videoname>',methods=["POST","GET"])
 def playvideo(videoname):
