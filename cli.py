@@ -11,7 +11,22 @@ def register(app):
         user = User(name=username)
         db.session.add(user)
         db.session.commit()
-    
+        
+    @app.cli.command("create_videocol")
+    @click.argument("userid")
+    @click.argument("videoid")
+    def create_videocol(userid,videoid):
+        videocol = Videocol(videoid, userid)
+        db.session.add(videocol)
+        db.session.commit()
+
+    @app.cli.command("create_role")
+    @click.argument("rolename")
+    def create_role(rolename):
+        role = Role(name=rolename)
+        db.session.add(role)
+        db.session.commit()
+
     @app.cli.command("add_video")
     @click.argument("video_title")
     @click.argument("video_info")
