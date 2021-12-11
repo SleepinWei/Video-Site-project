@@ -2,8 +2,8 @@
 
 {% block script %}
 {{super()}}
-<script src="static/js/tilt.jquery.js"></script>
-<script src="static/js/granim.js"></script>
+<script src="{{ url_for('static',filename='js/tilt.jquery.js') }}"></script>
+<script src="{{ url_for('static',filename='js/granim.js') }}"></script>
 <script>
     $('.js-tilt').tilt({
         perspective:1000,
