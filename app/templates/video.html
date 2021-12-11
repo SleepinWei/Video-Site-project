@@ -97,12 +97,15 @@
       <hr>
       <div class="col-md-10 mt-2">
         {#<!-- {{wtf.quick_form(form)}} -->#}
-        <div class="input-group mb-3" style="width: 100%;">
-          {{form.body(class="form-control",placeholder="发送一条友善的评论吧",)}}
-          <div class="input-group-append">
-            {{form.submit(class="btn btn-outline-secondary",id="button-addon2")}}
+        <form method="POST">
+          <div class="input-group mb-3" style="width: 100%;">
+            {{form.hidden_tag()}}
+            {{form.body(class="form-control",placeholder="发送一条友善的评论吧",)}}
+            <div class="input-group-append">
+              {{form.submit(class="btn btn-outline-secondary",id="button-addon2")}}
+            </div>
           </div>
-        </div>
+        </form>
       </div>
       {% endblock commentForm %}
 
