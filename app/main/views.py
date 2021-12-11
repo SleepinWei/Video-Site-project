@@ -15,14 +15,15 @@ from ..models import *
 
 @main.route('/',methods=["POST","GET"])
 def index():
-    videos = Video.query.order_by(Video.playnum)
-    if(videos.count()>10):
-        videos = videos[0:10]
-    else:
-        videos = videos.all()
-    if current_user.is_anonymous:
-        return render_template('newerindex.html',user=None,videos=videos)
-    return render_template('newerindex.html',user=current_user,videos=videos)
+    # videos = Video.query.order_by(Video.playnum)
+    # if(videos.count()>10):
+    #     videos = videos[0:10]
+    # else:
+    #     videos = videos.all()
+    # if current_user.is_anonymous:
+    #     return render_template('newerindex.html',user=None,videos=videos)
+    # return render_template('newerindex.html',user=current_user,videos=videos)
+    return render_template('500.html',user=current_user)
 
 # 轮播图
 @main.route('/animation/')
