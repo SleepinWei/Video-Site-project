@@ -95,7 +95,7 @@ class Video(db.Model):
         self.title = title
         # self.url = url
         self.info = info
-        self.thumbnail = "static/images/thumbnail/"+title+".jpg"
+        self.thumbnail = "/static/images/thumbnail/"+title+".jpg"
         self.playnum = playnum
         self.likenum = likenum
         self.commentnum = commentnum

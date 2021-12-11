@@ -1,5 +1,4 @@
 {% extends 'base/base.html' %}
-{% import 'bootstrap/wtf.html' as wtf %}
 
 {%block title%}
 {{video.title}}
@@ -10,11 +9,13 @@
 {{super()}}
 <link rel="stylesheet" href="{{url_for('static',filename='css/space.css')}}">
 <link rel="stylesheet" href="{{url_for('static',filename='css/colours.css')}}">
+
 {%endblock%}
 
 {% block script %}
   {{super()}}
   <script src="{{url_for('static',filename='js/granim.js')}}"></script>
+  <script src="{{url_for('static',filename='js/background.js')}}"></script>
   <script>
     var granimInstance = new Granim({
       element: '#canvas-image-blending',
@@ -37,13 +38,86 @@
       }
   });
   </script>
+  <script src="{{url_for('static',filename='js/artplayer.js')}}"></script>
+
+<script src="{{url_for('static',filename='js/artplayer-plugin-danmuku.js')}}"></script>
+<script src="{{url_for('static',filename='js/artplayer-tool-thumbnail.js')}}"></script>
+<script type="text/javascript">
+  var url = '../'+'{{video.url}}';
+  var art = new Artplayer({
+    container: '.artplayer-app',
+    url: url,
+    title: 'One More Time One More Chance',
+    poster:'',
+    volume:0.5,
+    muted:false,
+    autoplay:false,
+    autoMini:true,
+    flip:true,
+    rotate:true,
+    setting:true,
+    playbackRate:true,
+    screenshot:true,
+    hotkey:true,
+    pip:true,
+    fullscreen:true,
+    fullscreenWeb:true,
+    subtitleOffset:true,
+    miniProgressBar:true,
+    plugins:[
+    artplayerPluginDanmuku({
+      // Damuku xml，like the Bilibili danmuku format
+      danmuku: ' ',
+  }),
+],
+subtitle:{
+    url:'../static/video/{{video.title}}.ass',
+    type:'ass',
+    encoding:'utf-8',
+    style:{
+      color:"#03A9F4",
+      'font-size':'30px',
+    }
+},
+controls:[
+  {
+    position: 'right',
+    html: 'Hide',
+    click: function (_, event) {
+        if (art.plugins.artplayerPluginDanmuku.isHide) {
+            art.plugins.artplayerPluginDanmuku.show();
+            event.target.innerText = 'Hide';
+        } else {
+            art.plugins.artplayerPluginDanmuku.hide();
+            event.target.innerText = 'Show';
+        }
+    },
+  },
+  {
+    position: 'right',
+    html: 'Send',
+    click: function () {
+        var text = prompt('Input the danmu text', 'danmu text');
+        if (!text || !text.trim()) return;
+        var color = '#' + Math.floor(Math.random() * 0xffffff).toString(16);
+        art.plugins.artplayerPluginDanmuku.emit({
+            text: text,
+            color: color,
+            border: true,
+        });
+    },
+  }
+],
+});
+
+</script>   
 {% endblock script %}
 {% block canvas %}
-
+<canvas id="background" style="position: absolute;top:0;bottom:0;left:0;right:0;margin:0;padding:0;z-index:-100"></canvas>
 {% endblock canvas %}
 
 {% block content %}
-<div class="container mt-4">
+<div class="container mt-4" style="background-color:white;">
   <div class="row ml-5"> 
     {#<!--正在播放-->#}
     <div class="col-md-8">
@@ -53,7 +127,8 @@
       </div>
       <div class="media-object-default video">
         {% block videoplayer %}
-        <video src="{{url_for('static',filename='{{video.Isplaying}}')}}" controls="controls" class="video"> 视频加载失败 </video>
+        {#<video src="{{url_for('static',filename='{{video.Isplaying}}')}}" controls="controls" class="video"> 视频加载失败 </video>#}
+        <div class="artplayer-app" style="width: 100%;height: 400px;"></div>
         {% endblock videoplayer %}
       </div>
       {#<!--发送弹幕框（未完成）-->#}

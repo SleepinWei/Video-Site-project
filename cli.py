@@ -1,7 +1,7 @@
 from datetime import datetime
 import logging
 import click
-from app.models import User,Video
+from app.models import User,Video,Role,Videocol
 from app import db
 
 def register(app):
@@ -43,3 +43,11 @@ def register(app):
 
         db.session.add(video)
         db.session.commit()
+    @app.cli.command("delete_all")
+    def delete_all():
+        db.drop_all()
+
+    @app.cli.command("create_all")
+    def create_all():
+        db.create_all()
+
