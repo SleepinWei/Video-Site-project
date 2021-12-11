@@ -6,3 +6,6 @@ test.py
 test.mp4
 test.html
 test*?.html
+*.mp4
+
+db_init.py

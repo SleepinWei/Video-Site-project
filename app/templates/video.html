@@ -8,10 +8,39 @@
 {%block style%}
 {#<!-- <link rel="stylesheet" href="css/bootstrap-4.4.1.css"> -->#}
 {{super()}}
-<link rel="stylesheet" href="static/css/space.css">
-<link rel="stylesheet" href="static/css/colours.css">
+<link rel="stylesheet" href="{{url_for('static',filename='css/space.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/colours.css')}}">
 {%endblock%}
 
+{% block script %}
+  {{super()}}
+  <script src="{{url_for('static',filename='js/granim.js')}}"></script>
+  <script>
+    var granimInstance = new Granim({
+      element: '#canvas-image-blending',
+      direction: 'top-bottom',
+      isPausedWhenNotInView: true,
+      image : {
+          source: '{{url_for("static",filename="images/bg-forest.jpg")}}',
+          blendingMode: 'multiply'
+      },
+      states : {
+          "default-state": {
+              gradients: [
+                  ['#29323c', '#485563'],
+                  ['#FF6B6B', '#556270'],
+                  ['#80d3fe', '#7ea0c4'],
+                  ['#f0ab51', '#eceba3']
+              ],
+              transitionSpeed: 7000
+          }
+      }
+  });
+  </script>
+{% endblock script %}
+{% block canvas %}
+
+{% endblock canvas %}
 
 {% block content %}
 <div class="container mt-4">
@@ -28,7 +57,7 @@
         {% endblock videoplayer %}
       </div>
       {#<!--发送弹幕框（未完成）-->#}
-      <form class="form-inline" role="form">
+      <form class="form-inline mt-3" role="form">
         <div class="form-group">
           <h5>{{video.isWatching}}<small>人在看，已装填{{video.BulletScreenNumber}}条弹幕 </small></h5>
           <label class="sr-only" for="name">名称</label>
@@ -44,20 +73,53 @@
         <button type="submit" class="btn btn-default btn-lg" role="button" ><img src="static/images/shoucang.png" alt="" width="30px">{{video.CollectionNumber}}</a> 
         <button type="submit" class="btn btn-default btn-lg" role="button"><img src="static/images/zhuanfa.png" alt="" width="30px">{{video.TransmitNumber}}</a> 
       </form>#}
-      <form>
+      <form class="mt-2">
+        <div class="row">
+          <div class="col-2">
             {{buttonforms[0].submit(class="btn btn-primary")}}
             {{video.likenum}}
-
+          </div>
+          <div class="col-2">
             {{buttonforms[1].submit(class="btn btn-success")}}
             {{video.coinnum}}
-
+          </div>
+          <div class="col-1">
             {{buttonforms[2].submit(class="btn btn-info")}}
-
+          </div>
+          <div class="col-1">
             {{buttonforms[3].submit(class="btn btn-danger")}}
+          </div>
+        </div>
       </form>
 
+      {#<!-- form for sending comments -->#}
+      {% block commentForm %}
+      <hr>
+      <div class="col-md-4 mt-2">
+        {{wtf.quick_form(form)}}
+      </div>
+      {% endblock commentForm %}
+
+      {% block showComment %}
+      <hr>
+      <ul class="posts">
+        {% for comment in comments %}
+          <li class="comment">
+            <div class="profile-thumbnail">
+              {#<!-- add user profile thumbnails here -->#}
+            </div>
+            <div class="comment-time">{{moment(comment.addtime.fromNow())}}</div>
+            <div class="comment-author">
+              <a href="{{url_for('.spaceUser',username=comment.username)}}">
+                {{comment.author}}
+              </a>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+      {% endblock showComment %}
     </div>
-    <hr>
+    
     <div class="col-md-4"> 
       {#<!--作者名及个人简介部分-->#}
       <div class="media">
@@ -92,32 +154,6 @@
             </a> </div>
         </div>
         {% endfor %}
-        
-        {#<!-- form for sending comments -->#}
-        {% block commentForm %}
-        <div class="col-md-4">
-          {{wtf.quick_form(form)}}
-        </div>
-        {% endblock commentForm %}
-
-        {% block showComment %}
-        <hr>
-        <ul class="posts">
-          {% for comment in comments %}
-            <li class="comment">
-              <div class="profile-thumbnail">
-                {#<!-- add user profile thumbnails here -->#}
-              </div>
-              <div class="comment-time">{{moment(comment.addtime.fromNow())}}</div>
-              <div class="comment-author">
-                <a href="{{url_for('.spaceUser',username=comment.username)}}">
-                  {{comment.author}}
-                </a>
-              </div>
-            </li>
-          {% endfor %}
-        </ul>
-        {% endblock showComment %}
 
       </div>
     </div>
