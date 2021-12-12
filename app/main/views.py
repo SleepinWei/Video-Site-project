@@ -79,7 +79,7 @@ def playvideo(videoname):
         # _get_current_object() returns somethign in the session, and even if author is not declared, this stil works
         # very mysterious and don't konw why
         db.session.add(comment)
-        return redirect(url_for('.playvideo'),videoname=videoname)
+        return redirect(url_for('main.playvideo',videoname=videoname))
 
     if request.method == 'GET':
         if request.args.get('submit')=='Like' and flag[0]==0:
@@ -129,7 +129,7 @@ def playvideo(videoname):
             flag[2]-=1
         elif request.args.get('submit')=='Share':
             pass
-    comments = Comment.query.order_by(Comment.addtime.desc()).all()
+    comments = Comment.query.filter_by(video_id=video.id).order_by(Comment.addtime.desc()).all()
     
     # return flask.render_template('extend.html',video=video1)
     return render_template('video.html',video=video,comments=comments, \
