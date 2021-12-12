@@ -149,30 +149,30 @@ controls:[
         <button type="submit" class="btn btn-default btn-lg" role="button"><img src="static/images/zhuanfa.png" alt="" width="30px">{{video.TransmitNumber}}</a> 
       </form>#}
       <div class="row">
+        <div class="col-2">
         <form role="form" class="mt-2",method="post">
-          <div class="col-2">
             {{form.hidden_tag()}}
             {{buttonform1.submit(class="btn btn-primary",id="like")}}
             <span class="badge badge-info align-middle" style="font-size: 1em;">{{video.likenum}}</span>
-          </div>
-      </form>
-      <form role="form" class="mt-2",method="post">
+          </form>
+        </div>
         <div class="col-2">
+          <form role="form" class="mt-2",method="post">
             {{buttonform2.submit(class="btn btn-success",id="coin")}}
             <span class="badge badge-info align-middle" style="font-size: 1em;">{{video.coinnum}}</span>
-          </div>
-      </form>
-      <form role="form" class="mt-2",method="post">
-          <div class="col-1">
+          </form>
+        </div>
+      <div class="col-1">
+        <form role="form" class="mt-2",method="post">
             {{buttonform3.submit(class="btn btn-info")}}
-          </div>
-      </form>
-      <form role="form" class="mt-2",method="post">
-          <div class="col-1">
-            {{buttonform4.submit(class="btn btn-danger")}}
-          </div>
-      </form>
+        </form>
       </div>
+      <div class="col-1">
+        <form role="form" class="mt-2",method="post">
+            {{buttonform4.submit(class="btn btn-danger")}}
+          </form>
+      </div>
+    </div>
       {#<!-- form for sending comments -->#}
       {% block commentForm %}
       <hr>
