@@ -191,7 +191,7 @@ controls:[
             <div class="profile-thumbnail">
               {#<!-- add user profile thumbnails here -->#}
             </div>
-            <div class="comment-time">{{comment.addtime}}</div>
+            <div class="comment-time">{{moment(comment.addtime).fromNow(refresh=True)}}</div>
             <div class="comment-author">
               <a href="{{url_for('.spaceUser',username=comment.user.username)}}">
                 {{comment.user.Nickname}}
