@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row rounded shadow">
+        <div class="offset-md-2">
+            <h1>Hello,{{user.name}}</h1>
+            <p>You have not confirmed your account yet</p>
+            <p>Before you can proceed with your experience on our webiste,please go to your email and confirm your accoun
+                by clicking on a link.
+            </p>
+        </div>
+        <div class="offset-md-2 mt-2">
+            Didn't receive the email?&nbsp;<a href="{{url_for('auth.resend_confirm')}}">Click here</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

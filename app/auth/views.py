@@ -6,6 +6,7 @@ from .. import db
 from flask_login import login_user,logout_user,login_required,current_user
 from ..models import User
 from .forms import LoginForm, RegistrationForm,ChangePassword,ChangeEmail, ResetPassword
+from app.emailDev import send_email
 
 @auth.before_app_request
 def before_request():
@@ -15,14 +16,34 @@ def before_request():
                 and request.endpoint \
                 and request.blueprint != 'auth' \
                 and request.endpoint != 'static':
-            return redirect(url_for('auth.unconfirmed'))
-
+            return redirect(url_for('auth.unconfirmed',user=current_user))
+            
 @auth.route('/unconfirmed')
 def unconfirmed():
     if current_user.is_anonymous or current_user.confirmed:
         return redirect(url_for('main.index'))
-    return render_template('auth/unconfirmed.html')
+    return render_template('auth/unconfirmed.html',user=current_user)
 
+@auth.route("/confirm/<token>")
+@login_required
+def confirm(token):
+    if current_user.confirmed:
+        return redirect(url_for("main.index"))
+    if current_user.confirm(token):
+        db.session.commit()
+        flash("You have confirmed your account!")
+    else:
+        flash("Confirmation link is invalid!")
+    return redirect(url_for("main.index",user=current_user))
+
+@auth.route("/confirm")
+@login_required
+def resend_confirm():
+    token = current_user.generate_confirmation_token()
+    send_email(current_user.email,'Confirm Your Account',
+    'auth/email/confirm',user=current_user,token=token)
+    flash("A new confirmation email has been sent to your email")
+    return redirect(url_for('main.index',user=current_user))
 
 @auth.route('/login',methods=["GET","POST"])
 def login():
@@ -51,7 +72,11 @@ def register():
             user = User(name=form.name.data,password=form.password.data,email=form.email.data,phone=form.phone.data)
             db.session.add(user)
             db.session.commit()
-            flash("Sucessful registeration!",category="ok")
+            token = user.generate_confirmation_token()
+            send_email(user.email,'Confirm Your Account',
+            'auth/email/confirm',user=user,token=token)
+            flash("A confirmation email has been sent to you by email.",category="ok")
+            # flash("Sucessful registeration!",category="ok")
             return redirect(url_for('auth.login'))
         else:
             #请加入必须同意用户协议才能注册的逻辑
