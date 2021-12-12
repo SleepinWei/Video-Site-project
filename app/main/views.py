@@ -6,14 +6,13 @@ from flask_login import current_user
 from flask import request
 from werkzeug.urls import url_decode
 from werkzeug.utils import redirect
-from app.main.forms import CommentForm, EditProfileForm, RedirectToEditForm,createModule
+from app.main.forms import CommentForm, EditProfileForm, RedirectToEditForm, createModule, ButtonLike, ButtonCoin, ButtonStar, ButtonShare
 from . import main
 import flask
-from flask import request
 # from ..models import User
 # from ..models import Video
 from ..models import *
-
+flag = [0,0,0,0]
 @main.route('/',methods=["POST","GET"])
 def index():
     videos = Video.query.order_by(Video.playnum)
@@ -58,62 +57,83 @@ def spaceUser(username):
     form=RedirectToEditForm()
     if form.validate_on_submit():
         return flask.redirect(flask.url_for('editProfile'))
-    
-
     return flask.render_template('UserSpace.html',user=current_user,form=form)
 
-@main.route('/video/<videoname>',methods=["POST","GET"])
+@main.route('/video/<videoname>',methods=["GET","POST"])
 def playvideo(videoname):
     # video1=Video(videoname)
     video = Video.query.filter_by(title=videoname).first()
     # 这里依据名字从查找video，后期可以改为依据id查找
 
     form = CommentForm()
-    buttonforms = createModule() #button forms 4 in 1 
-        # Like
-    if request.args.get('submit')=='Like':
+    buttonform1 = ButtonLike()
+    buttonform2 = ButtonCoin()
+    buttonform3 = ButtonStar()
+    buttonform4 = ButtonShare()
+    # like,coin,star,share
+    if form.validate_on_submit():
         if current_user.is_anonymous or not current_user.is_authenticated:
             return redirect(url_for("auth.login"))
-        exist_videolike = Videolike.query.filter_by(user_id=current_user.id,video_id=video.id).first()
-        if exist_videolike == None:
-            video.likenum += 1 
-            videolike = Videolike(video_id=video.id,user_id=current_user.id)
-            db.session.add(videolike)
-        else:
-            video.likenum -= 1
-            db.session.delete(exist_videolike)
-        db.session.commit()
+        comment = Comment(content=form.body,user_id=current_user.id,
+                video_id=video.id)
+        # _get_current_object() returns somethign in the session, and even if author is not declared, this stil works
+        # very mysterious and don't konw why
+        db.session.add(comment)
+        return redirect(url_for('.playvideo'),videoname=videoname)
 
-        # Coin
-    if request.args.get('submit')=='Coin':
-        if current_user.is_anonymous or not current_user.is_authenticated:
-            return redirect(url_for("auth.login"))
-        exist_videocoin = Videocoin.query.filter_by(user_id=current_user.id,video_id=video.id).first()
-        if exist_videocoin == None:
-            video.coinnum += 1 
-            videocoin = Videocoin(video_id=video.id,user_id=current_user.id)
-            db.session.add(videocoin)
-        else:
-            video.coinnum -= 1
-            db.session.delete(exist_videocoin)
-        db.session.commit()
-
-    if request.args.get('submit')=='Star':
-        if current_user.is_anonymous or not current_user.is_authenticated:
-            return redirect(url_for("auth.login"))
-        exist_videocol = Videocol.query.filter_by(user_id=current_user.id,video_id=video.id).first()
-        if exist_videocol == None: 
-            videocol = Videocol(video_id=video.id,user_id=current_user.id)
-            db.session.add(videocol)
-        else:
-            db.session.delete(exist_videocoin)
-        db.session.commit()
-
+    if request.method == 'GET':
+        if request.args.get('submit')=='Like' and flag[0]==0:
+            if current_user.is_anonymous or not current_user.is_authenticated:
+                return redirect(url_for("auth.login"))
+            exist_videolike = Videolike.query.filter_by(user_id=current_user.id,video_id=video.id).first()
+            if exist_videolike == None:
+                video.likenum += 1 
+                videolike = Videolike(video_id=video.id,user_id=current_user.id)
+                db.session.add_all([videolike,video])
+            else:
+                video.likenum -= 1
+                db.session.delete(exist_videolike)
+                db.session.add(video)
+            db.session.commit()
+            flag[0]+=1
+        elif request.args.get('submit')=='Like':
+            flag[0]-=1
+        elif request.args.get('submit')=='Coin' and flag[1]==0:
+            if current_user.is_anonymous or not current_user.is_authenticated:
+                return redirect(url_for("auth.login"))
+            exist_videocoin = Videocoin.query.filter_by(user_id=current_user.id,video_id=video.id).first()
+            if exist_videocoin == None:
+                video.coinnum += 1
+                current_user.coins -= 1
+                videocoin = Videocoin(video_id=video.id,user_id=current_user.id)
+                db.session.add_all([videocoin,video,current_user])    
+                db.session.commit()
+            else:
+                flash('You have throwed the coin')            
+            flag[1]+=1
+        elif request.args.get('submit')=='Coin':
+            flag[1]-=1
+        elif request.args.get('submit')=='Star' and flag[2]==0:
+            if current_user.is_anonymous or not current_user.is_authenticated:
+                return redirect(url_for("auth.login"))
+            exist_videocol = Videocol.query.filter_by(user_id=current_user.id,video_id=video.id).first()
+            if exist_videocol == None:
+                videocol = Videocol(video.id,current_user.id)
+                db.session.add_all([videocol,video])
+            else:
+                db.session.delete(exist_videocol)
+                db.session.add(video)
+            db.session.commit()
+            flag[2]+=1
+        elif request.args.get('submit')=='Star':
+            flag[2]-=1
+        elif request.args.get('submit')=='Share':
+            pass
     comments = Comment.query.order_by(Comment.addtime.desc()).all()
     
     # return flask.render_template('extend.html',video=video1)
     return render_template('video.html',video=video,comments=comments, \
-    buttonforms=buttonforms,user=current_user,form=form)
+    buttonform1=buttonform1,buttonform2=buttonform2,buttonform3=buttonform3,buttonform4=buttonform4,user=current_user,form=form)
 
 # 用户资料编辑
 @main.route("/editProfile",methods=['GET','POST'])
