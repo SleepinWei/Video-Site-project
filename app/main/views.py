@@ -118,11 +118,9 @@ def playvideo(videoname):
                 return redirect(url_for("auth.login"))
             exist_videocol = Videocol.query.filter_by(user_id=current_user.id,video_id=video.id).first()
             if exist_videocol == None:
-                video.videocols += 1
                 videocol = Videocol(video.id,current_user.id)
                 db.session.add_all([videocol,video])
             else:
-                video.videocols -= 1
                 db.session.delete(exist_videocol)
                 db.session.add(video)
             db.session.commit()
