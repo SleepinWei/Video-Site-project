@@ -78,6 +78,13 @@
                         <div class="ml-3">
                             Keep me Logged in
                         </div>
+                        <div class="offset-1 col-2">
+                            <a href="{{url_for('auth.register')}}">
+                                <span class="badge badge-primary">
+                                    Register
+                                </span>
+                            </a>        
+                        </div>
                     </div>
                 </div>
                 <div class="offset-md-2">
@@ -85,6 +92,7 @@
                 </div>
                 {{ form.csrf_token }}    
             </form>
+            
         </div>
         <div class="col-3">
         {#Some background picture#}
