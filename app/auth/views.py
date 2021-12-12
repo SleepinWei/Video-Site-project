@@ -69,7 +69,8 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         if form.check.data == True:
-            user = User(name=form.name.data,password=form.password.data,email=form.email.data,phone=form.phone.data)
+            user = User(name=form.name.data,password=form.password.data,email=form.email.data,\
+                phone=form.phone.data,level=1,levelProgress=0,coins=100)
             db.session.add(user)
             db.session.commit()
             token = user.generate_confirmation_token()
