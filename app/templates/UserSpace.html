@@ -64,19 +64,19 @@ Space of {{user.nickName}}
 {% block userFavouriteVideos %}
 <!-- Nested media object -->
 <div class="media">
-    <img class="d-flex mr-3" src="{{ url_for('static',filename='{{user.videocols[0].id}}') }}" alt="placeholder image">
+    <img class="d-flex mr-3" src="{{user.videocols[1].video.thumbnail}}" alt="placeholder image">
     <div class="media-body">
-        <h5 class="mt-0">{{user.videocols[0].title}}</h5>
-        {{user.videocols[0].info}}
+        <h5 class="mt-0">{{user.videocols[0].video.title}}</h5>
+        {{user.videocols[0].video.info}}
         <!-- Nested media object -->
     </div>
 </div>
 <!-- Nested media object -->
 <div class="media">
-    <img class="d-flex mr-3" src="{{ url_for('static',filename='{{user.videocols[1].id}}') }}" alt="placeholder image">
+    <img class="d-flex mr-3" src="{{user.videocols[1].video.thumbnail}}" alt="placeholder image">
     <div class="media-body">
-        <h5 class="mt-0">{{user.videocols[1].title}}</h5>
-        {{user.videocols[1].info}}
+        <h5 class="mt-0">{{user.videocols[1].video.title}}</h5>
+        {{user.videocols[1].video.info}}
     </div>
 </div>
 {% endblock %}
