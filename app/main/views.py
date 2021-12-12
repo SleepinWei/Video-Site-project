@@ -12,7 +12,7 @@ import flask
 # from ..models import User
 # from ..models import Video
 from ..models import *
-
+flag = [0,0,0,0]
 @main.route('/',methods=["POST","GET"])
 def index():
     videos = Video.query.order_by(Video.playnum)
