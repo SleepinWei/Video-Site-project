@@ -113,7 +113,7 @@ def playvideo(videoname):
             flag[1]+=1
         elif request.args.get('submit')=='Coin':
             flag[1]-=1
-        if request.args.get('submit')=='Star' and flag[2]==0:
+        elif request.args.get('submit')=='Star' and flag[2]==0:
             if current_user.is_anonymous or not current_user.is_authenticated:
                 return redirect(url_for("auth.login"))
             exist_videocol = Videocol.query.filter_by(user_id=current_user.id,video_id=video.id).first()
@@ -127,7 +127,7 @@ def playvideo(videoname):
             flag[2]+=1
         elif request.args.get('submit')=='Star':
             flag[2]-=1
-        elif request.args.get('submit')=='Coin':
+        elif request.args.get('submit')=='Share':
             pass
     comments = Comment.query.order_by(Comment.addtime.desc()).all()
     
