@@ -82,6 +82,10 @@ class User(UserMixin,db.Model):
         self.confirmed = True
         db.session.add(self)
         return True
+    
+    
+
+    
 
 @login_manager.user_loader
 def load_user(user_id):

@@ -3,15 +3,15 @@
 {% extends "Space.html" %}
 
 {%block title%}
-Space of {{user.nickName}}
+Space of {{user.name}}
 {% endblock %}
 
 {% block userPhotoPath %}
-<img class="mr-3 mt-2 " src="{{ url_for('static',filename='images/{{user.nickName}}.png') }}" alt="User photo">
+<img class="mr-3 mt-2 " src="../static/images/user/{{user.name}}.jpg" alt="User photo" width="60px">
 {% endblock %}
 
 {% block userNickName %}
-{{user.nickName}}
+{{user.name}}'s Space
 {% endblock %}
 
 {% block userID %}
@@ -43,40 +43,44 @@ Space of {{user.nickName}}
 {% endblock %}
 
 {% block userProfile %}
-            <div class="row">
-                <div class="col-6 col-xl-4">
-                    <h4>Email</h4>
-                </div>
-                <div class="col-6 col-xl-8">
-                    <h5 class="text-right"><span aria-hidden="true"></span>{{user.email}}</h5>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 col-xl-4">
-                    <h4>Phone</h4>
-                </div>
-                <div class="col-6 col-xl-8">
-                    <h5 class="text-right"><span aria-hidden="true"></span>{{user.phone}}</h5>
-                </div>
-            </div>
+<div class="row">
+    <div class="col-6 col-xl-4">
+        <h4>Email</h4>
+    </div>
+    <div class="col-6 col-xl-8">
+        <h5 class="text-right"><span aria-hidden="true"></span>{{user.email}}</h5>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6 col-xl-4">
+        <h4>Phone</h4>
+    </div>
+    <div class="col-6 col-xl-8">
+        <h5 class="text-right"><span aria-hidden="true"></span>{{user.phone}}</h5>
+    </div>
+</div>
 {% endblock %}
 
 {% block userFavouriteVideos %}
 <!-- Nested media object -->
+{% if user.videocols|length >0 %}
 <div class="media">
-    <img class="d-flex mr-3" src="{{user.videocols[1].video.thumbnail}}" alt="placeholder image">
-    <div class="media-body">
-        <h5 class="mt-0">{{user.videocols[0].video.title}}</h5>
-        {{user.videocols[0].video.info}}
-        <!-- Nested media object -->
+    <a href="{{url_for('main.playvideo',videoname=user.videocols[0].video.title)}}">
+        <img class="d-flex mr-3" src="{{user.videocols[0].video.thumbnail}}" alt="placeholder image" width="60px">
+        <div class="media-body">
+            <h5 class="mt-0">{{user.videocols[0].video.title}}</h5>
+            {{user.videocols[0].video.info}}
+            <!-- Nested media object -->
+    </a>
     </div>
 </div>
 <!-- Nested media object -->
-<div class="media">
-    <img class="d-flex mr-3" src="{{user.videocols[1].video.thumbnail}}" alt="placeholder image">
+{#<div class="media">
+    <img class="d-flex mr-3" src="{{user.videocols[0].video.thumbnail}}" alt="placeholder image">
     <div class="media-body">
-        <h5 class="mt-0">{{user.videocols[1].video.title}}</h5>
-        {{user.videocols[1].video.info}}
+        <h5 class="mt-0">{{user.videocols[0].video.title}}</h5>
+        {{user.videocols[0].video.info}}
     </div>
-</div>
+</div>#}
+{% endif %}
 {% endblock %}

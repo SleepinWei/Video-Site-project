@@ -1,7 +1,11 @@
 {% extends 'base/spacebase.html' %}
 
 {%block title%}
-{{userNickName}}'s Space
+{% if user.nickName == ''%}
+    Empty Nickname
+{% else %}
+    {{user.nickName}}'s Space
+{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -21,10 +25,12 @@
     <div class="row">
         <div class="col-md-8 col-sm-12 col-lg-6">
             <div class="media">
-                <img class="mr-3 mt-2 " src="../static/images/115X115.gif" alt="User photo">
+                {% block userPhotoPath %}
+                    <img class="mr-3 mt-2 " src=".." alt="User photo">
+                {% endblock userPhotoPath %}
                 <div class="media-body">
                     <h5 class="mt-2"><img class="small-icon mr-1"
-                            src="{{ url_for('static',filename='../static/images/id.svg') }}" alt="ID icon">{% block
+                            src="{{ url_for('static',filename='images/id.svg') }}" alt="ID icon" width="20px">{% block
                         userID %}{% endblock %}{% block userVIP %}{% endblock %}</h5>
                     <div class="progress mt-2">
                         <!-- level at style % -->
@@ -34,11 +40,13 @@
                         {% endblock %}
                     </div>
                     <h5 class="mt-2"><img class="small-icon mr-1"
-                            src="{{ url_for('static',filename='../static/images/coin.svg') }}" alt="Coin icon">{% block
+                            src="{{ url_for('static',filename='images/coin.svg') }}" alt="Coin icon" width="20px">{% block
                         userCoins %}{% endblock %}</h5>
-                    <h5 class="mt-2"><img class="small-icon mr-1"
-                            src="{{ url_for('static',filename='../static/images/Star.svg') }}" alt="Like icon">{% block
-                        userLikes %}{% endblock %}</h5>
+                    <h5 class="mt-2">
+                        <img class="small-icon mr-1" src="{{ url_for('static',filename='images/Star.svg') }}" alt="Like icon" width="20px">
+                        {% block userLikes %}
+                        {% endblock %}
+                    </h5>
                 </div>
             </div>
         </div>
