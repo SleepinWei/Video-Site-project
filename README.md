@@ -1,15 +1,16 @@
 # Website
 This repo is the project for "Foundations of Computer Science".   
-Desired domain name: **SaBiSaBi.com** 
+Desired domain name: **SaBiSaBi.com**   
+Finished on Dec.12. :star2:
 # Group members  
-Special thanks to my dear teammates. 
-+ zyw @SleepinWei
-+ lph @lphlch
-+ zxy @HiziQ
-+ lmq @lmqqqqqq
-+ wwx @qwqOscar
-+ wxr @wxrlalala
-+ wtc @TonyBest318
+Special thanks to my dear teammates! 🎉
++ zyw [@SleepinWei](https://github.com/SleepinWei)
++ lph [@lphlch](https://github.com/lphlch)
++ zxy [@HiziQ](https://github.com/HiziQ)
++ lmq [@lmqqqqqq](https://github.com/lmqqqqqq)
++ wwx [@qwqOscar](https://github.com/qwqOscar)
++ wxr [@wxrlalala](https://github.com/wxrlalala)
++ wtc [@TonyBest318](https://github.com/TonyBest318)
 ## division of work 
 + zyw   
   danmaku system: front-end 
@@ -27,19 +28,19 @@ Special thanks to my dear teammates.
   danmaku system: back-end,etc. 
 ## Plan
 front-end 
-- [ ] homepage 
-- [ ] user's personal homepage 
-- [ ] video page 
-- [ ] better nav bars 
-- [ ] better homepage design 
-- [ ] danmuku 
+- [x] homepage 
+- [x] user's personal homepage 
+- [x] video page 
+- [x] better nav bars 
+- [x] better homepage design 
+- ~~[ ] danmuku~~
 
 back-end 
-- [ ] login & auth 
-- [ ] email sys 
-- [ ] migrations 
-- [ ] load danmuku
-- [ ] views.py (add db operations) 
+- [x] login & auth 
+- [x] email sys 
+- [x] migrations 
+- ~~[ ] load danmuku~~
+- [x] views.py (add db operations) 
 
 ## Get started 
 Our website is based on flask and is managed with flask CLI.   
